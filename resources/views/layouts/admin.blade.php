@@ -17,10 +17,11 @@
         </a>
         <nav class="mt-6">
             <ul>
-                <li class="mt-2"><a href="{{ route('admin.users') }}" class="block py-2 px-4 rounded hover:bg-blue-700">Manage Users</a></li>
-                <li class="mt-2"><a href="{{ route('admin.pages') }}" class="block py-2 px-4 rounded hover:bg-blue-700">Manage Pages</a></li>
-                <li class="mt-2"><a href="{{ route('admin.posts') }}" class="block py-2 px-4 rounded hover:bg-blue-700">Manage Posts</a></li>
-                <li class="mt-2"><a href="{{ route('admin.library') }}" class="block py-2 px-4 rounded hover:bg-blue-700">File Library</a></li>
+                <li class="mt-2"><a href="{{ route('admin.users') }}" class="block py-2 px-4 rounded hover:bg-blue-700">Quản lí người dùng</a></li>
+                <li class="mt-2"><a href="{{ route('admin.pages') }}" class="block py-2 px-4 rounded hover:bg-blue-700">Quản lí trang</a></li>
+                <li class="mt-2"><a href="{{ route('admin.posts') }}" class="block py-2 px-4 rounded hover:bg-blue-700">Quản lí bài viết</a></li>
+                <li class="mt-2"><a href="{{ route('admin.library') }}" class="block py-2 px-4 rounded hover:bg-blue-700">Quản lí thư viện</a></li>
+                <li class="mt-2"><a href="{{ route('getLogout') }}" class="block py-2 px-4 rounded hover:bg-blue-700">Đăng xuất</a></li>
             </ul>
         </nav>
     </aside>
