@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 // khai báo sử dụng loginRequest
 use App\Http\Controllers\Requests\LoginRequest;
+use App\Http\Controllers\Requests\RegisterRequest;
 use App\Models\NguoiDung;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -26,6 +27,11 @@ class AdminLoginController extends Controller
         }
     }
 
+    public function getRegister()
+    {
+        return view("auth.register");
+    }
+
     /**
      * @param LoginRequest $request
      * @return RedirectResponse
@@ -37,12 +43,11 @@ class AdminLoginController extends Controller
             return redirect()->back()->with('notice', 'Vui lòng nhập tên đăng nhập và mật khẩu');
         }
 
-        // Kiểm tra checkbox "Ghi nhớ đăng nhập"
         $remember = $request->has('remember');
 
-        // Tạo mảng login, nhưng password cần hash trước khi lưu vào DB
+        // Tạo mảng login
         $login = [
-            'username' => strtolower($request->username),
+            'username' => $request->username,
             'password' => $request->password,
         ];
 
@@ -51,35 +56,42 @@ class AdminLoginController extends Controller
             return redirect('admincp');
         }
 
-        // Nếu đăng nhập thất bại, kiểm tra xem user có tồn tại không
+        // Kiểm tra nếu người dùng tồn tại nhưng mật khẩu sai
         $user = NguoiDung::where('username', strtolower($request->username))->first();
-
         if ($user) {
-            // Nếu người dùng đã tồn tại, đăng nhập vào hệ thống ngay lập tức
-            Auth::attempt($login, $remember);
-            return redirect('/');  // Đưa người dùng vào trang admin
+            return redirect()->back()->with('error', 'Sai mật khẩu, vui lòng thử lại!');
         }
 
-        // Nếu người dùng không tồn tại, tạo tài khoản mới
-        $users = new NguoiDung();
-        $users->username = strtolower($request->username);
-        $users->password = bcrypt($request->password);
-        $users->fullname = "Người dùng mới";  // Đảm bảo fullname có giá trị
-        $users->email = "example@gmail.com";  // Bạn có thể thay đổi logic này
-        $users->remember_token = Str::random(60);  // Tạo token ngẫu nhiên
-        $users->level = 1;
-
-        if ($users->save()) {
-            // Đăng nhập người dùng sau khi tạo tài khoản mới
-            return redirect('admincp/login')->with('notice', 'Tạo tài khoản thành công');  // Đưa người dùng vào trang admin
-        } else {
-            return redirect()->back()->with('error', 'Lỗi khi tạo tài khoản');
-        }
+        // Nếu không tìm thấy tài khoản
+        return redirect()->back()->with('notice', 'Tài khoản không tồn tại, vui lòng đăng ký trước khi đăng nhập!');
     }
 
+    public function postRegister(RegisterRequest $request)
+    {
+        // Kiểm tra nếu có bất kỳ giá trị nào bị bỏ trống
+        if (empty($request->username) || empty($request->password) || empty($request->fullname) || empty($request->email)) {
+            return redirect()->back()->with('error', 'Vui lòng điền đầy đủ thông tin!');
+        }
 
+        // Kiểm tra xem username đã tồn tại chưa
+        if (NguoiDung::where('username', strtolower($request->username))->exists()) {
+            return redirect()->back()->with('error', 'Tên đăng nhập đã tồn tại, vui lòng chọn tên khác!');
+        }
 
+        $users = new NguoiDung();
+        $users->username = $request->username;
+        $users->password = bcrypt($request->password);
+        $users->fullname = $request->fullname;
+        $users->email = $request->email;
+        $users->remember_token = Str::random(60);
+        $users->level = 1; // Mặc định level là 0
 
+        if ($users->save()) {
+            return redirect('admincp/login')->with('notice', 'Tạo tài khoản thành công, vui lòng đăng nhập!');
+        } else {
+            return redirect()->back()->with('error', 'Lỗi khi tạo tài khoản, vui lòng thử lại!');
+        }
+    }
 
     /**
      * action admincp/logout

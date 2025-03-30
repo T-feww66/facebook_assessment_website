@@ -48,9 +48,12 @@
                                 <input type="password" class="form-control" id="password" name="password" required>
                             </div>
                             <div class="mb-3 d-grid">
-                                <button type="submit" class="btn btn-primary">Login</button>
+                                <button type="submit" class="btn btn-primary">Đăng nhập</button>
                             </div>
                         </form>
+                        <p class="mt-3 text-center text-muted">
+                            Bạn chưa có tài khoản? <a href="{{ route('getRegister') }}" class="text-primary">Đăng kí</a>
+                        </p>
                     </div>
                 </div>
             </div>
