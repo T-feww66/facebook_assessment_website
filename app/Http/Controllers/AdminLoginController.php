@@ -17,6 +17,45 @@ use Illuminate\Support\Str;
 class AdminLoginController extends Controller
 {
 
+    public function __construct()
+    {
+        @session_start();
+    }
+
+    public function index()
+    {
+        $users = NguoiDung::all(); // Lấy tất cả danh mục, không lọc theo status
+        return view("admin.pages.users.index", compact("users"));
+    }
+
+    #Edit user (return về view editing user)
+    public function edit($id)
+    {
+        $user = NguoiDung::findOrFail($id);
+        return view('admin.pages.users.edit', compact('user')); // Hiển thị form chỉnh sửa
+    }
+
+    # Cập nhật user
+    public function update(Request $request, $id)
+    {
+        $user = NguoiDung::findOrFail($id);
+        $user->update([
+            'email' => $request->email,
+            'username' => $request->username,
+            'fullname' => $request->fullname,
+        ]);
+
+        return redirect()->route('admin.users')->with('notice', 'Cập nhật người dùng thành công!');
+    }
+    public function destroy($id)
+    {
+        $user = NguoiDung::findOrFail($id);
+        $user->delete();
+        return redirect()->route('admin.users')->with('success', 'Xóa người dùng thành công');
+    }
+
+
+    # Lấy giao diện login(nếu login rồi thì trả về giao diện admin còn không return login)
     public function getLogin()
     {
         if (Auth::check()) {
@@ -74,7 +113,7 @@ class AdminLoginController extends Controller
         }
 
         // Kiểm tra xem username đã tồn tại chưa
-        if (NguoiDung::where('username', strtolower($request->username))->exists()) {
+        if (NguoiDung::where('username', $request->username)->exists()) {
             return redirect()->back()->with('error', 'Tên đăng nhập đã tồn tại, vui lòng chọn tên khác!');
         }
 
