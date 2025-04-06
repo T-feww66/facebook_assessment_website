@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield("title")</title>
     <!-- Sử dụng Bootstrap 5 -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -46,18 +47,18 @@
                         </a>
                     </li>
                     <li class="mt-2">
-                        <a href="{{ route('admin.pages') }}" class="d-flex align-items-center py-2 px-3 rounded text-white text-decoration-none sidebar-item">
-                            <i class="bi bi-file-earmark-text me-2"></i> Quản lí trang
-                        </a>
-                    </li>
-                    <li class="mt-2">
-                        <a href="{{ route('admin.posts') }}" class="d-flex align-items-center py-2 px-3 rounded text-white text-decoration-none sidebar-item">
-                            <i class="bi bi-newspaper me-2"></i> Quản lí bài viết
+                        <a href="{{ route('admin.brands') }}" class="d-flex align-items-center py-2 px-3 rounded text-white text-decoration-none sidebar-item">
+                            <i class="bi bi-file-earmark-text me-2"></i> Quản lí thương hiệu
                         </a>
                     </li>
                     <li class="mt-2">
                         <a href="{{ route('admin.library') }}" class="d-flex align-items-center py-2 px-3 rounded text-white text-decoration-none sidebar-item">
                             <i class="bi bi-folder2 me-2"></i> Quản lí thư viện
+                        </a>
+                    </li>
+                    <li class="mt-2">
+                        <a href="{{ route('admin.library') }}" class="d-flex align-items-center py-2 px-3 rounded text-white text-decoration-none sidebar-item">
+                            <i class="bi bi-folder2 me-2"></i> Quản lí APIs
                         </a>
                     </li>
                     <li class="mt-2">

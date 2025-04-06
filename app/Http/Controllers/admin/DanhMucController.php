@@ -50,17 +50,9 @@ class DanhMucController extends Controller
         }
     }
 
-
-    public function demoview($link)
-    {
-        $danh_muc = DanhMuc::where("status", 1)->where("link", $link)->first();
-        return view("admin.pages.danh_muc.index", compact("danh_muc"));
-    }
-
     public function getAddDanhMuc()
     {
-        $danh_muc = DanhMuc::where("status", 1)->get();
-        return view("admin.pages.danh_muc.add", compact("danh_muc"));
+        return view("admin.pages.danh_muc.add");
     }
 
     public function postAddDanhMuc(Request $request)

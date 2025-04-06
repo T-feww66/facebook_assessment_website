@@ -1,5 +1,9 @@
 <!-- resources/views/admin/users.blade.php -->
 @extends('layouts.admin')
+
+@section("title", "Quản lí thư viện")
+@section("header", "Quản lí thư viện")
+
 @section('content')
 <h2 class="h2 fw-bold">Manage library</h2>
 <table class="table table-bordered mt-4">

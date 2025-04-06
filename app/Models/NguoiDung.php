@@ -17,5 +17,7 @@ class NguoiDung extends Authenticatable
         'email',       // Thêm email vào fillable
         'username',    // Thêm các trường khác nếu cần
         'fullname',
+        'sdt',
+        'dia_chi'
     ];
 }

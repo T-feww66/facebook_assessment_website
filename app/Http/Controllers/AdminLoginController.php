@@ -43,6 +43,8 @@ class AdminLoginController extends Controller
             'email' => $request->email,
             'username' => $request->username,
             'fullname' => $request->fullname,
+            'sdt' => $request->sdt,
+            'dia_chi' => $request->dia_chi,
         ]);
 
         return redirect()->route('admin.users')->with('notice', 'Cập nhật người dùng thành công!');
@@ -70,6 +72,8 @@ class AdminLoginController extends Controller
     {
         return view("auth.register");
     }
+
+
 
     /**
      * @param LoginRequest $request
@@ -105,6 +109,13 @@ class AdminLoginController extends Controller
         return redirect()->back()->with('notice', 'Tài khoản không tồn tại, vui lòng đăng ký trước khi đăng nhập!');
     }
 
+
+    # Người dùng
+    public function getAddUser()
+    {
+        return view("admin.pages.users.add");
+    }
+
     public function postRegister(RegisterRequest $request)
     {
         // Kiểm tra nếu có bất kỳ giá trị nào bị bỏ trống
@@ -127,6 +138,35 @@ class AdminLoginController extends Controller
 
         if ($users->save()) {
             return redirect('admincp/login')->with('notice', 'Tạo tài khoản thành công, vui lòng đăng nhập!');
+        } else {
+            return redirect()->back()->with('error', 'Lỗi khi tạo tài khoản, vui lòng thử lại!');
+        }
+    }
+
+    public function postAddUser(RegisterRequest $request)
+    {
+        // Kiểm tra nếu có bất kỳ giá trị nào bị bỏ trống
+        if (empty($request->username) || empty($request->password) || empty($request->fullname) || empty($request->email)) {
+            return redirect()->back()->with('error', 'Vui lòng điền đầy đủ thông tin!');
+        }
+
+        // Kiểm tra xem username đã tồn tại chưa
+        if (NguoiDung::where('username', $request->username)->exists()) {
+            return redirect()->back()->with('error', 'Tên đăng nhập đã tồn tại, vui lòng chọn tên khác!');
+        }
+
+        $users = new NguoiDung();
+        $users->username = $request->username;
+        $users->password = bcrypt($request->password);
+        $users->fullname = $request->fullname;
+        $users->email = $request->email;
+        $users->sdt = $request->sdt;
+        $users->dia_chi = $request->dia_chi;
+        $users->remember_token = Str::random(60);
+        $users->level = 0; // Mặc định level là 0
+
+        if ($users->save()) {
+            return redirect('admincp/users')->with('notice', 'Tạo tài khoản thành công, vui lòng đăng nhập!');
         } else {
             return redirect()->back()->with('error', 'Lỗi khi tạo tài khoản, vui lòng thử lại!');
         }

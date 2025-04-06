@@ -24,26 +24,35 @@
     @method('POST')
     <div class="mb-3">
         <label class="form-label">Email</label>
-        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-            value="{{ old('email', $user->email) }}" required>
+        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="Enter your email" value="{{ $user->email }}">
         @error('email')
         <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
-
     <div class="mb-3">
         <label class="form-label">Tên đăng nhập</label>
-        <input type="text" name="username" class="form-control @error('username') is-invalid @enderror"
-            value="{{ old('username', $user->username) }}" required>
+        <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" placeholder="Nhập vào tên đăng nhập" value="{{ $user->username }}">
         @error('username')
         <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
-
+    <div class="mb-3">
+        <label class="form-label">Số điện thoại</label>
+        <input type="text" name="sdt" class="form-control @error('sdt') is-invalid @enderror" placeholder="Nhập số điện thoại" value="{{ $user->sdt }}">
+        @error('sdt')
+        <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Địa chỉ</label>
+        <input type="text" name="dia_chi" class="form-control @error('dia_chi') is-invalid @enderror" placeholder="Nhập địa chỉ" value="{{ $user->dia_chi }}">
+        @error('dia_chi')
+        <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
     <div class="mb-3">
         <label class="form-label">Họ và tên</label>
-        <input type="text" name="fullname" class="form-control @error('fullname') is-invalid @enderror"
-            value="{{ old('fullname', $user->fullname) }}" required>
+        <input type="text" name="fullname" class="form-control @error('fullname') is-invalid @enderror" placeholder="Nhập vào họ và tên" value="{{ $user->fullname }}">
         @error('fullname')
         <div class="invalid-feedback">{{ $message }}</div>
         @enderror

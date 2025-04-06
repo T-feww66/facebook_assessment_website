@@ -26,6 +26,10 @@
 </div>
 @endif
 
+<a href="{{ route('getAddUser') }}" class="btn btn-primary rounded-pill">
+    <i class="bi bi-plus-circle"></i> Thêm user admin
+</a>
+
 <table class="table table-dark table-striped mt-4">
     <thead>
         <tr>

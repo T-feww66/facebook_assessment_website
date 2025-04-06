@@ -12,7 +12,7 @@
 </div>
 @endif
 
-<h2 class="h2 text-white fw-bold">Danh Sách Danh Mục</h2>
+<h2 class="h2 text-dark fw-bold">Danh Sách Danh Mục</h2>
 
 <div class="mb-3">
     <a href="{{ route('getAddDanhMuc') }}" class="btn btn-primary btn-lg rounded-pill">
