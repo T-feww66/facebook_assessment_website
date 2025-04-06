@@ -12,4 +12,12 @@ class NguoiDung extends Authenticatable
 
     protected $table = 'users';
     protected $primaryKey = "id";
+
+    protected $fillable = [
+        'email',       // Thêm email vào fillable
+        'username',    // Thêm các trường khác nếu cần
+        'fullname',
+        'sdt',
+        'dia_chi'
+    ];
 }
