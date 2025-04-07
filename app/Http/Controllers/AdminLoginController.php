@@ -163,7 +163,7 @@ class AdminLoginController extends Controller
         $users->sdt = $request->sdt;
         $users->dia_chi = $request->dia_chi;
         $users->remember_token = Str::random(60);
-        $users->level = 0; // Mặc định level là 0
+        $users->level = 1; // Mặc định level là 0
 
         if ($users->save()) {
             return redirect('admincp/users')->with('notice', 'Tạo tài khoản thành công, vui lòng đăng nhập!');
