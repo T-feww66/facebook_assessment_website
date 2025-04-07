@@ -35,4 +35,10 @@ return [
         ],
     ],
 
+    // api key
+    'crawl_api' => [
+        'key' => env('CRAWL_API_KEY'),
+    ],
+
+
 ];
