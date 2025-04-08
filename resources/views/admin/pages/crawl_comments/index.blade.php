@@ -152,6 +152,11 @@
                         ${result.data.message}
                     </div>
                 `;
+                    document.getElementById("name_group").value = "";
+                    document.getElementById("word_search").value = "";
+                    document.getElementById("quantity_group").value = "";
+                    document.getElementById("quantity_post_of_group").value = "";
+
                 }
             } else {
                 alert("Lỗi: " + result.detail);
@@ -195,6 +200,11 @@
                         ${result.data.message}
                     </div>
                 `;
+
+                    document.getElementById("word_search_fanpage").value = "";
+                    document.getElementById("quantity_fanpages").value = "";
+                    document.getElementById("quantity_post_of_fanpage").value = "";
+
                 }
             } else {
                 alert("Lỗi: " + console.log(result.detail));
