@@ -48,6 +48,7 @@ Route::middleware([checkAdminLogin::class])->prefix('admincp')->group(function (
 
     // quản lí router cào dữ liệu comment
     Route::get("crawl", [CrawlCommentsController::class, "index"])->name("admin.crawl");
+    Route::get('crawl/csv-files', [CrawlCommentsController::class, 'listCSVFile'])->name('admin.crawl.listcsv');
 });
 
 // Route cho các chức năng đăng nhập và đăng xuất, đăng kí

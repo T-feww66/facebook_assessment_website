@@ -94,6 +94,29 @@
 @endif
 
 <script>
+    function toggleCrawlOptions() {
+        const groupForm = document.getElementById("group_form");
+        const fanpageForm = document.getElementById("fanpage_form");
+
+        if (document.getElementById("crawl_group").checked) {
+            groupForm.style.display = "block";
+            fanpageForm.style.display = "none";
+        } else {
+            groupForm.style.display = "none";
+            fanpageForm.style.display = "block";
+        }
+    }
+    window.addEventListener("DOMContentLoaded", () => {
+        // toggleCrawlOptions(); // Hiển thị form đúng khi tải trang
+
+        const groupRadio = document.getElementById("crawl_group");
+        const fanpageRadio = document.getElementById("crawl_fanpage");
+
+        groupRadio.addEventListener("change", toggleCrawlOptions);
+        fanpageRadio.addEventListener("change", toggleCrawlOptions);
+
+    });
+
     document.getElementById('group_form').addEventListener('submit', async function(e) {
         e.preventDefault(); // Ngăn form gửi theo cách mặc định
 
@@ -126,11 +149,8 @@
                     // Chèn link tải file vào div phía trên nút submit
                     downloadDiv.innerHTML = `
                     <div class="alert alert-success">
-                        {{ session('success') }}
+                        ${result.data.message}
                     </div>
-                    <a href="http://localhost:60074/crawl${result.data.download_url}" class="btn btn-success">
-                        📥 Tải dữ liệu vừa cào
-                    </a>
                 `;
                 }
             } else {
@@ -172,12 +192,8 @@
                     // Chèn link tải file vào div phía trên nút submit
                     downloadDiv.innerHTML = `
                     <div class="alert alert-success">
-                        {{ session('success') }}
+                        ${result.data.message}
                     </div>
-
-                    <a href="http://localhost:60074/crawl${result.data.download_url}" class="btn btn-success">
-                        📥 Tải dữ liệu vừa cào
-                    </a>
                 `;
                 }
             } else {

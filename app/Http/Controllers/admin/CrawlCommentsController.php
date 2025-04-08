@@ -19,4 +19,17 @@ class CrawlCommentsController extends Controller
     {
         return view("admin.pages.crawl_comments.index"); //compact('danhmuc')
     }
+
+    public function listCSVFile()
+    {
+        $response = Http::get('http://localhost:60074/crawl/list-csv-files');
+
+        if ($response->successful()) {
+            $files = $response->json()['csv_files'];
+        } else {
+            $files = [];
+        }
+
+        return view('admin.pages.crawl_comments.listcsv', compact('files'));
+    }
 }
