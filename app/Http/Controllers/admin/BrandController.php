@@ -19,51 +19,8 @@ class BrandController extends Controller
         return view("admin.pages.brands.index", compact("brands"));
     }
 
-    // public function edit($id)
-    // {
-    //     $danhmuc = DanhMuc::findOrFail($id);
-    //     return view('admin.pages.danh_muc.edit', compact('danhmuc')); // Hiển thị form chỉnh sửa
-    // }
-
-    // # Cập nhật user
-    // public function update(Request $request, $id)
-    // {
-    //     $danhmuc = DanhMuc::findOrFail($id);
-    //     $danhmuc->tieu_de = $request->tieu_de;
-    //     $danhmuc->link = xoa_ky_tu_dat_biet($request->tieu_de);
-
-    //     $check = $danhmuc->save();
-
-    //     if ($check) {
-    //         return redirect()->route('admin.danhmuc')->with('notice', 'Cập nhật danh mục thành công!');
-    //     } else {
-    //         return redirect()->back()->with('error', 'Có lỗi xảy ra khi cập nhật danh mục!');
-    //     }
-    // }
-    // public function destroy($id)
-    // {
-    //     $danhmuc = DanhMuc::findOrFail($id);
-    //     $check = $danhmuc->delete();
-    //     if ($check) {
-    //         return redirect()->route('admin.danhmuc')->with('success', 'Xóa danh mục thành công');
-    //     }
-    // }
-
-    // public function getAddDanhMuc()
-    // {
-    //     return view("admin.pages.danh_muc.add");
-    // }
-
-    // public function postAddDanhMuc(Request $request)
-    // {
-
-    //     $danhmuc = new Danhmuc();
-    //     $danhmuc->tieu_de = $request->tieu_de;
-    //     $danhmuc->link = xoa_ky_tu_dat_biet($request->tieu_de);
-    //     $check = $danhmuc->save();
-
-    //     if ($check) {
-    //         return redirect()->route('admin.danhmuc')->with('success', 'Thêm danh mục thành công');
-    //     }
-    // }
+    public function evaluate()
+    {
+        return view("admin.pages.brands.evaluate");
+    }
 }

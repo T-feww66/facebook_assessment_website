@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -14,6 +15,7 @@ return new class extends Migration
         Schema::create('brands', function (Blueprint $table) {
             $table->id();
             $table->string('brand_name');
+            $table->string('comment_file');
             $table->longText('data_llm')->nullable();
             $table->timestamps();
         });

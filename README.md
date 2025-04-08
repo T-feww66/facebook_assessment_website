@@ -158,3 +158,14 @@ Công nghệ sử dụng (Facebook, GPT, LangChain…).
 Người dùng có thể lưu lại các so sánh, bình chọn, đánh giá riêng.
 
 (Tùy chọn) có thể cho người dùng gắn cờ comment xấu/spam.
+
+
+
+
+
+
+
+
+
+
+

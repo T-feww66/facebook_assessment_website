@@ -44,11 +44,13 @@ Route::middleware([checkAdminLogin::class])->prefix('admincp')->group(function (
 
     // Quản lý router thương hiệu
     Route::get("brands", [BrandController::class, "index"])->name("admin.brands");
+    Route::get("brands/evaluate", [BrandController::class, "evaluate"])->name("admin.brands.evaluate");
 
 
     // quản lí router cào dữ liệu comment
     Route::get("crawl", [CrawlCommentsController::class, "index"])->name("admin.crawl");
     Route::get('crawl/csv-files', [CrawlCommentsController::class, 'listCSVFile'])->name('admin.crawl.listcsv');
+
 });
 
 // Route cho các chức năng đăng nhập và đăng xuất, đăng kí
