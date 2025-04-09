@@ -18,42 +18,29 @@
     </div>
 </div>
 
-<!-- Form Crawl Group -->
 <form id="group_form" method="post">
     <div class="mb-3">
         <label for="name_group" class="form-label">Tên Group:</label>
-        <input type="text" class="form-control @error('name_group') is-invalid @enderror"
-            id="name_group" name="name_group" value="{{ old('name_group') }}" required>
-        @error('name_group')
-        <div class="invalid-feedback">{{ $message }}</div>
-        @enderror
+        <input type="text" class="form-control" id="name_group" name="name_group" required>
+        <div id="name_group_error" class="text-danger"></div>
     </div>
 
     <div class="mb-3">
         <label for="word_search" class="form-label">Từ khoá tìm kiếm:</label>
-        <input type="text" class="form-control @error('word_search') is-invalid @enderror"
-            id="word_search" name="word_search" value="{{ old('word_search') }}" required>
-        @error('word_search')
-        <div class="invalid-feedback">{{ $message }}</div>
-        @enderror
+        <input type="text" class="form-control" id="word_search" name="word_search" required>
+        <div id="word_search_error" class="text-danger"></div>
     </div>
 
     <div class="mb-3">
         <label for="quantity_group" class="form-label">Số lượng group (tối đa 2):</label>
-        <input type="number" class="form-control @error('quantity_group') is-invalid @enderror"
-            id="quantity_group" name="quantity_group" value="{{ old('quantity_group') }}" required>
-        @error('quantity_group')
-        <div class="invalid-feedback">{{ $message }}</div>
-        @enderror
+        <input type="number" class="form-control" id="quantity_group" name="quantity_group" min="1" max="2" required>
+        <div id="quantity_group_error" class="text-danger"></div>
     </div>
 
     <div class="mb-3">
         <label for="quantity_post_of_group" class="form-label">Số bài viết mỗi group (tối đa 5):</label>
-        <input type="number" class="form-control @error('quantity_post_of_group') is-invalid @enderror"
-            id="quantity_post_of_group" name="quantity_post_of_group" value="{{ old('quantity_post_of_group') }}" required>
-        @error('quantity_post_of_group')
-        <div class="invalid-feedback">{{ $message }}</div>
-        @enderror
+        <input type="number" class="form-control" id="quantity_post_of_group" name="quantity_post_of_group" min="1" max="5" required>
+        <div id="quantity_post_of_group_error" class="text-danger"></div>
     </div>
     <div id="download-link" class="mb-3"></div>
     <button type="submit" class="btn btn-primary mt-4">Cào dữ liệu</button>
@@ -65,33 +52,18 @@
     <div class="mb-3">
         <label for="word_search_fanpage" class="form-label">Từ khóa tìm kiếm (tên thương hiệu cần tìm):</label>
         <input type="text" class="form-control" id="word_search_fanpage" name="word_search" value="{{ old('word_search') }}" required>
-        @error('word_search')
-        <div class="invalid-feedback">{{ $message }}</div>
-        @enderror
     </div>
     <div class="mb-3">
         <label for="quantity_fanpages" class="form-label">Số lượng fanpage:</label>
-        <input type="number" class="form-control" id="quantity_fanpages" name="quantity_fanpage" value="{{ old('quantity_fanpage') }}" required>
-        @error('quantity_fanpage')
-        <div class="invalid-feedback">{{ $message }}</div>
-        @enderror
+        <input type="number" class="form-control" id="quantity_fanpages" name="quantity_fanpage" value="{{ old('quantity_fanpage') }}" max="1" required>
     </div>
     <div class="mb-3">
         <label for="quantity_post_of_fanpage" class="form-label">Số bài viết mỗi fanpage:</label>
-        <input type="number" class="form-control" id="quantity_post_of_fanpage" name="quantity_post_of_fanpage" value="{{ old('quantity_post_of_fanpage') }}" required>
-        @error('quantity_post_of_fanpage')
-        <div class="invalid-feedback">{{ $message }}</div>
-        @enderror
+        <input type="number" class="form-control" id="quantity_post_of_fanpage" name="quantity_post_of_fanpage" value="{{ old('quantity_post_of_fanpage') }}" min="1" max="5" required>
     </div>
     <div id="download-link-fanpages" class="mb-3"></div>
     <button type="submit" class="btn btn-success crawl_group">Cào dữ liệu Fanpage</button>
 </form>
-
-@if ($errors->any())
-<div class="alert alert-danger mt-4">
-    {{ $errors->first() }}
-</div>
-@endif
 
 <script>
     function toggleCrawlOptions() {
@@ -159,11 +131,27 @@
 
                 }
             } else {
-                alert("Lỗi: " + result.detail);
+                if (result.data.download_url) {
+                    // Chèn link tải file vào div phía trên nút submit
+                    downloadDiv.innerHTML = `
+                    <div class="alert alert-success">
+                        ${result.detail} hoặc đã có dữ liệu về file này vui lòng xoá trước khi thực hiện
+                    </div>
+                `;
+                    document.getElementById("name_group").value = "";
+                    document.getElementById("word_search").value = "";
+                    document.getElementById("quantity_group").value = "";
+                    document.getElementById("quantity_post_of_group").value = "";
+
+                }
             }
         } catch (error) {
-            console.error("Error:", error);
             alert("Đã xảy ra lỗi trong quá trình gửi yêu cầu.");
+            downloadDiv.innerHTML = `
+                    <div class="alert alert-success">
+                        Đã có dữ liệu về file này vui lòng xoá trước khi thực hiện
+                    </div>
+                `;
         }
     });
 

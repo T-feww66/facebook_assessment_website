@@ -20,7 +20,6 @@ Route::middleware([checkAdminLogin::class])->prefix('admincp')->group(function (
     });
 
     Route::view("home", "admin.home")->name("admin.home");
-    Route::view('library', 'admin.library')->name('admin.library'); // Quản lý thư viện
     // Quản lý người dùng
     Route::get("users", [AdminLoginController::class, "index"])->name("admin.users");
     Route::get("user/add_user", [AdminLoginController::class, "getAddUser"])->name("getAddUser");

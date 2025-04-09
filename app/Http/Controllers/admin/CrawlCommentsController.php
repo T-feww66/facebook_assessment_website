@@ -17,7 +17,7 @@ class CrawlCommentsController extends Controller
 
     public function index()
     {
-        return view("admin.pages.crawl_comments.index"); //compact('danhmuc')
+        return view("admin.pages.crawl_comments.index");
     }
 
     public function listCSVFile()

@@ -26,30 +26,37 @@
 </form>
 <script>
     document.getElementById("evaluate_form").addEventListener("submit", async function(e) {
-        e.preventDefault(); // Chặn submit mặc định
-        const infomationDiv = document.getElementById("infomation");
+        e.preventDefault();
+
+        const comments_file = document.getElementById("comments_file");
+        const limit = document.getElementById("limit");
+        const infomationDiv = document.getElementById("infomation"); // Đảm bảo div này tồn tại
 
         const apiKey = '{{ config("services.crawl_api.key") }}';
-
-        const form_fanpages = e.target;
-        const formData = new FormData(form_fanpages);
+        const formData = new FormData();
+        formData.append("comments_file", comments_file.value);
+        if (limit.value !== "") {
+            formData.append("limit", limit.value);
+        }
 
         infomationDiv.innerHTML = `
             <div class="alert alert-info" role="alert">
-                ⏳ Đang tiến hành đánh giá file csv, vui lòng chờ giây lát...
+                ⏳ Đang tiến hành đánh giá file csv, vui lòng chờ giây lát và không qua tag khác...
             </div>
         `;
+
 
         try {
             const response = await fetch("http://localhost:60074/danh_gia_thuong_hieu/danh_gia", {
                 method: "POST",
                 headers: {
-                    "API-Key": apiKey // Nếu dùng API key ở dạng header
+                    "API-Key": apiKey
                 },
                 body: formData
             });
 
             const result = await response.json();
+
             if (response.ok) {
                 if (result.data && result.data.message) {
                     // Chèn link tải file vào div
@@ -58,15 +65,21 @@
                         ${result.data.message}
                     </div>
                 `;
-                    document.getElementById("comments_file").value = "";
-                    document.getElementById("limit").value = "";
+
+                    // ✅ Reset 2 input
+                    comments_file.value = "";
+                    limit.value = "";
                 }
             } else {
-                alert("Lỗi: " + result.detail);
+                infomationDiv.innerHTML = `
+                <div class="alert alert-danger">Có lỗi xảy ra: ${result.detail || "Không rõ nguyên nhân"}</div>
+            `;
             }
         } catch (error) {
             console.error("Lỗi khi gọi API:", error);
-            alert("Lỗi xảy ra khi gọi API.");
+            infomationDiv.innerHTML = `
+            <div class="alert alert-danger">Lỗi khi gửi yêu cầu: ${error.message}</div>
+        `;
         }
     });
 </script>
