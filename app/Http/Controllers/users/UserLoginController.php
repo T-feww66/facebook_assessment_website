@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\users;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -14,7 +14,7 @@ use App\Models\User;
 use Illuminate\Support\Str;
 
 
-class AdminLoginController extends Controller
+class UserLoginController extends Controller
 {
 
     public function __construct()
@@ -24,36 +24,7 @@ class AdminLoginController extends Controller
 
     public function index()
     {
-        $users = NguoiDung::all(); // Lấy tất cả danh mục, không lọc theo status
-        return view("admin.pages.users.index", compact("users"));
-    }
-
-    #Edit user (return về view editing user)
-    public function edit($id)
-    {
-        $user = NguoiDung::findOrFail($id);
-        return view('admin.pages.users.edit', compact('user')); // Hiển thị form chỉnh sửa
-    }
-
-    # Cập nhật user
-    public function update(Request $request, $id)
-    {
-        $user = NguoiDung::findOrFail($id);
-        $user->update([
-            'email' => $request->email,
-            'username' => $request->username,
-            'fullname' => $request->fullname,
-            'sdt' => $request->sdt,
-            'dia_chi' => $request->dia_chi,
-        ]);
-
-        return redirect()->route('admin.users')->with('notice', 'Cập nhật người dùng thành công!');
-    }
-    public function destroy($id)
-    {
-        $user = NguoiDung::findOrFail($id);
-        $user->delete();
-        return redirect()->route('admin.users')->with('success', 'Xóa người dùng thành công');
+        return view("user.pages.home");
     }
 
 
@@ -62,18 +33,11 @@ class AdminLoginController extends Controller
     {
         if (Auth::check()) {
             // nếu đăng nhập thàng công thì 
-            return redirect('admincp');
+            return redirect('user');
         } else {
-            return view('auth.login');
+            return view('user.login');
         }
     }
-
-    public function getRegister()
-    {
-        return view("auth.register");
-    }
-
-
 
     /**
      * @param LoginRequest $request
@@ -98,8 +62,8 @@ class AdminLoginController extends Controller
         if (Auth::attempt($login, $remember)) {
             $user = Auth::user();
 
-            if ($user->level == 1) {
-                return redirect('admincp'); // hoặc route('user.dashboard') nếu bạn đặt route tên
+            if ($user->level == 0) {
+                return redirect('user');
             } else {
                 Auth::logout();
                 return redirect()->back()->with('notice', 'Tài khoản không tồn tại, vui lòng đăng ký trước khi đăng nhập!');
@@ -117,10 +81,9 @@ class AdminLoginController extends Controller
     }
 
 
-    # Người dùng
-    public function getAddUser()
+    public function getRegister()
     {
-        return view("admin.pages.users.add");
+        return view("user.register");
     }
 
     public function postRegister(RegisterRequest $request)
@@ -141,39 +104,10 @@ class AdminLoginController extends Controller
         $users->fullname = $request->fullname;
         $users->email = $request->email;
         $users->remember_token = Str::random(60);
-        $users->level = 1; // Mặc định level là 0
+        $users->level = 0; // Mặc định level là 0
 
         if ($users->save()) {
-            return redirect('admincp/login')->with('notice', 'Tạo tài khoản thành công, vui lòng đăng nhập!');
-        } else {
-            return redirect()->back()->with('error', 'Lỗi khi tạo tài khoản, vui lòng thử lại!');
-        }
-    }
-
-    public function postAddUser(RegisterRequest $request)
-    {
-        // Kiểm tra nếu có bất kỳ giá trị nào bị bỏ trống
-        if (empty($request->username) || empty($request->password) || empty($request->fullname) || empty($request->email)) {
-            return redirect()->back()->with('error', 'Vui lòng điền đầy đủ thông tin!');
-        }
-
-        // Kiểm tra xem username đã tồn tại chưa
-        if (NguoiDung::where('username', $request->username)->exists()) {
-            return redirect()->back()->with('error', 'Tên đăng nhập đã tồn tại, vui lòng chọn tên khác!');
-        }
-
-        $users = new NguoiDung();
-        $users->username = $request->username;
-        $users->password = bcrypt($request->password);
-        $users->fullname = $request->fullname;
-        $users->email = $request->email;
-        $users->sdt = $request->sdt;
-        $users->dia_chi = $request->dia_chi;
-        $users->remember_token = Str::random(60);
-        $users->level = 1; // Mặc định level là 0
-
-        if ($users->save()) {
-            return redirect('admincp/users')->with('notice', 'Tạo tài khoản thành công, vui lòng đăng nhập!');
+            return redirect('user/login')->with('notice', 'Tạo tài khoản thành công, vui lòng đăng nhập!');
         } else {
             return redirect()->back()->with('error', 'Lỗi khi tạo tài khoản, vui lòng thử lại!');
         }
@@ -186,6 +120,6 @@ class AdminLoginController extends Controller
     public function getLogout()
     {
         Auth::logout();
-        return redirect()->route('getLogin');
+        return redirect()->route('userGetLogin');
     }
 }

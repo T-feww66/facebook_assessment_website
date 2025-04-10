@@ -52,11 +52,6 @@
                         </a>
                     </li>
                     <li class="mt-2">
-                        <a href="{{ route('admin.library') }}" class="d-flex align-items-center py-2 px-3 rounded text-white text-decoration-none sidebar-item">
-                            <i class="bi bi-folder2 me-2"></i> Quản lí thư viện
-                        </a>
-                    </li>
-                    <li class="mt-2">
                         <a href="{{ route('admin.crawl') }}" class="d-flex align-items-center py-2 px-3 rounded text-white text-decoration-none sidebar-item">
                             <i class="bi bi-folder2 me-2"></i> Cào dữ liệu bình luận bằng API
                         </a>

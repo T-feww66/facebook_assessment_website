@@ -1,51 +1,45 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>So Sánh Thương Hiệu</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <div class="container py-5">
-        <header class="text-center mb-4">
-            <h1>So sánh Thương hiệu</h1>
-            <p>Chọn 2-3 thương hiệu để so sánh cảm xúc, từ khóa và đánh giá.</p>
-        </header>
+@extends('layouts.user')
 
-        <div class="d-flex justify-content-center mb-4">
-            <select class="form-select me-2" style="width: 200px;">
-                <option selected>Thương hiệu 1</option>
-                <option value="1">Thương hiệu 2</option>
-                <option value="2">Thương hiệu 3</option>
-            </select>
-            <select class="form-select" style="width: 200px;">
-                <option selected>Thương hiệu 2</option>
-                <option value="1">Thương hiệu 1</option>
-                <option value="2">Thương hiệu 3</option>
-            </select>
-        </div>
+@section("title", "So Sánh Thương Hiệu")
 
-        <section id="comparisonResults">
-            <h2>So sánh kết quả</h2>
-            <div class="row">
-                <div class="col-md-6">
-                    <h3>Biểu đồ Cảm Xúc</h3>
-                    <div class="d-flex justify-content-center">
-                        <canvas id="comparisonEmotionChart" width="400" height="400"></canvas>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <h3>Từ khóa nổi bật</h3>
-                    <div class="tag-cloud">
-                        <span class="badge bg-secondary">Chất lượng</span>
-                        <span class="badge bg-secondary">Uy tín</span>
-                    </div>
-                </div>
-            </div>
-        </section>
+@section('content')
+<div class="container py-5">
+    <div class="text-center mb-4">
+        <h2 class="fw-bold text-white">So Sánh Thương Hiệu</h2>
+        <p class="text-white-50">Chọn các thương hiệu để xem bảng so sánh đánh giá tổng quan.</p>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+    <!-- Form so sánh -->
+    <form action="{{ route('user.sosanh') }}" method="GET">
+        <div class="row g-3 mb-4">
+            <div class="col-md-5">
+                <select name="brand1" class="form-select" required>
+                    <option value="">-- Chọn thương hiệu 1 --</option>
+                    <option value="Tiger">Tiger</option>
+                    <option value="Heineken">Heineken</option>
+                    <option value="Saigon">Saigon</option>
+                    <option value="Budweiser">Budweiser</option>
+                </select>
+            </div>
+            <div class="col-md-5">
+                <select name="brand2" class="form-select" required>
+                    <option value="">-- Chọn thương hiệu 2 --</option>
+                    <option value="Tiger">Tiger</option>
+                    <option value="Heineken">Heineken</option>
+                    <option value="Saigon">Saigon</option>
+                    <option value="Budweiser">Budweiser</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-success w-100 fw-bold">So sánh</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Bảng kết quả so sánh (placeholder) -->
+    <div class="bg-white p-4 rounded shadow-sm">
+        <h5 class="text-primary fw-bold mb-3">Kết quả so sánh</h5>
+        <p class="text-secondary">Chọn hai thương hiệu để xem bảng so sánh đánh giá.</p>
+    </div>
+</div>
+@endsection

@@ -1,1 +1,24 @@
 @import "bootstrap/scss/bootstrap";
+
+
+body {
+    background-color: #1C4866;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.brands:hover > a {
+    cursor: pointer;
+    background-color: #4d99cc !important;
+    color: #fff !important;
+}

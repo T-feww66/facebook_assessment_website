@@ -3,14 +3,15 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminLoginController;
 use App\Http\Middleware\checkAdminLogin;
+use App\Http\Middleware\checkUserLogin;
 use App\Http\Controllers\admin\DanhMucController;
 use App\Http\Controllers\admin\BrandController;
 use App\Http\Controllers\admin\CrawlCommentsController;
+use App\Http\Controllers\users\UserLoginController;
 
 
-
-Route::get("/", function () {
-    return view("auth.login");
+Route::get('/', function () {
+    return view('user');
 });
 
 // Nhóm các route quản trị với middleware bảo vệ và tiền tố 'admincp'
@@ -49,7 +50,6 @@ Route::middleware([checkAdminLogin::class])->prefix('admincp')->group(function (
     // quản lí router cào dữ liệu comment
     Route::get("crawl", [CrawlCommentsController::class, "index"])->name("admin.crawl");
     Route::get('crawl/csv-files', [CrawlCommentsController::class, 'listCSVFile'])->name('admin.crawl.listcsv');
-
 });
 
 // Route cho các chức năng đăng nhập và đăng xuất, đăng kí
@@ -59,4 +59,32 @@ Route::prefix('admincp')->group(function () {
     Route::get('login', [AdminLoginController::class, 'getLogin'])->name('getLogin');
     Route::post('login', [AdminLoginController::class, 'postLogin'])->name('postLogin');
     Route::get('logout', [AdminLoginController::class, 'getLogout'])->name('getLogout');
+});
+
+
+// Nhóm các route người dùng với middleware bảo vệ và tiền tố 'user'
+Route::middleware([checkUserLogin::class])->prefix('user')->group(function () {
+    Route::get('/', function () {
+        return view('user.pages.home');
+    });
+    Route::get('/gioi-thieu', function () {
+        return view('user.pages.gioi_thieu.index');
+    })->name('user.gioithieu');
+
+    Route::get('/tim-kiem', function () {
+        return view('user.pages.tim_kiem_danh_gia.index');
+    })->name('user.timkiem');
+
+    Route::get('/so-sanh', function () {
+        return view('user.pages.so_sanh.index');
+    })->name('user.sosanh');
+});
+
+// Route cho các chức năng đăng nhập và đăng xuất, đăng kí
+Route::prefix('user')->group(function () {
+    Route::get('register', [UserLoginController::class, 'getRegister'])->name('userGetRegister');
+    Route::post('register', [UserLoginController::class, 'postRegister'])->name('userPostRegister');
+    Route::get('login', [UserLoginController::class, 'getLogin'])->name('userGetLogin');
+    Route::post('login', [UserLoginController::class, 'postLogin'])->name('userPostLogin');
+    Route::get('logout', [UserLoginController::class, 'getLogout'])->name('userGetLogout');
 });
