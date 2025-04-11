@@ -11,7 +11,7 @@ use App\Http\Controllers\users\UserLoginController;
 
 
 Route::get('/', function () {
-    return view('user');
+    return view('user.login');
 });
 
 // Nhóm các route quản trị với middleware bảo vệ và tiền tố 'admincp'
@@ -71,13 +71,15 @@ Route::middleware([checkUserLogin::class])->prefix('user')->group(function () {
         return view('user.pages.gioi_thieu.index');
     })->name('user.gioithieu');
 
-    Route::get('/tim-kiem', function () {
-        return view('user.pages.tim_kiem_danh_gia.index');
-    })->name('user.timkiem');
 
-    Route::get('/so-sanh', function () {
-        return view('user.pages.so_sanh.index');
-    })->name('user.sosanh');
+
+    // Cấu hình router tìm kiếm đánh giá thương hiệu
+    Route::get("tim-kiem", [BrandController::class, "tim_kiem"])->name("user.timkiem");
+    Route::get("so-sanh", [BrandController::class, "so_sanh"])->name("user.sosanh");
+
+    // Route::get('/so-sanh', function () {
+    //     return view('user.pages.so_sanh.index');
+    // })->name('user.sosanh');
 });
 
 // Route cho các chức năng đăng nhập và đăng xuất, đăng kí

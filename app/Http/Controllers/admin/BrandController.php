@@ -23,4 +23,16 @@ class BrandController extends Controller
     {
         return view("admin.pages.brands.evaluate");
     }
+
+    public function tim_kiem()
+    {
+        $brands = Brands::take(5)->get();
+        return view('user.pages.tim_kiem_danh_gia.index', compact('brands'));
+    }
+
+    public function so_sanh()
+    {
+        $brands = Brands::take(5)->get();
+        return view('user.pages.so_sanh.index', compact('brands'));
+    }
 }

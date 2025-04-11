@@ -109,7 +109,7 @@
             const response = await fetch("http://localhost:60074/crawl/crawl_comment_of_groups", {
                 method: "POST",
                 headers: {
-                    "API-Key": apiKey // Nếu dùng API key ở dạng header
+                    "API-Key": apiKey
                 },
                 body: formData
             });
