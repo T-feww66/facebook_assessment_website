@@ -71,15 +71,9 @@ Route::middleware([checkUserLogin::class])->prefix('user')->group(function () {
         return view('user.pages.gioi_thieu.index');
     })->name('user.gioithieu');
 
-
-
     // Cấu hình router tìm kiếm đánh giá thương hiệu
     Route::get("tim-kiem", [BrandController::class, "tim_kiem"])->name("user.timkiem");
     Route::get("so-sanh", [BrandController::class, "so_sanh"])->name("user.sosanh");
-
-    // Route::get('/so-sanh', function () {
-    //     return view('user.pages.so_sanh.index');
-    // })->name('user.sosanh');
 });
 
 // Route cho các chức năng đăng nhập và đăng xuất, đăng kí

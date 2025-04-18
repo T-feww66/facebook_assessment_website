@@ -59,10 +59,7 @@ Công nghệ sử dụng (Facebook, GPT, LangChain…).
 
 8. Trang đăng nhập / đăng ký (nếu cần đăng nhập người dùng)
 
-
-
-
-
+php artisan serve --host=ttt_219911.com --port=80
 
 
 

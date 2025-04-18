@@ -17,8 +17,34 @@ a {
     color: inherit;
 }
 
-.brands:hover > a {
+.brands:hover>a {
     cursor: pointer;
     background-color: #4d99cc !important;
     color: #fff !important;
+}
+
+.chart-grid {
+    display: none;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    gap: 40px;
+    margin-top: 50px;
+}
+
+.chart-card {
+    display: flex;
+    justify-content: center;
+}
+
+canvas {
+    max-width: 100%;
+    height: auto;
+    padding: 20px;
+}
+
+
+@media (max-width: 768px) {
+    .chart-grid {
+        grid-template-columns: 1fr;
+    }
 }

@@ -8,8 +8,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield("title")</title>
     <!-- Sử dụng Bootstrap 5 -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-wordcloud@4.4.4/build/index.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0"></script>
 
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 
 <body>
