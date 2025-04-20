@@ -17,6 +17,11 @@ a {
     color: inherit;
 }
 
+a.link_request {
+    color: #fff;
+    text-decoration: underline;
+}
+
 .brands:hover>a {
     cursor: pointer;
     background-color: #4d99cc !important;

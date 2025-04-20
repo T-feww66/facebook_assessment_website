@@ -23,6 +23,4 @@
         @endforeach
     </tbody>
 </table>
-
-<a href="{{route('admin.brands.evaluate') }}">Đến trang đánh giá thương hiệu</a>
 @endsection

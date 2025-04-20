@@ -29,7 +29,7 @@
         <button class="btn btn-success" type="submit">Search</button>
     </form>
 
-    <h2 id="result-brand" style="text-align: center; color: #fff"></h2>
+    <div id="result-brand"></div>
 
 
     <div class="chart-grid" id="chart_grid_id">
@@ -54,9 +54,8 @@
         </div>
     </div>
 </div>
+
 @endsection
-
-
 
 <script>
     let sentimentChart = null;
@@ -189,9 +188,7 @@
 
     // === BIỂU ĐỒ WordCloud: TỪ TỐT/XẤU ===
     function showWordCloudChartGood(words) {
-
-        if (wordCloudChartGood) wordCloudChartGood.destroy();
-
+        wordCloudChartGood?.destroy();
         const ctx = document.getElementById("wordCloudChartGood");
         wordCloudChartGood = new Chart(ctx, {
             type: "wordCloud",
@@ -208,7 +205,7 @@
 
     function showWordCloudChartBad(words) {
 
-        if (wordCloudChartBad) wordCloudChartBad.destroy();
+        wordCloudChartBad?.destroy();
 
         const ctx = document.getElementById("wordCloudChartBad");
         wordCloudChartBad = new Chart(ctx, {
@@ -224,7 +221,7 @@
         });
     }
 
-    //
+    // === BIỂU ĐỒ CẢM XÚC THEO THỜI GIAN ===
     function showEmotionOverTimeChart(data) {
         if (lineChart) lineChart.destroy();
 
@@ -343,14 +340,14 @@
     // === GỌI API & XỬ LÝ ===
     async function evaluateBrand() {
         const brandInput = document.getElementById('brandInput');
-        const brandName = brandInput.value.trim();
+        const brandName = brandInput.value.toLowerCase().trim();
 
         const resultDiv = document.getElementById('result-brand');
         const chartGrid = document.getElementById('chart_grid_id');
 
         if (!brandName) return alert("Vui lòng nhập tên thương hiệu.");
 
-        resultDiv.innerText = 'Đang xử lý...';
+        resultDiv.innerHTML = `<h2 style="text-align: center; color: #fff">Đang xử lý...</h2>`;
 
         const formData = new FormData();
         formData.append("brand", brandName);
@@ -368,9 +365,10 @@
 
             if (response.ok && result.data) {
                 const data = result.data[0];
-                resultDiv.innerText = `Phân tích thương hiệu ${brandName}`;
+                resultDiv.innerHTML = `<h2 style = "text-align: center; color: #fff">Phân tích thương hiệu ${brandName}</h2>`;
                 chartGrid.style.display = "grid";
 
+                // Biểu đồ tròn hiển thị phần trăm cảm xúc
                 showSentimentChart(
                     parseFloat(data.brand_data_llm.GPT.phan_tram_tot),
                     parseFloat(data.brand_data_llm.GPT.phan_tram_xau),
@@ -399,13 +397,21 @@
                     weight
                 }));
 
+                // biểu đồ cột so sánh số lượng từ tốt và từ xấu
                 showWordCountChart(
                     danh_sach_tu_tot,
                     danh_sach_tu_xau
                 );
 
-                showWordCloudChartGood(dem_tu_tot);
-                showWordCloudChartBad(dem_tu_xau);
+                // Biểu đồ wordChart 
+                if (dem_tu_tot.length > 0) {
+                    showWordCloudChartGood(dem_tu_tot);
+                }
+
+                if (dem_tu_xau.length > 0) {
+                    showWordCloudChartBad(dem_tu_xau);
+                }
+
 
                 // Group những thời gian bình luận lại với nhau
                 const dataGroup = groupEmotionByDate(result.data)
@@ -414,7 +420,7 @@
 
                 brandInput.value = ""
             } else {
-                resultDiv.innerHTML = `<div class="alert alert-warning">${result.detail || "Không có dữ liệu đánh giá."}</div>`;
+                resultDiv.innerHTML = `<a href="{{ route('user.gui_danh_gia') }}?brand=${brandName}" class="link_request link-light link-offset-2 link-underline link-underline-opacity-100">${result.detail || "Không có dữ liệu đánh giá."} sang trang yêu cầu đánh giá</a>`;
                 sentimentChart?.destroy();
                 wordChartCoutChart?.destroy();
                 wordCloudChartGood?.destroy();
@@ -431,6 +437,11 @@
     document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("evaluateForm").addEventListener("submit", async (e) => {
             e.preventDefault();
+            sentimentChart?.destroy();
+            wordChartCoutChart?.destroy();
+            wordCloudChartGood?.destroy();
+            wordCloudChartBad?.destroy();
+            lineChart?.destroy();
             await evaluateBrand();
         });
     });

@@ -31,20 +31,12 @@ Route::middleware([checkAdminLogin::class])->prefix('admincp')->group(function (
     // Xóa người dùng
     Route::delete('users/delete/{id}', [AdminLoginController::class, 'destroy'])->name('delete_user');
 
-    // Quản lý danh mục
-    Route::get("danhmuc", [DanhMucController::class, "index"])->name("admin.danhmuc");
-    Route::get("danhmuc/add_danh_muc", [DanhMucController::class, "getAddDanhMuc"])->name("getAddDanhMuc");
-    Route::post("danhmuc/add_danh_muc", [DanhMucController::class, "postAddDanhMuc"])->name("postAddDanhMuc");
-    Route::get('danhmuc/edit/{id}', [DanhMucController::class, 'edit'])->name('edit_danhmuc');
-    Route::post('danhmuc/edit/{id}', [DanhMucController::class, 'update'])->name('update_danhmuc');
-    // Xóa danh mục
-    Route::delete('danhmuc/delete/{id}', [DanhMucController::class, 'destroy'])->name('delete_danhmuc');
-
-
-
     // Quản lý router thương hiệu
     Route::get("brands", [BrandController::class, "index"])->name("admin.brands");
-    Route::get("brands/evaluate", [BrandController::class, "evaluate"])->name("admin.brands.evaluate");
+    // Route::get("brands/evaluate", [BrandController::class, "evaluate"])->name("admin.brands.evaluate");
+
+    // Quản lí yêu cầu đánh giá của người dùng
+    Route::get("user-request", [BrandController::class, "user_request_index"])->name("admin.user_request");
 
 
     // quản lí router cào dữ liệu comment
@@ -73,6 +65,9 @@ Route::middleware([checkUserLogin::class])->prefix('user')->group(function () {
 
     // Cấu hình router tìm kiếm đánh giá thương hiệu
     Route::get("tim-kiem", [BrandController::class, "tim_kiem"])->name("user.timkiem");
+    Route::get("gui-danh-gia", [BrandController::class, "gui_danh_gia"])->name("user.gui_danh_gia");
+    Route::post('gui-danh-gia', [BrandController::class, 'user_send_request'])->name('user.post_gui_danh_gia');
+
     Route::get("so-sanh", [BrandController::class, "so_sanh"])->name("user.sosanh");
 });
 

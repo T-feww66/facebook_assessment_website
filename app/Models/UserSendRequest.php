@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class DanhMuc extends Model
+class UserSendRequest extends Model
 {
 
-    protected $table = 'danh_muc';
+    protected $table = 'user_send_request';
     protected $primaryKey = "id";
 }

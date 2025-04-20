@@ -37,13 +37,13 @@
             <nav class="mt-4">
                 <ul class="list-unstyled">
                     <li class="mt-2">
-                        <a href="{{ route('admin.danhmuc') }}" class="d-flex align-items-center py-2 px-3 rounded text-white text-decoration-none sidebar-item">
-                            <i class="bi bi-list me-2"></i> Quản lí danh mục
+                        <a href="{{ route('admin.users') }}" class="d-flex align-items-center py-2 px-3 rounded text-white text-decoration-none sidebar-item">
+                            <i class="bi bi-people-fill me-2"></i> Quản lí người dùng
                         </a>
                     </li>
                     <li class="mt-2">
-                        <a href="{{ route('admin.users') }}" class="d-flex align-items-center py-2 px-3 rounded text-white text-decoration-none sidebar-item">
-                            <i class="bi bi-people-fill me-2"></i> Quản lí người dùng
+                        <a href="{{ route('admin.user_request') }}" class="d-flex align-items-center py-2 px-3 rounded text-white text-decoration-none sidebar-item">
+                            <i class="bi bi-file-earmark-text me-2"></i> Quản lí yêu cầu đánh giá
                         </a>
                     </li>
                     <li class="mt-2">

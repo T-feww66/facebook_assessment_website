@@ -117,7 +117,7 @@
             const result = await response.json();
 
             if (response.ok) {
-                if (result.data.download_url) {
+                if (result.data.message) {
                     // Chèn link tải file vào div phía trên nút submit
                     downloadDiv.innerHTML = `
                     <div class="alert alert-success">
@@ -131,7 +131,7 @@
 
                 }
             } else {
-                if (result.data.download_url) {
+                if (result.detail) {
                     // Chèn link tải file vào div phía trên nút submit
                     downloadDiv.innerHTML = `
                     <div class="alert alert-success">
@@ -179,24 +179,34 @@
             });
 
             const result = await response.json();
-
             if (response.ok) {
-                if (result.data.download_url) {
+                if (result.data.message) {
                     // Chèn link tải file vào div phía trên nút submit
                     downloadDiv.innerHTML = `
                     <div class="alert alert-success">
                         ${result.data.message}
                     </div>
                 `;
-
                     document.getElementById("word_search_fanpage").value = "";
                     document.getElementById("quantity_fanpages").value = "";
                     document.getElementById("quantity_post_of_fanpage").value = "";
 
                 }
             } else {
-                alert("Lỗi: " + console.log(result.detail));
+                if (result.detail) {
+                    // Chèn link tải file vào div phía trên nút submit
+                    downloadDiv.innerHTML = `
+                    <div class="alert alert-success">
+                        ${result.detail} hoặc đã có dữ liệu về file này vui lòng xoá trước khi thực hiện
+                    </div>
+                `;
+                    document.getElementById("word_search_fanpage").value = "";
+                    document.getElementById("quantity_fanpages").value = "";
+                    document.getElementById("quantity_post_of_fanpage").value = "";
+
+                }
             }
+
         } catch (error) {
             console.error("Error:", error);
             alert("Đã xảy ra lỗi trong quá trình gửi yêu cầu.");

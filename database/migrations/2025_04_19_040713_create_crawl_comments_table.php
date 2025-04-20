@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::create('crawl_comments', function (Blueprint $table) {
             $table->id();
             $table->string('brand_name');
+            $table->text('post_content');
             $table->boolean('is_group')->default(false);
             $table->boolean('is_fanpage')->default(false);
             $table->text('comment_file');
