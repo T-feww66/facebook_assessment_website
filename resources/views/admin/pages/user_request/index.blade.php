@@ -34,13 +34,7 @@
 
             <td>
                 @if ($user_request->status == 0)
-                <form class="request_crawl_data" action="" method="POST" class="d-inline">
-                    @csrf
-                    <input type="hidden" class="form-control" name="word_search" value="{{ $user_request->brand_name }}" require>
-                    <input type="hidden" class="form-control" name="quantity_fanpage" value="1" max="1" required>
-                    <input type="hidden" class="form-control" name="quantity_post_of_fanpage" value="1" min="1" max="5" required>
-                    <button type="submit" class="btn btn-warning btn-sm">Xử lý yêu cầu</button>
-                </form>
+                <a href="{{ route('admin.crawl', ['brand_name' => $user_request->brand_name]) }}" class="btn btn-warning">Xử lí yêu cầu</a>
                 @elseif ($user_request->status == 1)
                 <span class="badge bg-success">Đã gửi</span>
                 @endif
@@ -53,7 +47,7 @@
 
 @endsection
 
-<script>
+<!-- <script>
     document.addEventListener('DOMContentLoaded', function() {
         const form = document.getElementsByClassName('request_crawl_data')[0]
         form.addEventListener('submit', async function(e) {
@@ -103,4 +97,4 @@
             }
         });
     });
-</script>
+</script> -->

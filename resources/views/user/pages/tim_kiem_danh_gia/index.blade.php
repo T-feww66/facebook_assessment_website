@@ -24,7 +24,7 @@
 
     <!-- Form tìm kiếm -->
     <form id="evaluateForm" class="d-flex mb-3">
-        <input id="brandInput" class="form-control me-1" type="search" placeholder="🔍 Nhập tên thương hiệu..."
+        <input id="brandInput" class="form-control me-1" value="{{$brand_name ?? ''}}" type="search" placeholder="🔍 Nhập tên thương hiệu..."
             aria-label="Tìm kiếm">
         <button class="btn btn-success" type="submit">Search</button>
     </form>

@@ -40,7 +40,7 @@ Route::middleware([checkAdminLogin::class])->prefix('admincp')->group(function (
 
 
     // quản lí router cào dữ liệu comment
-    Route::get("crawl", [CrawlCommentsController::class, "index"])->name("admin.crawl");
+    Route::get("crawl/{brand_name?}", [CrawlCommentsController::class, "index"])->name("admin.crawl");
     Route::get('crawl/csv-files', [CrawlCommentsController::class, 'listCSVFile'])->name('admin.crawl.listcsv');
 });
 
@@ -64,11 +64,14 @@ Route::middleware([checkUserLogin::class])->prefix('user')->group(function () {
     })->name('user.gioithieu');
 
     // Cấu hình router tìm kiếm đánh giá thương hiệu
-    Route::get("tim-kiem", [BrandController::class, "tim_kiem"])->name("user.timkiem");
+    Route::get("tim-kiem/{brand_name?}", [BrandController::class, "tim_kiem"])->name("user.timkiem");
     Route::get("gui-danh-gia", [BrandController::class, "gui_danh_gia"])->name("user.gui_danh_gia");
     Route::post('gui-danh-gia', [BrandController::class, 'user_send_request'])->name('user.post_gui_danh_gia');
 
     Route::get("so-sanh", [BrandController::class, "so_sanh"])->name("user.sosanh");
+
+    Route::get("trang-ca-nhan", [UserLoginController::class, "trang_ca_nhan"])->name("user.trang_ca_nhan");
+    Route::post('trang-ca-nhan/{id}', [UserLoginController::class, 'cap_nhat_user'])->name('user.update_user');
 });
 
 // Route cho các chức năng đăng nhập và đăng xuất, đăng kí

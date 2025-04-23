@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 // khai báo sử dụng loginRequest
 use App\Http\Controllers\Requests\LoginRequest;
 use App\Http\Controllers\Requests\RegisterRequest;
+use App\Http\Controllers\Requests\UpdateUserRequest;
+
 use App\Models\NguoiDung;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -121,5 +123,25 @@ class UserLoginController extends Controller
     {
         Auth::logout();
         return redirect()->route('userGetLogin');
+    }
+
+    public function trang_ca_nhan()
+    {
+        $user = NguoiDung::find(Auth::id());
+        return view('user.pages.trang_ca_nhan.index', compact("user"));
+    }
+
+    public function cap_nhat_user(UpdateUserRequest $request, $id)
+    {
+        $user = NguoiDung::findOrFail($id);
+        $user->update([
+            'email' => $request->email,
+            'username' => $request->username,
+            'fullname' => $request->fullname,
+            'sdt' => $request->sdt,
+            'dia_chi' => $request->dia_chi,
+        ]);
+
+        return redirect()->route('user.trang_ca_nhan')->with('notice', 'Cập nhật người dùng thành công!');
     }
 }

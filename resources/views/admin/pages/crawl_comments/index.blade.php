@@ -6,6 +6,7 @@
 @section('content')
 <h2 class="h2 fw-bold">API</h2>
 <!-- Chọn kiểu cào dữ liệu -->
+<div id="infomation" class="mb-3"></div>
 <div class="mb-3">
     <label for="crawl_type" class="form-label">Chọn kiểu cào dữ liệu:</label>
     <div class="form-check">
@@ -18,81 +19,302 @@
     </div>
 </div>
 
-<form id="group_form" method="post">
+<!-- ==================FORM CRAWL GROUP URL ============================-->
+<form id="form_group_url" method="post" style="display:none;">
     <div class="mb-3">
-        <label for="name_group" class="form-label">Tên Group:</label>
-        <input type="text" class="form-control" id="name_group" name="name_group" required>
-        <div id="name_group_error" class="text-danger"></div>
+        <label for="word_search_group" class="form-label">Từ khoá tìm kiếm:</label>
+        @if(isset($brand_name))
+        <input type="text" class="form-control" id="word_search_group" name="word_search_group"
+            value="{{ $brand_name }}"
+            placeholder="Nhập vào thương hiệu cần tìm"
+            readonly
+            required>
+        @else
+        <input type="text" class="form-control" id="word_search_group" name="word_search_group"
+            value=""
+            placeholder="Nhập vào thương hiệu cần tìm"
+            required>
+        @endif
     </div>
-
     <div class="mb-3">
-        <label for="word_search" class="form-label">Từ khoá tìm kiếm:</label>
-        <input type="text" class="form-control" id="word_search" name="word_search" required>
-        <div id="word_search_error" class="text-danger"></div>
+        <label for="quantity_group_url" class="form-label">Số lượng group:</label>
+        <input type="number" class="form-control" id="quantity_group_url" name="quantity_group" min="1" max="10" placeholder="Nhập vào số lượng group muốn lấy (tối đa 10)" required>
     </div>
-
-    <div class="mb-3">
-        <label for="quantity_group" class="form-label">Số lượng group (tối đa 2):</label>
-        <input type="number" class="form-control" id="quantity_group" name="quantity_group" min="1" max="2" required>
-        <div id="quantity_group_error" class="text-danger"></div>
-    </div>
-
-    <div class="mb-3">
-        <label for="quantity_post_of_group" class="form-label">Số bài viết mỗi group (tối đa 5):</label>
-        <input type="number" class="form-control" id="quantity_post_of_group" name="quantity_post_of_group" min="1" max="5" required>
-        <div id="quantity_post_of_group_error" class="text-danger"></div>
-    </div>
-    <div id="download-link" class="mb-3"></div>
-    <button type="submit" class="btn btn-primary mt-4">Cào dữ liệu</button>
+    <button type="submit" class="btn btn-primary mt-4">Tìm kiếm</button>
 </form>
 
-<!-- Form Crawl Fanpage -->
-<form id="fanpage_form" action="" method="POST" style="display:none;">
+<!-- ==================FORM CRAWL GROUP ============================-->
+<form id="group_form" class="mt-3" action="" method="POST" style="display:none;">
     @csrf
-    <div class="mb-3">
-        <label for="word_search_fanpage" class="form-label">Từ khóa tìm kiếm (tên thương hiệu cần tìm):</label>
-        <input type="text" class="form-control" id="word_search_fanpage" name="word_search" value="{{ old('word_search') }}" required>
-    </div>
-    <div class="mb-3">
-        <label for="quantity_fanpages" class="form-label">Số lượng fanpage:</label>
-        <input type="number" class="form-control" id="quantity_fanpages" name="quantity_fanpage" value="{{ old('quantity_fanpage') }}" max="1" required>
-    </div>
-    <div class="mb-3">
-        <label for="quantity_post_of_fanpage" class="form-label">Số bài viết mỗi fanpage:</label>
-        <input type="number" class="form-control" id="quantity_post_of_fanpage" name="quantity_post_of_fanpage" value="{{ old('quantity_post_of_fanpage') }}" min="1" max="5" required>
-    </div>
-    <div id="download-link-fanpages" class="mb-3"></div>
-    <button type="submit" class="btn btn-success crawl_group">Cào dữ liệu Fanpage</button>
+    <div id="selectGroup"></div>
+    <button type="submit" class="btn btn-primary mt-4">Lấy dữ liệu</button>
 </form>
+
+
+<!-- ==================FORM CRAWL FANPAGES URL============================-->
+<form id="form_fanpage_url" method="post" style="display:none;">
+    <div class="mb-3">
+        <label for="word_search_pages" class="form-label">Từ khoá tìm kiếm:</label>
+        @if(isset($brand_name))
+        <input type="text" class="form-control" id="word_search_pages" name="word_search_pages"
+            value="{{ $brand_name }}"
+            placeholder="Nhập vào thương hiệu cần tìm"
+            readonly
+            required>
+        @else
+        <input type="text" class="form-control" id="word_search_pages" name="word_search_pages"
+            value=""
+            placeholder="Nhập vào thương hiệu cần tìm"
+            required>
+        @endif
+    </div>
+
+    <div class="mb-3">
+        <label for="quantity_fanpage_url" class="form-label">Số lượng fanpages:</label>
+        <input type="number" class="form-control" id="quantity_fanpage_url" name="quantity_fanpage" min="1" max="10" placeholder="Nhập vào số lượng fanpage muốn lấy (tối đa 10)" required>
+    </div>
+    <button type="submit" class="btn btn-primary mt-4">Tìm kiếm</button>
+</form>
+
+<!-- ==================FORM CRAWL FANPAGES============================-->
+<form id="page_form" class="mt-3" action="" method="POST" style="display:none;">
+    @csrf
+    <div id="selectPage"></div>
+    <button type="submit" class="btn btn-primary mt-4">Lấy dữ liệu</button>
+</form>
+
 
 <script>
-    function toggleCrawlOptions() {
-        const groupForm = document.getElementById("group_form");
-        const fanpageForm = document.getElementById("fanpage_form");
+    const downloadDiv = document.getElementById("infomation"); // div thông báo
 
-        if (document.getElementById("crawl_group").checked) {
-            groupForm.style.display = "block";
-            fanpageForm.style.display = "none";
+    const formGroupUrl = document.getElementById("form_group_url");
+    const formFanpageUrl = document.getElementById("form_fanpage_url");
+
+    const groupRadio = document.getElementById("crawl_group");
+    const fanpageRadio = document.getElementById("crawl_fanpage");
+
+    const brandInputGroup = document.getElementById("word_search_group");
+    const brandInputPage = document.getElementById("word_search_pages");
+
+    const formGroup = document.getElementById("group_form");
+    const formPage = document.getElementById("page_form");
+
+    const selectGroup = document.getElementById("selectGroup");
+    const selectPage = document.getElementById("selectPage");
+
+
+
+    function toggleCrawlOptions() {
+
+        if (groupRadio.checked) {
+            formGroupUrl.style.display = "block";
+            formFanpageUrl.style.display = "none";
+            formGroup.style.display = "none";
+            formPage.style.display = "none";
         } else {
-            groupForm.style.display = "none";
-            fanpageForm.style.display = "block";
+            formGroupUrl.style.display = "none";
+            formFanpageUrl.style.display = "block";
+            formGroup.style.display = "none";
+            formPage.style.display = "none";
         }
     }
     window.addEventListener("DOMContentLoaded", () => {
-        // toggleCrawlOptions(); // Hiển thị form đúng khi tải trang
-
-        const groupRadio = document.getElementById("crawl_group");
-        const fanpageRadio = document.getElementById("crawl_fanpage");
-
+        toggleCrawlOptions();
         groupRadio.addEventListener("change", toggleCrawlOptions);
         fanpageRadio.addEventListener("change", toggleCrawlOptions);
 
     });
 
+    // ======================CRAWL URL GROUP===========================
+    document.getElementById('form_group_url').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const form = e.target;
+        const formData = new FormData(form);
+
+        // Nếu bạn cần truyền thêm api_key thì có thể thêm ở đây
+        const apiKey = '{{ config("services.crawl_api.key") }}'; // Thay bằng API key thực tế nếu cần
+
+        downloadDiv.innerHTML = `
+            <div class="alert alert-info" role="alert">
+                ⏳ Đang tiến hành quá trình lấy dữ liệu vui lòng chờ giây lát...
+            </div>
+        `;
+        try {
+            const response = await fetch("http://localhost:60074/crawl/get_url_groups", {
+                method: "POST",
+                headers: {
+                    "API-Key": apiKey
+                },
+                body: formData
+            });
+
+            const result = await response.json();
+
+            if (result) {
+                downloadDiv.innerHTML = "";
+                formGroup.style.display = "block";
+
+                // Xóa nội dung cũ nếu có
+                selectGroup.innerHTML = "";
+
+                result.forEach(item => {
+                    const label = document.createElement("label");
+                    label.style.display = "block";
+
+                    const checkbox = document.createElement("input");
+                    checkbox.type = "checkbox";
+                    checkbox.name = "group_urls";
+                    checkbox.value = item.group_url;
+
+                    label.appendChild(checkbox);
+                    label.appendChild(document.createTextNode(" " + item.group_name));
+
+                    selectGroup.appendChild(label);
+                });
+
+            }
+
+
+        } catch (error) {
+            alert("Đã xảy ra lỗi trong quá trình gửi yêu cầu.");
+            console.log(error)
+        }
+    });
+
+    // ======================CRAWL URL FANPAGES===========================
+    document.getElementById('form_fanpage_url').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const form = e.target;
+        const formDataPage = new FormData(form);
+
+        // Nếu bạn cần truyền thêm api_key thì có thể thêm ở đây
+        const apiKey = '{{ config("services.crawl_api.key") }}'; // Thay bằng API key thực tế nếu cần
+
+        downloadDiv.innerHTML = `
+            <div class="alert alert-info" role="alert">
+                ⏳ Đang tiến hành quá trình lấy dữ liệu vui lòng chờ giây lát...
+            </div>
+        `;
+        try {
+            const response = await fetch("http://localhost:60074/crawl/get_url_fanpages", {
+                method: "POST",
+                headers: {
+                    "API-Key": apiKey
+                },
+                body: formDataPage
+            });
+
+            const result = await response.json();
+
+            if (result) {
+                console.log(result)
+                downloadDiv.innerHTML = "";
+                formPage.style.display = "block";
+
+                // Xóa nội dung cũ nếu có
+                selectPage.innerHTML = "";
+
+                result.forEach(item => {
+                    const label = document.createElement("label");
+                    label.style.display = "block";
+
+                    const checkbox = document.createElement("input");
+                    checkbox.type = "checkbox";
+                    checkbox.name = "fanpage_urls";
+                    checkbox.value = item.fanpage_url;
+
+                    label.appendChild(checkbox);
+                    label.appendChild(document.createTextNode(" " + item.fanpage_name));
+
+                    selectPage.appendChild(label);
+                });
+
+            }
+        } catch (error) {
+            alert("Đã xảy ra lỗi trong quá trình gửi yêu cầu.");
+            console.log(error)
+        }
+    });
+
+    // ======================CRAWLle GROUP===========================
     document.getElementById('group_form').addEventListener('submit', async function(e) {
         e.preventDefault(); // Ngăn form gửi theo cách mặc định
+        
+        const form = e.target;
+        const formData = new FormData(form);
+        
+        // Nếu bạn cần truyền thêm api_key thì có thể thêm ở đây
+        const apiKey = '{{ config("services.crawl_api.key") }}'; // Thay bằng API key thực tế nếu cần
+        
+        downloadDiv.innerHTML = `
+        <div class="alert alert-info" role="alert">
+        ⏳ Đang tiến hành cào dữ liệu, vui lòng chờ giây lát...
+        </div>
+        `;
+        const checked = form.querySelectorAll('input[name="group_urls"]:checked');
+        
+        if (checked.length === 0) {
+            alert("Vui lòng chọn ít nhất một nhóm.");
+            downloadDiv.innerHTML = "";
+            return;
+        }
+        
+        checked.forEach(cb => {
+            formData.append("group_urls[]", cb.value);
+        });
+        formData.append("word_search", brandInputGroup.value);
+        
+        try {
+            const response = await fetch("http://localhost:60074/crawl/crawl_comment_of_groups", {
+                method: "POST",
+                headers: {
+                    "API-Key": apiKey
+                },
+                body: formData
+            });
+            
+            const result = await response.json();
 
-        const downloadDiv = document.getElementById("download-link");
+            if (response.ok) {
+                if (result.data.message) {
+                    // Chèn link tải file vào div phía trên nút submit
+                    formGroup.style.display = "none";
+                    selectGroup.innerHTML = "";
+
+                    downloadDiv.innerHTML = `
+                    <div class="alert alert-success">
+                        ${result.data.message}
+                        </div>
+                `;
+            }
+            } else {
+                if (result.detail) {
+                    // Chèn link tải file vào div phía trên nút submit
+                    downloadDiv.innerHTML = `
+                    <div class="alert alert-success">
+                        ${result.detail} hoặc đã có dữ liệu về file này vui lòng xoá trước khi thực hiện
+                        </div>
+                        `;
+                        selectGroup.innerHTML = "";
+
+                }
+            }
+        } catch (error) {
+            alert("Đã xảy ra lỗi trong quá trình gửi yêu cầu.");
+            downloadDiv.innerHTML = `
+            <div class="alert alert-success">
+            Đã có dữ liệu về file này vui lòng xoá trước khi thực hiện
+            </div>
+            `;
+        }
+    });
+    
+    // ======================CRAWL FANPAGES===========================
+    document.getElementById('page_form').addEventListener('submit', async function(e) {
+        e.preventDefault(); // Ngăn form gửi theo cách mặc định
+
         const form = e.target;
         const formData = new FormData(form);
 
@@ -104,71 +326,19 @@
                 ⏳ Đang tiến hành cào dữ liệu, vui lòng chờ giây lát...
             </div>
         `;
+        const checked = form.querySelectorAll('input[name="fanpage_urls"]:checked');
 
-        try {
-            const response = await fetch("http://localhost:60074/crawl/crawl_comment_of_groups", {
-                method: "POST",
-                headers: {
-                    "API-Key": apiKey
-                },
-                body: formData
-            });
-
-            const result = await response.json();
-
-            if (response.ok) {
-                if (result.data.message) {
-                    // Chèn link tải file vào div phía trên nút submit
-                    downloadDiv.innerHTML = `
-                    <div class="alert alert-success">
-                        ${result.data.message}
-                    </div>
-                `;
-                    document.getElementById("name_group").value = "";
-                    document.getElementById("word_search").value = "";
-                    document.getElementById("quantity_group").value = "";
-                    document.getElementById("quantity_post_of_group").value = "";
-
-                }
-            } else {
-                if (result.detail) {
-                    // Chèn link tải file vào div phía trên nút submit
-                    downloadDiv.innerHTML = `
-                    <div class="alert alert-success">
-                        ${result.detail} hoặc đã có dữ liệu về file này vui lòng xoá trước khi thực hiện
-                    </div>
-                `;
-                    document.getElementById("name_group").value = "";
-                    document.getElementById("word_search").value = "";
-                    document.getElementById("quantity_group").value = "";
-                    document.getElementById("quantity_post_of_group").value = "";
-
-                }
-            }
-        } catch (error) {
-            alert("Đã xảy ra lỗi trong quá trình gửi yêu cầu.");
-            downloadDiv.innerHTML = `
-                    <div class="alert alert-success">
-                        Đã có dữ liệu về file này vui lòng xoá trước khi thực hiện
-                    </div>
-                `;
+        if (checked.length === 0) {
+            alert("Vui lòng chọn ít nhất một nhóm.");
+            downloadDiv.innerHTML = "";
+            return;
         }
-    });
 
-    document.getElementById('fanpage_form').addEventListener('submit', async function(e) {
-        e.preventDefault(); // Ngăn form gửi theo cách mặc định
-        const downloadDiv = document.getElementById("download-link-fanpages");
-        const form_fanpages = e.target;
-        const formData = new FormData(form_fanpages);
+        checked.forEach(cb => {
+            formData.append("fanpage_urls[]", cb.value);
+        });
+        formData.append("word_search", brandInputPage.value);
 
-        // Nếu bạn cần truyền thêm api_key thì có thể thêm ở đây
-        const apiKey = '{{ config("services.crawl_api.key") }}'; // Thay bằng API key thực tế nếu cần
-
-        downloadDiv.innerHTML = `
-            <div class="alert alert-info" role="alert">
-                ⏳ Đang tiến hành cào dữ liệu, vui lòng chờ giây lát...
-            </div>
-        `;
         try {
             const response = await fetch("http://localhost:60074/crawl/crawl_comment_of_fanpages", {
                 method: "POST",
@@ -182,15 +352,14 @@
             if (response.ok) {
                 if (result.data.message) {
                     // Chèn link tải file vào div phía trên nút submit
+                    formPage.style.display = "none";
+                    selectPage.innerHTML = "";
+
                     downloadDiv.innerHTML = `
                     <div class="alert alert-success">
                         ${result.data.message}
                     </div>
                 `;
-                    document.getElementById("word_search_fanpage").value = "";
-                    document.getElementById("quantity_fanpages").value = "";
-                    document.getElementById("quantity_post_of_fanpage").value = "";
-
                 }
             } else {
                 if (result.detail) {
@@ -200,10 +369,8 @@
                         ${result.detail} hoặc đã có dữ liệu về file này vui lòng xoá trước khi thực hiện
                     </div>
                 `;
-                    document.getElementById("word_search_fanpage").value = "";
-                    document.getElementById("quantity_fanpages").value = "";
-                    document.getElementById("quantity_post_of_fanpage").value = "";
 
+                    selectPage.innerHTML = "";
                 }
             }
 

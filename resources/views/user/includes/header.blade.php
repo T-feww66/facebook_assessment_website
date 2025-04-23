@@ -9,16 +9,19 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link text-white active" aria-current="page" href="/user">Trang Chủ</a>
+                        <a class="nav-link text-white {{ request()->is('user') ? 'active' : '' }}" aria-current="page" href="/user">Trang Chủ</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="{{ route('user.gioithieu') }}">Giới Thiệu</a>
+                        <a class="nav-link text-white {{ request()->is('user/gioi-thieu') ? 'active' : '' }}" href="{{ route('user.gioithieu') }}">Giới Thiệu</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="{{ route('user.timkiem') }}">Tìm Kiếm Đánh Giá</a>
+                        <a class="nav-link text-white {{ request()->is('user/tim-kiem') ? 'active' : '' }}" href="{{ route('user.timkiem') }}">Tìm Kiếm Đánh Giá</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="{{ route('user.sosanh') }}">So Sánh Đánh Giá Thương Hiệu</a>
+                        <a class="nav-link text-white {{ request()->is('user/so-sanh') ? 'active' : '' }}" href="{{ route('user.sosanh') }}">So Sánh Đánh Giá Thương Hiệu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white {{ request()->is('user/profile') ? 'active' : '' }}" href="{{ route('user.trang_ca_nhan') }}">Trang cá nhân</a>
                     </li>
                 </ul>
             </div>

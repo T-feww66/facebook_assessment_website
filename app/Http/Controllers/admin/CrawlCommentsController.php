@@ -15,8 +15,12 @@ class CrawlCommentsController extends Controller
         @session_start();
     }
 
-    public function index()
+    public function index($brand_name = null)
     {
+        if ($brand_name){
+            return view("admin.pages.crawl_comments.index", compact('brand_name'));
+        }
+
         return view("admin.pages.crawl_comments.index");
     }
 

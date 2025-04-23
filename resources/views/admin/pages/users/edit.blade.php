@@ -64,5 +64,4 @@
 <p class="mt-3 text-center text-muted">
     <a href="{{ route('admin.users') }}" class="text-primary">Quay lại danh sách người dùng</a>
 </p>
-
 @endsection

@@ -34,10 +34,10 @@ class BrandController extends Controller
         return view("admin.pages.brands.evaluate");
     }
 
-    public function tim_kiem()
+    public function tim_kiem($brand_name=null)
     {
         $brands = Brands::take(5)->get();
-        return view('user.pages.tim_kiem_danh_gia.index', compact('brands'));
+        return view('user.pages.tim_kiem_danh_gia.index', compact('brands', "brand_name"));
     }
 
     public function gui_danh_gia(Request $request)
