@@ -6,7 +6,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield("title")</title>
+    <meta name="description" content="{{ setting('meta_description') }}">
+    <meta property="og:title" content="{{ setting('og_title') }}">
+    <meta property="og:description" content="{{ setting('og_description') }}">
+    <link rel="icon" href="{{ asset(setting('favicon')) }}" />
+    <title>@yield("title", setting('meta_title') ?? setting('site_title'))</title>
+
+
     <!-- Sử dụng Bootstrap 5 -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
@@ -36,6 +42,11 @@
             </a>
             <nav class="mt-4">
                 <ul class="list-unstyled">
+                    <li class="mt-2">
+                        <a href="{{ route('settings.index') }}" class="d-flex align-items-center py-2 px-3 rounded text-white text-decoration-none sidebar-item">
+                            <i class="bi bi-people-fill me-2"></i> Cấu hình hệ thống website
+                        </a>
+                    </li>
                     <li class="mt-2">
                         <a href="{{ route('admin.users') }}" class="d-flex align-items-center py-2 px-3 rounded text-white text-decoration-none sidebar-item">
                             <i class="bi bi-people-fill me-2"></i> Quản lí người dùng

@@ -6,7 +6,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield("title")</title>
+
+    <meta name="description" content="{{ setting('meta_description') }}">
+    <meta property="og:title" content="{{ setting('og_title') }}">
+    <meta property="og:description" content="{{ setting('og_description') }}">
+    <link rel="icon" href="{{ asset(setting('favicon')) }}" />
+    <title>@yield("title", setting('meta_title') ?? setting('site_title'))</title>
     <!-- Sử dụng Bootstrap 5 -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-wordcloud@4.4.4/build/index.umd.min.js"></script>

@@ -1,7 +1,4 @@
 @extends('layouts.user')
-
-@section("title", "Trang chủ")
-
 @section('content')
 <div class="container py-5">
     <!-- Tiêu đề chính -->

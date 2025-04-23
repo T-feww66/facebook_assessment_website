@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
     <!-- Bootstrap CSS -->
+    <link rel="icon" href="{{ asset(setting('favicon')) }}" />
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 

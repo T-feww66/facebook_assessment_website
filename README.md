@@ -17,6 +17,16 @@ composer dump-autoload -o
 php artisan serve --host=ttt_219911.com --port=80
 
 
+- Cấu hình web: T
+- Chỉnh sửa thông tin User: T
+- Phân quyền web: T
+- Đóng gói docker: F
+- Cấu hình LLM: F
+- API docs: F
+----
+Tự động chạy dữ liệu: T
+Show list group: T
+
 
 
 
