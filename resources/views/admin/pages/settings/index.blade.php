@@ -69,6 +69,10 @@
                 <input type="text" name="model_llm" class="form-control" value="{{ $settings['model_llm'] ?? '' }}">
             </div>
 
+            <div class="mb-3">
+                <label class="form-label">NUM DOC (không bắt buộc)</label>
+                <input type="text" name="num_doc" class="form-control" value="{{ $settings['num_doc'] ?? '' }}">
+            </div>
 
             <hr>
 
