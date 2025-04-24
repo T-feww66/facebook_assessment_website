@@ -27,6 +27,15 @@ a.link_request {
     text-decoration: underline;
 }
 
+a.link {
+    color: blue !important;
+    text-decoration: underline;
+}
+
+.red {
+    color: red !important;
+}
+
 .nav-link.active {
     background-color: #77adf5 !important;
     font-weight: bold;

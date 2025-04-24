@@ -294,7 +294,7 @@
                     // Chèn link tải file vào div phía trên nút submit
                     downloadDiv.innerHTML = `
                     <div class="alert alert-success">
-                        ${result.detail} hoặc đã có dữ liệu về file này vui lòng xoá trước khi thực hiện
+                        ${result.detail}
                         </div>
                         `;
                         selectGroup.innerHTML = "";
@@ -366,7 +366,7 @@
                     // Chèn link tải file vào div phía trên nút submit
                     downloadDiv.innerHTML = `
                     <div class="alert alert-success">
-                        ${result.detail} hoặc đã có dữ liệu về file này vui lòng xoá trước khi thực hiện
+                        ${result.detail}
                     </div>
                 `;
 

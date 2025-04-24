@@ -40,6 +40,19 @@
             </div>
             <hr>
 
+            <h5 class="mb-3">🤖 Cấu hình tài khoản FB</h5>
+            <p class="red">***Lưu ý: Bạn cần xoá cookies file trước khi đăng nhập vào tài khoản mới <button type="button" class="btn btn-danger btn-sm" onclick="deleteFile()">Xoá</button></p>
+            <div class="mb-3">
+                <label class="form-label">Email đăng nhập</label>
+                <input type="email" name="email" class="form-control" value="{{ $settings['email'] ?? '' }}">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Mật khẩu đăng nhập</label>
+                <input type="text" name="password" class="form-control" value="{{ $settings['password'] ?? '' }}">
+            </div>
+            <hr>
+
             <h5 class="mb-3">🤖 Cấu hình AI API</h5>
 
             <div class="mb-3">
@@ -118,3 +131,26 @@
     </div>
 </div>
 @endsection
+<script>
+    function deleteFile() {
+        if (!confirm(`Bạn có chắc chắn muốn xoá cookies file"?`)) return;
+        fetch(`http://localhost:60074/crawl/delete-all-cookies-files`, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                } else {
+                    alert('Lỗi khi xoá file.');
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert('Lỗi kết nối đến API.');
+            });
+    }
+</script>
