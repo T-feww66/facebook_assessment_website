@@ -18,6 +18,9 @@
                         <a class="nav-link text-white {{ request()->is('user/tim-kiem') ? 'active' : '' }}" href="{{ route('user.timkiem') }}">Tìm Kiếm Đánh Giá</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link text-white {{ request()->is('user/crawl') ? 'active' : '' }}" href="{{ route('user.crawl') }}">Tìm kiếm và đánh giá 2</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link text-white {{ request()->is('user/so-sanh') ? 'active' : '' }}" href="{{ route('user.sosanh') }}">So Sánh Đánh Giá Thương Hiệu</a>
                     </li>
                     <li class="nav-item">

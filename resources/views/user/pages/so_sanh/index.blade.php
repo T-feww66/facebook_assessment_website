@@ -305,7 +305,7 @@
                 body: formData
             });
 
-            const result = await response.json();
+            var result = await response.json();
             if (!response.ok) {
                 wordChart?.destroy();
                 lineChart?.destroy();
@@ -334,7 +334,7 @@
             showEmotionOverTimeChart(dataGroup1, dataGroup2)
 
         } catch (error) {
-            resultDiv.innerHTML = `<div class="alert alert-danger">Lỗi: ${error.message}</div>`;
+            resultDiv.innerHTML = `<div class="alert alert-danger">Lỗi: ${result.detail}</div>`;
         }
     }
 

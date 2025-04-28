@@ -38,10 +38,14 @@ Route::middleware([checkAdminLogin::class])->prefix('admincp')->group(function (
     Route::get('logout', [AdminLoginController::class, 'getLogout'])->name('getLogout');
 
 
-    // Route::get('/', function () {
-    //     return view('admin.home');
-    // });
-    Route::get('/', [Analytics::class, 'index'])->name('dashboard-analytics');
+    Route::get('/', function () {
+        return view('admin.home');
+    });
+
+    // home 
+    Route::view("home", "admin.home")->name("admin.home");
+
+    // Route::get('/', [Analytics::class, 'index'])->name('dashboard-analytics');
 
     // router cấu hình hệ thống
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
@@ -69,13 +73,7 @@ Route::middleware([checkAdminLogin::class])->prefix('admincp')->group(function (
 
     // Quản lí yêu cầu đánh giá của người dùng
     Route::get("user-request", [BrandController::class, "user_request_index"])->name("admin.user_request");
-
-
-    // quản lí router cào dữ liệu comment
-    Route::get("crawl/{brand_name?}", [CrawlCommentsController::class, "index"])->name("admin.crawl");
-    Route::get('csv-files', [CrawlCommentsController::class, 'listCSVFile'])->name('admin.crawl.listcsv');
 });
-
 
 
 // Nhóm các route người dùng với middleware bảo vệ và tiền tố 'user'
@@ -91,6 +89,10 @@ Route::middleware([checkUserLogin::class])->prefix('user')->group(function () {
     Route::get("tim-kiem/{brand_name?}", [BrandController::class, "tim_kiem"])->name("user.timkiem");
     Route::get("gui-danh-gia", [BrandController::class, "gui_danh_gia"])->name("user.gui_danh_gia");
     Route::post('gui-danh-gia', [BrandController::class, 'user_send_request'])->name('user.post_gui_danh_gia');
+
+    // quản lí router cào dữ liệu comment
+    Route::get("crawl/{brand_name?}", [CrawlCommentsController::class, "index"])->name("user.crawl");
+    Route::get('csv-files', [CrawlCommentsController::class, 'listCSVFile'])->name('user.crawl.listcsv');
 
     Route::get("so-sanh", [BrandController::class, "so_sanh"])->name("user.sosanh");
 

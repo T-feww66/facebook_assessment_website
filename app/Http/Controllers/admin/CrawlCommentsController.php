@@ -18,10 +18,10 @@ class CrawlCommentsController extends Controller
     public function index($brand_name = null)
     {
         if ($brand_name) {
-            return view("admin.pages.crawl_comments.index", compact('brand_name'));
+            return view("user.pages.crawl_comments.index", compact('brand_name'));
         }
 
-        return view("admin.pages.crawl_comments.index");
+        return view("user.pages.crawl_comments.index");
     }
 
     public function listCSVFile()
@@ -33,7 +33,6 @@ class CrawlCommentsController extends Controller
         } else {
             $files = [];
         }
-        return view('admin.pages.crawl_comments.listcsv', compact('files'));
-
+        return view('user.pages.crawl_comments.listcsv', compact('files'));
     }
 }
