@@ -362,6 +362,7 @@
             });
 
             const result = await response.json();
+            console.log(result.data)
 
             if (response.ok && result.data) {
                 const data = result.data[0];

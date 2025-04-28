@@ -209,7 +209,6 @@
             const result = await response.json();
 
             if (result) {
-                console.log(result)
                 downloadDiv.innerHTML = "";
                 formPage.style.display = "block";
 

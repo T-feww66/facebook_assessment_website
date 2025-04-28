@@ -63,11 +63,13 @@
             </td>
             <td>
                 <a href="{{ route('edit_user', $user->id) }}" class="btn btn-warning btn-sm">Sửa</a>
+                @if ($user->level == 0)
                 <form action="{{ route('delete_user', $user->id) }}" method="POST" class="d-inline">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger btn-sm">Xoá</button>
                 </form>
+                @endif
             </td>
         </tr>
         @endforeach
