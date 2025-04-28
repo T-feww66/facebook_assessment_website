@@ -61,7 +61,7 @@ $navbarDetached = ($navbarDetached ?? '');
               </div>
             </a>
             <ul class="dropdown-menu dropdown-menu-end mt-3 py-2">
-            <li>
+              <li>
                 <a class="dropdown-item" href="javascript:void(0);">
                   <div class="d-flex align-items-center">
                     <div class="flex-shrink-0 me-2">
@@ -70,7 +70,7 @@ $navbarDetached = ($navbarDetached ?? '');
                       </div>
                     </div>
                     <div class="flex-grow-1">
-                      <h6 class="mb-0 small">John Doe</h6>
+                      <h6 class="mb-0 small">{{ Auth::user()->username }}</h6>
                       <small class="text-muted">Admin</small>
                     </div>
                   </div>

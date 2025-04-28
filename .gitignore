@@ -6,6 +6,8 @@
 /storage/*.key
 /storage/pail
 /vendor
+
+# .env
 .env
 .env.backup
 .env.production
@@ -26,3 +28,8 @@ docker-aapanel/mysql_data/
 docker-aapanel/mysql_data/ibdata1
 docker-aapanel/mysql_data/ib_logfile0
 docker-aapanel/mysql_data/ib_logfile1
+
+!/public/assets
+!/public/assets/*
+/public/css
+/public/js

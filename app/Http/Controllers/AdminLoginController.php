@@ -81,11 +81,6 @@ class AdminLoginController extends Controller
      */
     public function postLogin(LoginRequest $request)
     {
-        // Kiểm tra đầu vào
-        if (empty($request->username) || empty($request->password)) {
-            return redirect()->back()->with('notice', 'Vui lòng nhập tên đăng nhập và mật khẩu');
-        }
-
         $remember = $request->has('remember');
 
         // Tạo mảng login
@@ -102,7 +97,7 @@ class AdminLoginController extends Controller
                 return redirect('admincp'); // hoặc route('user.dashboard') nếu bạn đặt route tên
             } else {
                 Auth::logout();
-                return redirect()->back()->with('notice', 'Tài khoản không tồn tại, vui lòng đăng ký trước khi đăng nhập!');
+                return redirect()->back()->with('error', 'Tài khoản không tồn tại, vui lòng đăng ký trước khi đăng nhập!');
             }
         }
 
@@ -113,7 +108,7 @@ class AdminLoginController extends Controller
         }
 
         // Nếu không tìm thấy tài khoản
-        return redirect()->back()->with('notice', 'Tài khoản không tồn tại, vui lòng đăng ký trước khi đăng nhập!');
+        return redirect()->back()->with('error', 'Tài khoản không tồn tại, vui lòng đăng ký trước khi đăng nhập!');
     }
 
 
@@ -125,11 +120,6 @@ class AdminLoginController extends Controller
 
     public function postRegister(RegisterRequest $request)
     {
-        // Kiểm tra nếu có bất kỳ giá trị nào bị bỏ trống
-        if (empty($request->username) || empty($request->password) || empty($request->fullname) || empty($request->email)) {
-            return redirect()->back()->with('error', 'Vui lòng điền đầy đủ thông tin!');
-        }
-
         // Kiểm tra xem username đã tồn tại chưa
         if (NguoiDung::where('username', $request->username)->exists()) {
             return redirect()->back()->with('error', 'Tên đăng nhập đã tồn tại, vui lòng chọn tên khác!');

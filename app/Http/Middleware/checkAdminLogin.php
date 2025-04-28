@@ -19,22 +19,25 @@ class checkAdminLogin
      */
     public function handle($request, Closure $next)
     {
-        // nếu user đã đăng nhập
-        if (Auth::check())
-        {
+        if (Auth::check()) {
             $user = Auth::user();
-            // nếu level =1 (admin), status = 1 (actived) thì cho qua.
-            if ($user->level == 1 && $user->status == 1 )
-            {
-                return $next($request);
-            }
-            else
-            {
+
+            if ($user->level != 1 || $user->status != 1) {
                 Auth::logout();
                 return redirect()->route('getLogin');
             }
-        } else
-            return redirect('admincp/login');
 
+            if (in_array($request->route()->getName(), ['getLogin', 'postLogin', 'getRegister', 'postRegister'])) {
+                return redirect('admincp');
+            }
+
+            return $next($request);
+        }
+
+        if (in_array($request->route()->getName(), ['getLogin', 'postLogin', 'getRegister', 'postRegister'])) {
+            return $next($request);
+        }
+
+        return redirect()->route('getLogin');
     }
 }
