@@ -47,7 +47,7 @@
     <!-- ==================FORM CRAWL GROUP ============================-->
     <form id="group_form" class="mt-3" action="" method="POST" style="display:none;">
         @csrf
-        <div id="selectGroup"></div>
+        <div id="selectGroup" class="row row-cols-2 g-3"></div>
         <button type="submit" class="btn btn-primary mt-4">Lấy dữ liệu</button>
     </form>
 
@@ -78,9 +78,11 @@
     </form>
 
     <!-- ==================FORM CRAWL FANPAGES============================-->
-    <form id="page_form" class="mt-3" action="" method="POST" style="display:none;">
+    <form id="page_form" class="mt-3" action="" method="POST" style="display:block;">
         @csrf
-        <div id="selectPage"></div>
+        <div id="selectPage" class="row row-cols-2 g-3">
+
+        </div>
         <button type="submit" class="btn btn-primary mt-4">Lấy dữ liệu</button>
     </form>
 </div>
@@ -155,31 +157,27 @@
 
                 // Xóa nội dung cũ nếu có
                 selectGroup.innerHTML = "";
+                let htmlContent = ""; // Biến lưu trữ HTML sẽ được chèn vào selectGroup
 
-                result.forEach(item => {
-                    const label = document.createElement("label");
-                    label.style.display = "block";
+                result.forEach((item, index) => {
+                    // Tạo HTML với dữ liệu từ item
+                    htmlContent += `
+                        <label for="group_url_${index}" class="card shadow-sm p-3 mb-3 col">
+                            <div class="d-flex align-items-center">
+                                <input type="checkbox" value="${item.group_url}" id="group_url_${index}" name="group_urls" class="form-check-input me-3" style="margin-top: 0;">
 
-                    const checkbox = document.createElement("input");
-                    checkbox.type = "checkbox";
-                    checkbox.name = "group_urls";
-                    checkbox.value = item.group_url;
-
-                    const groupName = document.createTextNode(" " + item.group_name + " ");
-
-                    const groupUrl = document.createElement("a");
-                    groupUrl.href = item.group_url;
-                    groupUrl.textContent = item.group_url;
-                    groupUrl.target = "_blank"; // Khi bấm vào link mở tab mới
-
-                    label.appendChild(checkbox); // 1. checkbox
-                    label.appendChild(groupName); // 2. group_name
-                    label.appendChild(groupUrl); // 3. group_url
-
-                    selectGroup.appendChild(label);
+                                <img src="${item.group_image}" alt="Fanpage Avatar"
+                                    class="rounded-circle me-3" style="width: 40px; height: 40px; object-fit: cover;">
+                                <div>
+                                    <h6 class="mb-0 fw-bold">${item.group_name}</h6>
+                                    <a href="${item.group_url}" class="text-muted small" target="_blank">Nhấn vào đây để xem fanpage</a>
+                                </div>
+                            </div>
+                        </label>
+                    `;
                 });
 
-
+                selectGroup.innerHTML = htmlContent;
             }
 
 
@@ -222,31 +220,30 @@
                 // Xóa nội dung cũ nếu có
                 selectPage.innerHTML = "";
 
-                result.forEach(item => {
-                    const label = document.createElement("label");
-                    label.style.display = "block";
+                let htmlContent = ""; // Biến lưu trữ HTML sẽ được chèn vào selectPage
 
-                    const checkbox = document.createElement("input");
-                    checkbox.type = "checkbox";
-                    checkbox.name = "fanpage_urls";
-                    checkbox.value = item.fanpage_url;
+                result.forEach((item, index) => {
+                    // Tạo HTML với dữ liệu từ item
+                    htmlContent += `
+                        <label for="fanpage_urls_${index}" class="card shadow-sm p-3 mb-3 col">
+                            <div class="d-flex align-items-center">
+                                <input type="checkbox" value="${item.fanpage_url}" id="fanpage_urls_${index}" name="fanpage_urls" class="form-check-input me-3" style="margin-top: 0;">
 
-                    const fanpageName = document.createTextNode(" " + item.fanpage_name + " "); // Tên fanpage
-
-                    // Tạo liên kết cho URL
-                    const fanpageUrl = document.createElement("a");
-                    fanpageUrl.href = item.fanpage_url;
-                    fanpageUrl.textContent = item.fanpage_url;
-                    fanpageUrl.target = "_blank";
-
-                    // Thêm các phần tử vào label
-                    label.appendChild(checkbox); // Checkbox
-                    label.appendChild(fanpageName); // Tên fanpage
-                    label.appendChild(fanpageUrl); // URL
-
-                    selectPage.appendChild(label); // Đưa label vào selectPage
+                                <img src="${item.fanpage_image}" alt="Fanpage Avatar"
+                                    class="rounded-circle me-3" style="width: 40px; height: 40px; object-fit: cover;">
+                                <div>
+                                    <h6 class="mb-0 fw-bold">${item.fanpage_name}</h6>
+                                    <a href="${item.fanpage_url}" class="text-muted small" target="_blank">Nhấn vào đây để xem fanpage</a>
+                                </div>
+                            </div>
+                        </label>
+                    `;
                 });
+
+                // Chèn toàn bộ HTML vào selectPage
+                selectPage.innerHTML = htmlContent;
             }
+
         } catch (error) {
             alert("Đã xảy ra lỗi trong quá trình gửi yêu cầu.");
             console.log(error)
@@ -281,6 +278,9 @@
         });
         formData.append("word_search", brandInputGroup.value);
 
+        formGroup.style.display = "none";
+        selectGroup.innerHTML = "";
+
         try {
             const response = await fetch("http://localhost:60074/crawl/crawl_comment_of_groups", {
                 method: "POST",
@@ -294,10 +294,6 @@
 
             if (response.ok) {
                 if (result.data.message) {
-                    // Chèn link tải file vào div phía trên nút submit
-                    formGroup.style.display = "none";
-                    selectGroup.innerHTML = "";
-
                     downloadDiv.innerHTML = `
                     <div class="alert alert-success">
                         ${result.data.message}
@@ -349,11 +345,14 @@
             return;
         }
 
+
         checked.forEach(cb => {
             formData.append("fanpage_urls[]", cb.value);
         });
         formData.append("word_search", brandInputPage.value);
 
+        formPage.style.display = "none";
+        selectPage.innerHTML = "";
         try {
             const response = await fetch("http://localhost:60074/crawl/crawl_comment_of_fanpages", {
                 method: "POST",
@@ -366,10 +365,6 @@
             const result = await response.json();
             if (response.ok) {
                 if (result.data.message) {
-                    // Chèn link tải file vào div phía trên nút submit
-                    formPage.style.display = "none";
-                    selectPage.innerHTML = "";
-
                     downloadDiv.innerHTML = `
                     <div class="alert alert-success">
                         ${result.data.message}
