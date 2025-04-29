@@ -19,25 +19,29 @@ class checkAdminLogin
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::check()) {
-            $user = Auth::user();
+        $user = Auth::user();
+        $routeName = $request->route()->getName();
+        $guestRoutes = ['getLogin', 'postLogin', 'getRegister', 'postRegister'];
 
-            if ($user->level != 1 || $user->status != 1) {
-                Auth::logout();
-                return redirect()->route('getLogin');
-            }
-
-            if (in_array($request->route()->getName(), ['getLogin', 'postLogin', 'getRegister', 'postRegister'])) {
-                return redirect('admincp');
-            }
-
-            return $next($request);
+        // Nếu chưa đăng nhập
+        if (!Auth::check()) {
+            return in_array($routeName, $guestRoutes)
+                ? $next($request)
+                : redirect()->route('getLogin');
         }
 
-        if (in_array($request->route()->getName(), ['getLogin', 'postLogin', 'getRegister', 'postRegister'])) {
-            return $next($request);
+        // Nếu đã đăng nhập nhưng không đủ quyền
+        if ($user->level != 1 || $user->status != 1) {
+            Auth::logout();
+            return redirect()->route('getLogin');
         }
 
-        return redirect()->route('getLogin');
+        // Nếu đã login mà vào trang login/register thì redirect vào admin dashboard
+        if (in_array($routeName, $guestRoutes)) {
+            return redirect()->route('admin.dashboard');
+        }
+
+        // ✅ Đủ điều kiện → cho qua
+        return $next($request);
     }
 }

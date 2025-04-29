@@ -48,8 +48,8 @@ Route::middleware([checkAdminLogin::class])->prefix('admincp')->group(function (
     // Route::get('/', [Analytics::class, 'index'])->name('dashboard-analytics');
 
     // router cấu hình hệ thống
-    Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
-    Route::post('/settings', [SettingController::class, 'update'])->name('settings.update');
+    Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
+    Route::post('settings', [SettingController::class, 'update'])->name('settings.update');
 
 
     // Quản lý người dùng

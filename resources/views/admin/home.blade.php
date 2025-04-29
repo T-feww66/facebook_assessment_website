@@ -2,6 +2,6 @@
 @section("header", "Dashboard")
 
 @section('content')
-<h2 class="text-xl font-bold">Hello {{Auth::user()->username}} Webcome To Dashboard</h2>
+<h2 class="text-xl font-bold text-black">Hello {{Auth::id()}} Webcome To Dashboard</h2>
 
 @endsection

@@ -14,6 +14,7 @@ return new class extends Migration
     {
         Schema::create('crawl_comments', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // thêm dòng này
             $table->string('brand_name');
             $table->text('post_content');
             $table->boolean('is_group')->default(false);
@@ -26,6 +27,7 @@ return new class extends Migration
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.
