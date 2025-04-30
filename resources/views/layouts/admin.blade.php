@@ -37,7 +37,7 @@
     <div class="d-flex">
         <!-- Sidebar -->
         <aside class="bg-primary text-white p-4 vh-100" style="width: 250px;">
-            <a href="{{ route('admin.home') }}" class="text-white text-decoration-none">
+            <a href="/admincp" class="text-white text-decoration-none">
                 <h2 class="h4 fw-bold"><i class="bi bi-speedometer2"></i>Wellcome {{Auth::user()->username}}</h2>
             </a>
             <nav class="mt-4">

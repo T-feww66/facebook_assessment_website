@@ -42,9 +42,6 @@ Route::middleware([checkAdminLogin::class])->prefix('admincp')->group(function (
         return view('admin.home');
     });
 
-    // home 
-    Route::view("home", "admin.home")->name("admin.home");
-
     // Route::get('/', [Analytics::class, 'index'])->name('dashboard-analytics');
 
     // router cấu hình hệ thống

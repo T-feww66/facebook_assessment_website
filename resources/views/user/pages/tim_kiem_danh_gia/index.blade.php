@@ -11,7 +11,7 @@
 
     <!-- Thương hiệu nổi bật -->
     <div class="mb-4">
-        <h5 class="text-white mb-3">Thương hiệu nổi bật:</h5>
+        <h5 class="text-white mb-3">Thương hiệu bạn đã đánh giá:</h5>
         <ul class="list-unstyled d-flex flex-wrap gap-2">
             @foreach($brands as $brand)
             <li class="brands">
@@ -30,7 +30,6 @@
     </form>
 
     <div id="result-brand"></div>
-
 
     <div class="chart-grid" id="chart_grid_id">
         <div class="chart-card">
@@ -54,7 +53,6 @@
         </div>
     </div>
 </div>
-
 @endsection
 
 <script>
@@ -351,6 +349,7 @@
 
         const formData = new FormData();
         formData.append("brand", brandName);
+        formData.append("user_id", '{{Auth::id()}}');
 
         try {
             const response = await fetch('http://localhost:60074/danh_gia_thuong_hieu/thuong_hieu', {
@@ -438,12 +437,14 @@
     document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("evaluateForm").addEventListener("submit", async (e) => {
             e.preventDefault();
+            Swal.showLoading();
             sentimentChart?.destroy();
             wordChartCoutChart?.destroy();
             wordCloudChartGood?.destroy();
             wordCloudChartBad?.destroy();
             lineChart?.destroy();
             await evaluateBrand();
+            Swal.close();
         });
     });
 </script>

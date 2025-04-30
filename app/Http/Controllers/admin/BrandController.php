@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Brands;
 use App\Models\UserSendRequest;
+use Illuminate\Support\Facades\Auth;
 
 class BrandController extends Controller
 {
@@ -34,9 +35,9 @@ class BrandController extends Controller
         return view("admin.pages.brands.evaluate");
     }
 
-    public function tim_kiem($brand_name=null)
+    public function tim_kiem($brand_name = null)
     {
-        $brands = Brands::take(5)->get();
+        $brands = Brands::where('user_id', Auth::id())->get();
         return view('user.pages.tim_kiem_danh_gia.index', compact('brands', "brand_name"));
     }
 
