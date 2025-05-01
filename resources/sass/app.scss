@@ -1,11 +1,11 @@
 @import "bootstrap/scss/bootstrap";
 
 body {
-    background-color: #1C4866;
+    background-color: #cee7d5;
+    // background-color: #e6e5e5;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    color: #fff;
 }
 
 main {
@@ -47,12 +47,8 @@ a.link {
     color: #fff !important;
 }
 
-.chart-grid {
+.none {
     display: none;
-    grid-template-columns: repeat(2, 1fr);
-    align-items: center;
-    gap: 40px;
-    margin-top: 50px;
 }
 
 .chart-card {

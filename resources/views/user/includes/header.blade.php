@@ -24,7 +24,7 @@
                     <a class="nav-link text-white {{ request()->is('user/so-sanh') ? 'active' : '' }}" href="{{ route('user.sosanh') }}">So Sánh Đánh Giá Thương Hiệu</a>
                 </li>
                 <li class="px-2">
-                    <a class="nav-link text-white {{ request()->is('user/truc-quan') ? 'active' : '' }}" href="{{ route('user.trucquan') }}">Trực quan</a>
+                    <a class="nav-link text-white {{ request()->is('user/truc-quan') ? 'active' : '' }}" href="{{ route('user.timkiem') }}">Trực quan</a>
                 </li>
                 <li class="px-2">
                     <a class="nav-link text-white {{ request()->is('user/trang-ca-nhan') ? 'active' : '' }}" href="{{ route('user.trang_ca_nhan') }}">Trang cá nhân</a>

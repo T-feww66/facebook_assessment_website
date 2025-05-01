@@ -41,13 +41,9 @@
                                         <td>{{ $brand->comment_file ?? 'Chưa có' }}</td>
                                         <td>{{ $brand->updated_at->format('d/m/Y H:i') }}</td>
                                         <td>
-                                            <form action="{{ route('user.timkiem') }}" method="POST" style="display: inline;">
-                                                @csrf
-                                                <input type="hidden" name="brand_name" value="{{ $brand->brand_name }}">
-                                                <input type="hidden" name="word_search" value="{{ $brand->word_search }}">
-                                                <button type="submit" class="btn btn-sm btn-primary">Trực quan</button>
-                                            </form>
-
+                                            <a href="{{ route('user.timkiem', ['brand_name' => $brand->brand_name, 'word_search' => $brand->word_search]) }}" class="btn btn-primary">
+                                                Trực quan
+                                            </a>
                                         </td>
                                     </tr>
                                     @endforeach

@@ -6,10 +6,10 @@
 @section('content')
 <div class="page-content">
     <div class="container-fluid">
-        <h2 class="h2 fw-bold text-white">API</h2>
+        <h2 class="h2 fw-bold">API</h2>
         <!-- Chọn kiểu cào dữ liệu -->
         <div id="infomation" class="mb-3"></div>
-        <div class="mb-3 text-white">
+        <div class="mb-3">
             <label for="crawl_type" class="form-label">Chọn kiểu cào dữ liệu:</label>
             <div class="form-check text-">
                 <input type="radio" class="form-check-input" id="crawl_group" name="crawl_type" value="group" checked>
@@ -24,7 +24,7 @@
         <!-- ==================FORM CRAWL GROUP URL ============================-->
         <form id="form_group_url" class="text_white" method="post" style="display:none;">
             <div class="mb-3">
-                <label for="word_search_group" class="form-label text-white">Từ khoá tìm kiếm:</label>
+                <label for="word_search_group" class="form-label">Từ khoá tìm kiếm:</label>
                 @if(isset($brand_name))
                 <input type="text" class="form-control" id="word_search_group" name="word_search_group"
                     value="{{ $brand_name }}"
@@ -38,7 +38,7 @@
                 @endif
             </div>
             <div class="mb-3">
-                <label for="quantity_group_url" class="form-label text-white">Số lượng group:</label>
+                <label for="quantity_group_url" class="form-label">Số lượng group:</label>
                 <input type="number" class="form-control" id="quantity_group_url" name="quantity_group" min="1" max="10" placeholder="Nhập vào số lượng group muốn lấy (tối đa 10)" required>
             </div>
             <button type="submit" class="btn btn-primary mt-4">Tìm kiếm</button>
@@ -48,7 +48,7 @@
         <form id="group_form" class="mt-3" action="" method="POST" style="display:none;">
             @csrf
             <div id="selectGroup" class="row row-cols-2 g-3"></div>
-            <label for="word_search_in_group" class="form-label text-white">Từ khoá tìm kiếm:</label>
+            <label for="word_search_in_group" class="form-label">Từ khoá tìm kiếm:</label>
             <input type="text" class="form-control" id="word_search_in_group" name="word_search"
                 placeholder="Nhập vào từ khoá cần tìm trong thương hiệu"
                 required>
@@ -58,7 +58,7 @@
         <!-- ==================FORM CRAWL FANPAGES URL============================-->
         <form id="form_fanpage_url" method="post" style="display:none;">
             <div class="mb-3">
-                <label for="word_search_pages" class="form-label text-white">Từ khoá tìm kiếm:</label>
+                <label for="word_search_pages" class="form-label">Từ khoá tìm kiếm:</label>
                 @if(isset($brand_name))
                 <input type="text" class="form-control" id="word_search_pages" name="word_search_pages"
                     value="{{ $brand_name }}"
@@ -74,7 +74,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="quantity_fanpage_url" class="form-label text-white">Số lượng fanpages:</label>
+                <label for="quantity_fanpage_url" class="form-label">Số lượng fanpages:</label>
                 <input type="number" class="form-control" id="quantity_fanpage_url" name="quantity_fanpage" min="1" max="10" placeholder="Nhập vào số lượng fanpage muốn lấy (tối đa 10)" required>
             </div>
             <button type="submit" class="btn btn-primary mt-4">Tìm kiếm</button>
@@ -84,7 +84,7 @@
         <form id="page_form" class="mt-3" action="" method="POST" style="display:block;">
             @csrf
             <div id="selectPage" class="row row-cols-2 g-3"></div>
-            <label for="word_search_in_page" class="form-label text-white">Từ khoá tìm kiếm:</label>
+            <label for="word_search_in_page" class="form-label">Từ khoá tìm kiếm:</label>
             <input type="text" class="form-control" id="word_search_in_page" name="word_search"
                 value=""
                 placeholder="Nhập vào từ khoá cần tìm trong thương hiệu"

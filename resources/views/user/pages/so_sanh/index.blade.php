@@ -6,8 +6,8 @@
 <div class="page-content">
     <div class="container-fluid">
         <div class="text-center mb-4">
-            <h2 class="fw-bold text-white">So Sánh Thương Hiệu</h2>
-            <p class="text-white-50">Chọn các thương hiệu để xem bảng so sánh đánh giá tổng quan.</p>
+            <h2 class="fw-bold">So Sánh Thương Hiệu</h2>
+            <p>Chọn các thương hiệu để xem bảng so sánh đánh giá tổng quan.</p>
         </div>
 
         <!-- Form so sánh -->

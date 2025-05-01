@@ -6,8 +6,8 @@
 <div class="page-content">
     <div class="container-fluid">
         <div class="text-center mb-4">
-            <h2 class="fw-bold text-white">Tìm Kiếm Đánh Giá</h2>
-            <p class="text-white-50">Nhập từ khóa để tra cứu đánh giá của thương hiệu bạn quan tâm.</p>
+            <h2 class="fw-bold">Tìm Kiếm Đánh Giá</h2>
+            <p>Nhập từ khóa để tra cứu đánh giá của thương hiệu bạn quan tâm.</p>
         </div>
 
 
@@ -40,25 +40,64 @@
 
         <div id="result-brand"></div>
 
-        <div class="chart-grid" id="chart_grid_id">
-            <div class="chart-card">
-                <canvas width="500" height="500" id="pieChart"></canvas>
-            </div>
+        <div id="chart_grid_id" class="none">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
 
-            <div class="chart-card">
-                <canvas width="500" height="500" id="wordChart"></canvas>
-            </div>
+                            <div class="chart-card">
+                                <canvas width="500" height="500" id="pieChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="chart-card">
-                <canvas width="500" height="500" id="wordCloudChartGood"></canvas>
-            </div>
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
 
-            <div class="chart-card">
-                <canvas width="500" height="500" id="wordCloudChartBad"></canvas>
-            </div>
+                            <div class="chart-card">
+                                <canvas width="500" height="500" id="wordChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="chart-card">
-                <canvas width="500" height="500" id="lineChart"></canvas>
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <div class="chart-card">
+                                <canvas width="500" height="500" id="wordCloudChartGood"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <div class="chart-card">
+                                <canvas width="500" height="500" id="wordCloudChartBad"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="chart-card">
+                                <canvas width="" height="300" id="lineChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -66,6 +105,7 @@
 @endsection
 
 <script>
+    "use strict";
     let sentimentChart = null;
     let wordChartCoutChart = null;
     let wordCloudChartGood = null;
@@ -77,7 +117,7 @@
     const titleConfig = (text, size = 24) => ({
         display: true,
         text,
-        color: '#fff',
+        color: '#333',
         font: {
             size
         }
@@ -87,18 +127,18 @@
         title: {
             display: true,
             text: label,
-            color: '#fff',
+            color: '#333',
             font: {
                 size: 16
             }
         },
         ticks: {
-            color: '#fff'
+            color: '#333'
         }
     });
 
     const optionsWordChart = (label, size = 28) => ({
-        color: '#fff',
+        color: '#333',
         plugins: {
             legend: {
                 display: false
@@ -106,10 +146,14 @@
             title: {
                 display: true,
                 text: label,
-                color: '#fff',
+                color: '#333',
                 font: {
                     size
                 }
+            },
+            wordCloud: {
+                minFontSize: 10, // chữ nhỏ nhất
+                maxFontSize: 40 // chữ lớn nhất – KHÔNG để quá lớn (vd: 80)
             },
         }
     })
@@ -133,7 +177,7 @@
                 responsive: false,
                 plugins: {
                     datalabels: {
-                        color: '#fff',
+                        color: '#333',
                         font: {
                             weight: 'bold',
                             size: 14
@@ -142,7 +186,7 @@
                     },
                     legend: {
                         labels: {
-                            color: '#fff'
+                            color: '#333'
                         }
                     },
                     title: titleConfig(`Biểu đồ thể hiện tỷ lệ cảm xúc`, 28)
@@ -196,6 +240,16 @@
 
     // === BIỂU ĐỒ WordCloud: TỪ TỐT/XẤU ===
     function showWordCloudChartGood(words) {
+        const weights = words.map(d => d.weight);
+        const min = Math.min(...weights);
+        const max = Math.max(...weights);
+
+        // Scale về 10–40:
+        const scaledWeights = weights.map(w => {
+            const normalized = (w - min) / (max - min);
+            return 20 + normalized * 20; // font size từ 10 đến 40
+        });
+
         wordCloudChartGood?.destroy();
         const ctx = document.getElementById("wordCloudChartGood");
         wordCloudChartGood = new Chart(ctx, {
@@ -204,7 +258,7 @@
                 labels: words.map(w => w.word),
                 datasets: [{
                     label: 'Từ tích cực phổ biến',
-                    data: words.map((d) => d.weight * 10),
+                    data: scaledWeights,
                 }]
             },
             options: optionsWordChart("Biểu đồ WordChart tích cực phổ biến")
@@ -212,7 +266,15 @@
     }
 
     function showWordCloudChartBad(words) {
+        const weights = words.map(d => d.weight);
+        const min = Math.min(...weights);
+        const max = Math.max(...weights);
 
+        // Scale về 10–40:
+        const scaledWeights = weights.map(w => {
+            const normalized = (w - min) / (max - min);
+            return 20 + normalized * 20; // font size từ 10 đến 40
+        });
         wordCloudChartBad?.destroy();
 
         const ctx = document.getElementById("wordCloudChartBad");
@@ -222,7 +284,7 @@
                 labels: words.map(w => w.word),
                 datasets: [{
                     label: 'Từ tiêu cực phổ biến',
-                    data: words.map((d) => d.weight * 10),
+                    data: scaledWeights,
                 }]
             },
             options: optionsWordChart("Biểu đồ WordChart tiêu cực phổ biến")
@@ -269,37 +331,37 @@
                     title: {
                         display: true,
                         text: 'Biến động cảm xúc theo thời gian',
-                        color: '#fff',
+                        color: '#333',
                         font: {
                             size: 28
                         }
                     },
                     legend: {
                         labels: {
-                            color: '#fff'
+                            color: '#333'
                         }
                     }
                 },
                 scales: {
                     x: {
                         ticks: {
-                            color: '#fff'
+                            color: '#333'
                         },
                         title: {
                             display: true,
                             text: 'Ngày',
-                            color: '#fff'
+                            color: '#333'
                         }
                     },
                     y: {
                         beginAtZero: true,
                         ticks: {
-                            color: '#fff'
+                            color: '#333'
                         },
                         title: {
                             display: true,
                             text: 'Phần trăm (%)',
-                            color: '#fff'
+                            color: '#333'
                         }
                     }
                 }
@@ -349,6 +411,8 @@
     async function evaluateBrand() {
         const brandInput = document.getElementById('brandInput');
         const brandName = brandInput.value.toLowerCase().trim();
+        const wordSearchInput = document.getElementById('wordSearchInput');
+        const wordSearch = wordSearchInput.value.toLowerCase().trim();
 
         const resultDiv = document.getElementById('result-brand');
         const chartGrid = document.getElementById('chart_grid_id');
@@ -358,7 +422,8 @@
         resultDiv.innerHTML = `<h2 style="text-align: center; color: #fff">Đang xử lý...</h2>`;
 
         const formData = new FormData();
-        formData.append("brand", brandName);
+        formData.append("brand_name", brandName);
+        formData.append("word_search", wordSearch);
         formData.append("user_id", '{{Auth::id()}}');
 
         try {
@@ -376,7 +441,7 @@
             if (response.ok && result.data) {
                 const data = result.data[0];
                 resultDiv.innerHTML = `<h2 style = "text-align: center; color: #fff">Phân tích thương hiệu ${brandName}</h2>`;
-                chartGrid.style.display = "grid";
+                chartGrid.style.display = "block";
 
                 // Biểu đồ tròn hiển thị phần trăm cảm xúc
                 showSentimentChart(
@@ -429,6 +494,7 @@
 
 
                 brandInput.value = ""
+                wordSearchInput.value = ""
             } else {
                 resultDiv.innerHTML = `<a href="{{ route('user.gui_danh_gia') }}?brand=${brandName}" class="link_request link-light link-offset-2 link-underline link-underline-opacity-100">${result.detail || "Không có dữ liệu đánh giá."} sang trang yêu cầu đánh giá</a>`;
                 sentimentChart?.destroy();

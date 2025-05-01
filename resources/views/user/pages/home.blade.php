@@ -4,8 +4,8 @@
     <div class="container-fluid">
         <!-- Tiêu đề chính -->
         <div class="text-center mb-5">
-            <h1 class="display-5 fw-bold text-white">Chào mừng đến với Hệ thống Đánh Giá Thương Hiệu</h1>
-            <p class="lead text-white-50">Khám phá và so sánh các thương hiệu dựa trên đánh giá từ cộng đồng.</p>
+            <h1 class="display-5 fw-bold">Chào mừng đến với Hệ thống Đánh Giá Thương Hiệu</h1>
+            <p class="lead">Khám phá và so sánh các thương hiệu dựa trên đánh giá từ cộng đồng.</p>
         </div>
 
         <!-- Các chức năng chính -->

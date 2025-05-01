@@ -83,8 +83,8 @@ Route::middleware([checkUserLogin::class])->prefix('user')->group(function () {
     })->name('user.gioithieu');
 
     // Cấu hình router tìm kiếm đánh giá thương hiệu
-    Route::get('truc-quan', [BrandController::class, 'tim_kiem'])->name('user.trucquan');
-    Route::post('truc-quan', [BrandController::class, 'tim_kiem'])->name('user.timkiem');
+    Route::get('truc-quan/{brand_name?}/{word_search?}', [BrandController::class, 'tim_kiem'])->name('user.timkiem');
+    Route::get('test', [BrandController::class, 'test'])->name('user.test');
 
     Route::get("gui-danh-gia", [BrandController::class, "gui_danh_gia"])->name("user.gui_danh_gia");
     Route::post('gui-danh-gia', [BrandController::class, 'user_send_request'])->name('user.post_gui_danh_gia');

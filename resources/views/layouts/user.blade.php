@@ -25,6 +25,9 @@
     <!-- Responsive datatable examples -->
     <link href="{{asset('assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
 
+    <!-- roundslider css -->
+    <link rel="stylesheet" href="{{asset('assets/libs/round-slider/roundslider.min.css')}}">
+
     <!-- Bootstrap Css -->
     <link href="{{asset('assets/css/bootstrap.min.css')}}" id="bootstrap-style" rel="stylesheet" type="text/css" />
     <!-- Icons Css -->
@@ -78,8 +81,17 @@
     <!-- Datatable init js -->
     <script src="{{asset('assets/js/pages/datatables.init.js')}}"></script>
 
-    <script src="{{asset('assets/js/app.js')}}"></script>
+    <!-- roundslider js -->
+    <script src="{{asset('assets/libs/round-slider/roundslider.min.js')}}"></script>
 
+    <!-- roundslider init -->
+    <script src="{{asset('assets/js/pages/roundslider.init.js')}}"></script>
+
+    <!-- Chart JS -->
+    <!-- <script src="{{ asset('assets/libs/chart.js/Chart.bundle.min.js')}}"></script>
+    <script src="{{ asset('assets/js/pages/chartjs.init.js')}}"></script> -->
+
+    <script src="{{asset('assets/js/app.js')}}"></script>
 </body>
 
 </html>

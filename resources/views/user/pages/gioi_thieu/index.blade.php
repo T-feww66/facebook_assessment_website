@@ -7,8 +7,8 @@
 <div class="page-content">
     <div class="container-fluid">
         <div class="text-center mb-5">
-            <h2 class="fw-bold text-white">Giới Thiệu Hệ Thống</h2>
-            <p class="lead text-white-50">Hệ thống giúp bạn khám phá, tìm hiểu và đánh giá các thương hiệu phổ biến dựa trên phản hồi thực tế từ cộng đồng.</p>
+            <h2 class="fw-bold">Giới Thiệu Hệ Thống</h2>
+            <p class="lead">Hệ thống giúp bạn khám phá, tìm hiểu và đánh giá các thương hiệu phổ biến dựa trên phản hồi thực tế từ cộng đồng.</p>
         </div>
 
         <div class="row g-4">
