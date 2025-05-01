@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Requests\LoginRequest;
 use App\Http\Controllers\Requests\RegisterRequest;
 use App\Http\Controllers\Requests\UpdateUserRequest;
-
+use App\Models\Brands;
 use App\Models\NguoiDung;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -143,5 +143,11 @@ class UserLoginController extends Controller
         ]);
 
         return redirect()->route('user.trang_ca_nhan')->with('notice', 'Cập nhật người dùng thành công!');
+    }
+
+    public function lich_su()
+    {
+        $brands = Brands::where('user_id', Auth::id())->get();
+        return view('user.pages.trang_ca_nhan.lich_su', compact("brands"));
     }
 }

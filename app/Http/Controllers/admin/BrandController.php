@@ -35,10 +35,14 @@ class BrandController extends Controller
         return view("admin.pages.brands.evaluate");
     }
 
-    public function tim_kiem($brand_name = null)
+    public function tim_kiem(Request $request, $brand_name = null, $word_search = null)
     {
         $brands = Brands::where('user_id', Auth::id())->get();
-        return view('user.pages.tim_kiem_danh_gia.index', compact('brands', "brand_name"));
+        if ($request->isMethod('post')) {
+            $brand_name = $request->input('brand_name');
+            $word_search = $request->input('word_search');
+        }
+        return view('user.pages.truc_quan.index', compact('brands', "brand_name", "word_search"));
     }
 
     public function gui_danh_gia(Request $request)

@@ -83,18 +83,20 @@ Route::middleware([checkUserLogin::class])->prefix('user')->group(function () {
     })->name('user.gioithieu');
 
     // Cấu hình router tìm kiếm đánh giá thương hiệu
-    Route::get("tim-kiem/{brand_name?}", [BrandController::class, "tim_kiem"])->name("user.timkiem");
+    Route::get('truc-quan', [BrandController::class, 'tim_kiem'])->name('user.trucquan');
+    Route::post('truc-quan', [BrandController::class, 'tim_kiem'])->name('user.timkiem');
+
     Route::get("gui-danh-gia", [BrandController::class, "gui_danh_gia"])->name("user.gui_danh_gia");
     Route::post('gui-danh-gia', [BrandController::class, 'user_send_request'])->name('user.post_gui_danh_gia');
 
     // quản lí router cào dữ liệu comment
     Route::get("crawl/{brand_name?}", [CrawlCommentsController::class, "index"])->name("user.crawl");
-    Route::get('csv-files', [CrawlCommentsController::class, 'listCSVFile'])->name('user.crawl.listcsv');
 
     Route::get("so-sanh", [BrandController::class, "so_sanh"])->name("user.sosanh");
 
     Route::get("trang-ca-nhan", [UserLoginController::class, "trang_ca_nhan"])->name("user.trang_ca_nhan");
     Route::post('trang-ca-nhan/{id}', [UserLoginController::class, 'cap_nhat_user'])->name('user.update_user');
+    Route::get('trang-ca-nhan/lich-su', [UserLoginController::class, 'lich_su'])->name('user.lich_su');
 });
 
 // Route cho các chức năng đăng nhập và đăng xuất, đăng kí

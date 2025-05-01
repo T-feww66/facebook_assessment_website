@@ -1,4 +1,5 @@
 @import "bootstrap/scss/bootstrap";
+
 body {
     background-color: #1C4866;
     min-height: 100vh;
@@ -9,7 +10,7 @@ body {
 
 main {
     flex: 1;
-}   
+}
 
 label:hover {
     user-select: none;
@@ -70,4 +71,19 @@ canvas {
     .chart-grid {
         grid-template-columns: 1fr;
     }
+}
+
+.nav-link {
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.nav-link:hover {
+    background-color: #495057;
+    color: #fff;
+}
+
+.nav-link.active {
+    background-color: #0d6efd;
+    /* Màu xanh Bootstrap */
+    color: white !important;
 }
