@@ -1,7 +1,7 @@
 @import "bootstrap/scss/bootstrap";
 
 body {
-    background-color: #cee7d5;
+    background-color: #728ec3;
     // background-color: #e6e5e5;
     min-height: 100vh;
     display: flex;
@@ -38,6 +38,10 @@ a.link {
 .nav-link.active {
     background-color: #77adf5 !important;
     font-weight: bold;
+}
+
+.site-bar-black {
+    background-color: #252b3b;
 }
 
 
