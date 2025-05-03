@@ -92,7 +92,7 @@ Route::middleware([checkUserLogin::class])->prefix('user')->group(function () {
     // quản lí router cào dữ liệu comment
     Route::get("crawl/{brand_name?}", [CrawlCommentsController::class, "index"])->name("user.crawl");
 
-    Route::get("so-sanh", [BrandController::class, "so_sanh"])->name("user.sosanh");
+    Route::get("danh-gia-thuong-hieu", [BrandController::class, "so_sanh"])->name("user.sosanh");
 
     Route::get("trang-ca-nhan", [UserLoginController::class, "trang_ca_nhan"])->name("user.trang_ca_nhan");
     Route::post('trang-ca-nhan/{id}', [UserLoginController::class, 'cap_nhat_user'])->name('user.update_user');

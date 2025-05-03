@@ -42,8 +42,7 @@ class BrandController extends Controller
 
     public function tim_kiem($brand_name = null, $word_search = null)
     {
-        $brands = Brands::where('user_id', Auth::id())->get();
-        return view('user.pages.truc_quan.index', compact('brands', "brand_name", "word_search"));
+        return view('user.pages.truc_quan.index', compact("brand_name", "word_search"));
     }
 
     public function gui_danh_gia(Request $request)
@@ -57,10 +56,9 @@ class BrandController extends Controller
         return view('user.pages.tim_kiem_danh_gia.gui_danh_gia', compact('brandName'));
     }
 
-    public function so_sanh()
+    public function so_sanh($brand_name = null)
     {
-        $brands = Brands::take(5)->get();
-        return view('user.pages.so_sanh.index', compact('brands'));
+        return view('user.pages.so_sanh.index', compact('brand_name'));
     }
 
     public function user_send_request(Request $request)

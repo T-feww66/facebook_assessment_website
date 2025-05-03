@@ -3,304 +3,307 @@
 @section("title", "Tìm Kiếm Đánh Giá")
 
 @section('content')
-<div class="page-content">
-    <div class="container-fluid">
-        <div class="text-center mb-4">
-            <h2 class="fw-bold">Tìm Kiếm Đánh Giá</h2>
-            <p>Nhập từ khóa để tra cứu đánh giá của thương hiệu bạn quan tâm.</p>
-        </div>
-
-        <!-- Form tìm kiếm -->
-        <form id="evaluateForm" class="mb-3">
-            <div class="mb-3">
-                <label for="brandInput">Thương hiệu</label>
-                <input id="brandInput"
-                    class="form-control me-1"
-                    value="{{ $brand_name ?? '' }}"
-                    type="search"
-                    placeholder="🔍 Nhập tên thương hiệu..."
-                    aria-label="Thương hiệu"
-                    {{ $brand_name || $word_search ? 'readonly' : '' }}>
+@include("user.includes.sidebar")
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+            <div class="text-center mb-4">
+                <h2 class="fw-bold">Tìm Kiếm Đánh Giá</h2>
+                <p>Nhập từ khóa để tra cứu đánh giá của thương hiệu bạn quan tâm.</p>
             </div>
 
-            <div class="mb-3">
-                <label for="wordSearchInput">Từ khoá</label>
-                <input id="wordSearchInput"
-                    class="form-control me-1"
-                    value="{{ $word_search ?? '' }}"
-                    type="search"
-                    placeholder="🔍 Nhập từ khoá..."
-                    aria-label="Từ khoá"
-                    {{ $brand_name || $word_search ? 'readonly' : '' }}>
-            </div>
+            <!-- Form tìm kiếm -->
+            <form id="evaluateForm" class="mb-3">
+                <div class="mb-3">
+                    <label for="brandInput">Thương hiệu</label>
+                    <input id="brandInput"
+                        class="form-control me-1"
+                        value="{{ $brand_name ?? '' }}"
+                        type="search"
+                        placeholder="🔍 Nhập tên thương hiệu..."
+                        aria-label="Thương hiệu"
+                        {{ $brand_name || $word_search ? 'readonly' : '' }}>
+                </div>
 
-            <button class="btn btn-success" type="submit">Search</button>
-        </form>
+                <div class="mb-3">
+                    <label for="wordSearchInput">Từ khoá</label>
+                    <input id="wordSearchInput"
+                        class="form-control me-1"
+                        value="{{ $word_search ?? '' }}"
+                        type="search"
+                        placeholder="🔍 Nhập từ khoá..."
+                        aria-label="Từ khoá"
+                        {{ $brand_name || $word_search ? 'readonly' : '' }}>
+                </div>
 
-        <div id="result-brand"></div>
+                <button class="btn btn-success" type="submit">Search</button>
+            </form>
 
-        <div id="chart_grid_id" class="none mt-5">
-            <div class="row">
-                <div class="col-xl-3 col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex">
-                                <div class="flex-grow-1">
-                                    <p class="text-truncate font-size-14 mb-2">Tên thương hiệu</p>
-                                    <h4 class="mb-2">{{$brand_name}}</h4>
-                                    <p class="text-muted mb-0"><span class="text-success fw-bold font-size-12 me-2"><i class="ri-arrow-right-up-line me-1 align-middle"></i>9.23%</span>from previous period</p>
+            <div id="result-brand"></div>
+
+            <div id="chart_grid_id" class="none mt-5">
+                <div class="row">
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex">
+                                    <div class="flex-grow-1">
+                                        <p class="text-truncate font-size-14 mb-2">Tên thương hiệu</p>
+                                        <h4 class="mb-2">{{$brand_name}}</h4>
+                                        <p class="text-muted mb-0"><span class="text-success fw-bold font-size-12 me-2"><i class="ri-arrow-right-up-line me-1 align-middle"></i>9.23%</span>from previous period</p>
+                                    </div>
+                                    <div class="avatar-sm">
+                                        <span class="avatar-title bg-light text-primary rounded-3">
+                                            <i class="ri-store-2-line font-size-24"></i>
+                                        </span>
+                                    </div>
                                 </div>
-                                <div class="avatar-sm">
-                                    <span class="avatar-title bg-light text-primary rounded-3">
-                                        <i class="ri-store-2-line font-size-24"></i>
-                                    </span>
+                            </div><!-- end cardbody -->
+                        </div><!-- end card -->
+                    </div><!-- end col -->
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex">
+                                    <div class="flex-grow-1">
+                                        <p class="text-truncate font-size-14 mb-2">Từ ngữ đánh giá</p>
+                                        <h4 class="mb-2">{{$word_search}}</h4>
+                                        <p class="text-muted mb-0"><span class="text-success fw-bold font-size-12 me-2"><i class="ri-arrow-right-up-line me-1 align-middle"></i>9.23%</span>from previous period</p>
+                                    </div>
+                                    <div class="avatar-sm">
+                                        <span class="avatar-title bg-light text-primary rounded-3">
+                                            <i class="ri-text font-size-24"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div><!-- end cardbody -->
+                        </div><!-- end card -->
+                    </div><!-- end col -->
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex">
+                                    <div class="flex-grow-1">
+                                        <p class="text-truncate font-size-14 mb-2">Phần trăm tốt</p>
+                                        <h4 class="mb-2" id="phan_tram_tot">
+                                        </h4>
+                                        <p class="text-muted mb-0"><span class="text-success fw-bold font-size-12 me-2"><i class="ri-arrow-right-up-line me-1 align-middle"></i>9.23%</span>from previous period</p>
+                                    </div>
+                                    <div class="avatar-sm">
+                                        <span class="avatar-title bg-light text-primary rounded-3">
+                                            <i class="ri-thumb-up-line font-size-24"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div><!-- end cardbody -->
+                        </div><!-- end card -->
+                    </div><!-- end col -->
+
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex">
+                                    <div class="flex-grow-1">
+                                        <p class="text-truncate font-size-14 mb-2">Phần trăm xấu</p>
+                                        <h4 class="mb-2" id="phan_tram_xau">
+                                        </h4>
+                                        <p class="text-muted mb-0"><span class="text-success fw-bold font-size-12 me-2"><i class="ri-arrow-right-up-line me-1 align-middle"></i>9.23%</span>from previous period</p>
+                                    </div>
+                                    <div class="avatar-sm">
+                                        <span class="avatar-title bg-light text-primary rounded-3">
+                                            <i class="ri-thumb-down-line font-size-24"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div><!-- end cardbody -->
+                        </div><!-- end card -->
+                    </div><!-- end col -->
+                </div><!-- end row -->
+                <div class="row">
+                    <!-- Biểu đồ pie chart tỷ lệ bài viết từ group và pages  -->
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <div class="chart-card">
+                                    <canvas width="500" height="500" id="ty_le_bai_viet_group_page"></canvas>
                                 </div>
                             </div>
-                        </div><!-- end cardbody -->
-                    </div><!-- end card -->
-                </div><!-- end col -->
-                <div class="col-xl-3 col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex">
-                                <div class="flex-grow-1">
-                                    <p class="text-truncate font-size-14 mb-2">Từ ngữ đánh giá</p>
-                                    <h4 class="mb-2">{{$word_search}}</h4>
-                                    <p class="text-muted mb-0"><span class="text-success fw-bold font-size-12 me-2"><i class="ri-arrow-right-up-line me-1 align-middle"></i>9.23%</span>from previous period</p>
-                                </div>
-                                <div class="avatar-sm">
-                                    <span class="avatar-title bg-light text-primary rounded-3">
-                                        <i class="ri-text font-size-24"></i>
-                                    </span>
+                        </div>
+                    </div>
+
+                    <!-- Biểu đồ horizontal-bar-chart số lượng bài viết từ group và pages  -->
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="chart-card">
+                                    <canvas width="500" height="500" id="so_luong_bai_viet_group_page"></canvas>
                                 </div>
                             </div>
-                        </div><!-- end cardbody -->
-                    </div><!-- end card -->
-                </div><!-- end col -->
-                <div class="col-xl-3 col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex">
-                                <div class="flex-grow-1">
-                                    <p class="text-truncate font-size-14 mb-2">Phần trăm tốt</p>
-                                    <h4 class="mb-2" id="phan_tram_tot">
-                                    </h4>
-                                    <p class="text-muted mb-0"><span class="text-success fw-bold font-size-12 me-2"><i class="ri-arrow-right-up-line me-1 align-middle"></i>9.23%</span>from previous period</p>
-                                </div>
-                                <div class="avatar-sm">
-                                    <span class="avatar-title bg-light text-primary rounded-3">
-                                        <i class="ri-thumb-up-line font-size-24"></i>
-                                    </span>
+                        </div>
+                    </div>
+
+                    <!-- Biểu đồ horizontal-bar-chart số lượng comment group và pages  -->
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="chart-card">
+                                    <canvas width="500" height="500" id="so_luong_comment_group_page"></canvas>
                                 </div>
                             </div>
-                        </div><!-- end cardbody -->
-                    </div><!-- end card -->
-                </div><!-- end col -->
+                        </div>
+                    </div>
 
-                <div class="col-xl-3 col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex">
-                                <div class="flex-grow-1">
-                                    <p class="text-truncate font-size-14 mb-2">Phần trăm xấu</p>
-                                    <h4 class="mb-2" id="phan_tram_xau">
-                                    </h4>
-                                    <p class="text-muted mb-0"><span class="text-success fw-bold font-size-12 me-2"><i class="ri-arrow-right-up-line me-1 align-middle"></i>9.23%</span>from previous period</p>
-                                </div>
-                                <div class="avatar-sm">
-                                    <span class="avatar-title bg-light text-primary rounded-3">
-                                        <i class="ri-thumb-down-line font-size-24"></i>
-                                    </span>
+                    <!-- Biểu đồ horizontal-bar-chart số lượng bài viết theo word_search -->
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="chart-card">
+                                    <canvas width="500" height="500" id="so_luong_bai_viet_word_search"></canvas>
                                 </div>
                             </div>
-                        </div><!-- end cardbody -->
-                    </div><!-- end card -->
-                </div><!-- end col -->
-            </div><!-- end row -->
-            <div class="row">
-                <!-- Biểu đồ pie chart tỷ lệ bài viết từ group và pages  -->
-                <div class="col-lg-6">
-                    <div class="card">
-                        <div class="card-body">
+                        </div>
+                    </div>
 
-                            <div class="chart-card">
-                                <canvas width="500" height="500" id="ty_le_bai_viet_group_page"></canvas>
+                    <!-- Biểu đồ pie chart phần trăm cảm xúc  -->
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <div class="chart-card">
+                                    <canvas width="500" height="500" id="pieChart"></canvas>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Biểu đồ horizontal-bar-chart số lượng bài viết từ group và pages  -->
-                <div class="col-lg-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="chart-card">
-                                <canvas width="500" height="500" id="so_luong_bai_viet_group_page"></canvas>
+                    <!-- Biểu đồ barchart thể hiện số lượng cảm xúc (tốt xấu)  -->
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <div class="chart-card">
+                                    <canvas width="500" height="500" id="wordChart"></canvas>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Biểu đồ horizontal-bar-chart số lượng comment group và pages  -->
-                <div class="col-lg-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="chart-card">
-                                <canvas width="500" height="500" id="so_luong_comment_group_page"></canvas>
+                    <!-- Biểu đồ wordCloudChart thể hiện từ tốt phổ biến -->
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <div class="chart-card">
+                                    <canvas width="500" height="500" id="wordCloudChartGood"></canvas>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Biểu đồ horizontal-bar-chart số lượng bài viết theo word_search -->
-                <div class="col-lg-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="chart-card">
-                                <canvas width="500" height="500" id="so_luong_bai_viet_word_search"></canvas>
+                    <!-- Biểu đồ wordCloudChart thể hiện từ xấu phổ biến -->
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <div class="chart-card">
+                                    <canvas width="500" height="500" id="wordCloudChartBad"></canvas>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Biểu đồ pie chart phần trăm cảm xúc  -->
-                <div class="col-lg-6">
-                    <div class="card">
-                        <div class="card-body">
+                    <!-- Biểu đồ thể hiện top 10 từ xấu phổ biến -->
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
 
-                            <div class="chart-card">
-                                <canvas width="500" height="500" id="pieChart"></canvas>
+                                <div class="chart-card">
+                                    <canvas width="500" height="500" id="top_10_xau"></canvas>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Biểu đồ barchart thể hiện số lượng cảm xúc (tốt xấu)  -->
-                <div class="col-lg-6">
-                    <div class="card">
-                        <div class="card-body">
+                    <!-- Biểu đồ thể hiện top 10 từ xấu phổ biến -->
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
 
-                            <div class="chart-card">
-                                <canvas width="500" height="500" id="wordChart"></canvas>
+                                <div class="chart-card">
+                                    <canvas width="500" height="500" id="top_10_tot"></canvas>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Biểu đồ wordCloudChart thể hiện từ tốt phổ biến -->
-                <div class="col-lg-6">
-                    <div class="card">
-                        <div class="card-body">
-
-                            <div class="chart-card">
-                                <canvas width="500" height="500" id="wordCloudChartGood"></canvas>
+                    <!-- Biểu đồ thể hiện top 5 từ xấu phổ biến -->
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="chart-card">
+                                    <canvas width="500" height="500" id="top_5_xau_pho_bien"></canvas>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Biểu đồ wordCloudChart thể hiện từ xấu phổ biến -->
-                <div class="col-lg-6">
-                    <div class="card">
-                        <div class="card-body">
-
-                            <div class="chart-card">
-                                <canvas width="500" height="500" id="wordCloudChartBad"></canvas>
+                    <!-- Biểu đồ thể hiện top 5 từ tốt phổ biến -->
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="chart-card">
+                                    <canvas width="500" height="500" id="top_5_tot_pho_bien"></canvas>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Biểu đồ thể hiện top 10 từ xấu phổ biến -->
-                <div class="col-lg-6">
-                    <div class="card">
-                        <div class="card-body">
-
-                            <div class="chart-card">
-                                <canvas width="500" height="500" id="top_10_xau"></canvas>
+                    <!-- Biểu đồ lineChart thể hiện tỷ lệ cảm xúc theo thời gian -->
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="chart-card">
+                                    <canvas width="500" height="500" id="lineChart"></canvas>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Biểu đồ thể hiện top 10 từ xấu phổ biến -->
-                <div class="col-lg-6">
-                    <div class="card">
-                        <div class="card-body">
-
-                            <div class="chart-card">
-                                <canvas width="500" height="500" id="top_10_tot"></canvas>
+                    <!-- Biểu đồ lineChart thể hiện số lượng comment theo thời gian -->
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="chart-card">
+                                    <canvas width="500" height="500" id="so_luong_comment_theo_thoi_gian"></canvas>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Biểu đồ thể hiện top 5 từ xấu phổ biến -->
-                <div class="col-lg-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="chart-card">
-                                <canvas width="500" height="500" id="top_5_xau_pho_bien"></canvas>
+                    <!-- Biểu đồ box-plot thể hiện số lượng tốt xấu trung bình trên mỗi comment -->
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="chart-card">
+                                    <canvas width="500" height="500" id="so_luong_tot_xau_tren_comment"></canvas>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Biểu đồ thể hiện top 5 từ tốt phổ biến -->
-                <div class="col-lg-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="chart-card">
-                                <canvas width="500" height="500" id="top_5_tot_pho_bien"></canvas>
+                    <!-- Biểu đồ Stacked bar chart thể hiện Phân bổ cảm xúc theo từng từ khoá tìm kiếm -->
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="chart-card">
+                                    <canvas width="500" height="500" id="cam_xuc_theo_tu_khoa"></canvas>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Biểu đồ lineChart thể hiện tỷ lệ cảm xúc theo thời gian -->
-                <div class="col-lg-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="chart-card">
-                                <canvas width="500" height="500" id="lineChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-
-                <!-- Biểu đồ lineChart thể hiện số lượng comment theo thời gian -->
-                <div class="col-lg-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="chart-card">
-                                <canvas width="500" height="500" id="so_luong_comment_theo_thoi_gian"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Biểu đồ box-plot thể hiện số lượng tốt xấu trung bình trên mỗi comment -->
-                <div class="col-lg-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="chart-card">
-                                <canvas width="500" height="500" id="so_luong_tot_xau_tren_comment"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Biểu đồ Stacked bar chart thể hiện Phân bổ cảm xúc theo từng từ khoá tìm kiếm -->
-                <div class="col-lg-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="chart-card">
-                                <canvas width="500" height="500" id="cam_xuc_theo_tu_khoa"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>
@@ -354,6 +357,7 @@
 
     const optionsWordChart = (label, size = 28) => ({
         color: '#333',
+        responsive: true,
         plugins: {
             legend: {
                 display: false
@@ -1288,7 +1292,7 @@
         formData.append("user_id", '{{Auth::id()}}');
 
         try {
-            const response = await fetch('http://localhost:60074/danh_gia_thuong_hieu/thuong_hieu', {
+            const response = await fetch('http://localhost:60074/danh_gia_thuong_hieu/thuong_hieu/word', {
                 method: "POST",
                 headers: {
                     "API-Key": '{{ config("services.crawl_api.key") }}'
@@ -1297,7 +1301,6 @@
             });
 
             const result = await response.json();
-            console.log(result.data)
 
             if (response.ok && result.data) {
                 const data_tong = result.data
