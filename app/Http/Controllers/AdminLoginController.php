@@ -28,6 +28,12 @@ class AdminLoginController extends Controller
         return view("admin.pages.users.index", compact("users"));
     }
 
+    public function home()
+    {
+        $users = NguoiDung::all(); // Lấy tất cả danh mục, không lọc theo status
+        return view("admin.pages.users.index", compact("users"));
+    }
+
     #Edit user (return về view editing user)
     public function edit($id)
     {

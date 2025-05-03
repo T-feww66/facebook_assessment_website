@@ -24,9 +24,9 @@ Route::get('/robots.txt', function () {
         ->header('Content-Type', 'text/plain');
 });
 
+
 // Nhóm các route quản trị với middleware bảo vệ và tiền tố 'admincp'
 Route::middleware([checkAdminLogin::class])->prefix('admincp')->group(function () {
-
     // Route cho các chức năng đăng nhập và đăng xuất, đăng kí
     Route::get('login', [LoginBasic::class, 'index'])->name('getLogin');
     Route::get('register', [RegisterBasic::class, 'index'])->name('getRegister');
@@ -38,16 +38,13 @@ Route::middleware([checkAdminLogin::class])->prefix('admincp')->group(function (
     Route::get('logout', [AdminLoginController::class, 'getLogout'])->name('getLogout');
 
 
-    Route::get('/', function () {
-        return view('admin.home');
-    });
+    Route::get("/", [AdminLoginController::class, "home"])->name("admin.home");
+
 
     // Route::get('/', [Analytics::class, 'index'])->name('dashboard-analytics');
-
     // router cấu hình hệ thống
     Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
     Route::post('settings', [SettingController::class, 'update'])->name('settings.update');
-
 
     // Quản lý người dùng
     Route::get("users", [AdminLoginController::class, "index"])->name("admin.users");

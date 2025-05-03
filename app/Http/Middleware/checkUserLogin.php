@@ -22,12 +22,7 @@ class checkUserLogin
         // nếu user đã đăng nhập
         if (Auth::check()) {
             $user = Auth::user();
-            if ($user->level == 0 && $user->status == 1) {
-                return $next($request);
-            } else {
-                Auth::logout();
-                return redirect("user/login")->with('error', 'Sai tên đăng nhập hoặc mật khẩu!');
-            }
+            return $next($request);
         } else
             return redirect('user/login');
     }
