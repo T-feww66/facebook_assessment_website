@@ -118,6 +118,25 @@
                             </div><!-- end cardbody -->
                         </div><!-- end card -->
                     </div><!-- end col -->
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex">
+                                    <div class="flex-grow-1">
+                                        <p class="text-truncate font-size-14 mb-2">Độ tin cậy</p>
+                                        <h4 class="mb-2" id="do_tin_cay">
+                                        </h4>
+                                        <p class="text-muted mb-0"><span class="text-success fw-bold font-size-12 me-2"><i class="ri-arrow-right-up-line me-1 align-middle"></i>9.23%</span>from previous period</p>
+                                    </div>
+                                    <div class="avatar-sm">
+                                        <span class="avatar-title bg-light text-primary rounded-3">
+                                            <i class="ri-heart-line font-size-24"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div><!-- end cardbody -->
+                        </div><!-- end card -->
+                    </div><!-- end col -->
                 </div><!-- end row -->
                 <div class="row">
                     <!-- Biểu đồ pie chart tỷ lệ bài viết từ group và pages  -->
@@ -138,6 +157,17 @@
                             <div class="card-body">
                                 <div class="chart-card">
                                     <canvas width="500" height="500" id="so_luong_bai_viet_group_page"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Biểu đồ horizontal-bar-chart số lượng bài viết từ group và pages  -->
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="chart-card">
+                                    <canvas width="500" height="500" id="trung_binh_tot_xau_group_page"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -269,6 +299,16 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Biểu đồ lineChart thể hiện cảm xúc theo năm -->
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="chart-card">
+                                    <canvas width="500" height="500" id="cam_xuc_theo_nam"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <!-- Biểu đồ lineChart thể hiện số lượng comment theo thời gian -->
                     <div class="col-lg-6">
@@ -328,6 +368,8 @@
     let bieu_do_cam_xuc_theo_tu_khoa = null
     let bieu_do_top_5_tot_pho_bien = null
     let bieu_do_top_5_xau_pho_bien = null
+    let bieu_do_cam_xuc_theo_nam = null
+    let bieu_do_trung_binh_tot_xau_group_page = null
     let lineChart = null;
 
 
@@ -513,6 +555,71 @@
             plugins: [ChartDataLabels]
         });
     }
+
+    function show_trung_binh_tot_xau_group_page(groupData, pageData) {
+        if (bieu_do_trung_binh_tot_xau_group_page) bieu_do_trung_binh_tot_xau_group_page.destroy();
+
+        const ctx = document.getElementById('trung_binh_tot_xau_group_page').getContext('2d');
+        bieu_do_trung_binh_tot_xau_group_page = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Tốt', 'Xấu'], // 2 nhãn cho mỗi nhóm
+                datasets: [{
+                        label: 'Group',
+                        data: [groupData.avgTot, groupData.avgXau],
+                        backgroundColor: ['rgba(75, 192, 192, 0.6)', 'rgba(255, 99, 132, 0.6)'],
+                        borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)'],
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Fanpage',
+                        data: [pageData.avgTot, pageData.avgXau],
+                        backgroundColor: ['rgba(54, 162, 235, 0.6)', 'rgba(255, 206, 86, 0.6)'],
+                        borderColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)'],
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    datalabels: {
+                        color: '#333',
+                        font: {
+                            weight: 'bold',
+                            size: 14
+                        },
+                        formatter: (value) => value + '%'
+                    },
+                    title: titleConfig('Biểu đồ trung bình % đánh giá Tốt và Xấu theo nguồn Group và Fanpage', 20),
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Loại đánh giá'
+                        },
+                        stacked: false
+                    },
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        title: {
+                            display: true,
+                            text: '% đánh giá'
+                        }
+                    }
+                }
+            },
+            plugins: [ChartDataLabels]
+        });
+    }
+
+
 
     // === BIỂU ĐỒ PIE: tỷ lệ bài viết từ group và page ===
     function show_bieu_do_horizontal_bar_chart_post_word_search(words, values) {
@@ -767,7 +874,7 @@
                     },
                     title: {
                         display: true,
-                        text: 'Top 10 từ tiêu cực xuất hiện nhiều nhất',
+                        text: 'Top 10 từ tiêu cực xuất hiện nhiều',
                         font: {
                             size: 24
                         },
@@ -886,7 +993,7 @@
                 }]
             },
             options: {
-                ...optionsWordChart("Top 5 từ tích cực phổ biến nhất"),
+                ...optionsWordChart("Top 5 bình luận tích cực nhất"),
                 onClick: function(event, elements) {
                     if (elements.length > 0) {
                         // Lấy chỉ mục của phần tử đã click
@@ -930,7 +1037,7 @@
                 }]
             },
             options: {
-                ...optionsWordChart("Top 5 từ tích cực phổ biến nhất"),
+                ...optionsWordChart("Top 5 bình luận tiêu cực"),
                 onClick: function(event, elements) {
                     if (elements.length > 0) {
                         // Lấy chỉ mục của phần tử đã click
@@ -988,6 +1095,84 @@
                     title: {
                         display: true,
                         text: 'Biến động cảm xúc theo thời gian',
+                        color: '#333',
+                        font: {
+                            size: 28
+                        }
+                    },
+                    legend: {
+                        labels: {
+                            color: '#333'
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: '#333'
+                        },
+                        title: {
+                            display: true,
+                            text: 'Ngày',
+                            color: '#333'
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: '#333'
+                        },
+                        title: {
+                            display: true,
+                            text: 'Phần trăm (%)',
+                            color: '#333'
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    // === BIỂU ĐỒ CẢM XÚC THEO THỜI GIAN ===
+    function show_bieu_do_cam_xuc_theo_nam(data) {
+        if (bieu_do_cam_xuc_theo_nam) bieu_do_cam_xuc_theo_nam.destroy();
+
+        const ctx = document.getElementById('cam_xuc_theo_nam').getContext('2d');
+
+        const labels = data.map(entry => entry.year);
+        const positiveData = data.map(entry => entry.positive);
+        const negativeData = data.map(entry => entry.negative);
+
+        lineChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels,
+                datasets: [{
+                        label: 'Từ Tốt (%)',
+                        data: positiveData,
+                        borderColor: '#42A5F5', // Xanh dương nhẹ
+                        borderWidth: 2,
+                        backgroundColor: '#42A5F544', // Xanh dương mờ
+                        fill: false,
+                        tension: 0.3
+                    },
+                    {
+                        label: 'Từ Xấu (%)',
+                        data: negativeData,
+                        borderColor: '#EF5350', // Đỏ hồng
+                        borderWidth: 2,
+                        backgroundColor: '#EF535044', // Đỏ hồng mờ
+                        fill: false,
+                        tension: 0.3
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Biến động cảm xúc theo năm',
                         color: '#333',
                         font: {
                             size: 28
@@ -1157,124 +1342,152 @@
 
 
 
-    // Hàm Group thời gian bình luận
     function groupEmotionByDate(data) {
         const grouped = {};
 
-        data.forEach(item => {
-            const date = item.date_comment.slice(0, 10); // YYYY-MM-DD
-            const pos = parseFloat(item.comment_data_llm?.GPT?.phan_tram_tot || 0);
-            const neg = parseFloat(item.comment_data_llm?.GPT?.phan_tram_xau || 0);
-
-            if (!grouped[date]) {
-                grouped[date] = {
-                    total: 0,
-                    sumPos: 0,
-                    sumNeg: 0
-                };
+        for (const {
+                date_comment,
+                comment_data_llm
             }
+            of data) {
+            const date = date_comment.slice(0, 10);
+            const gpt = comment_data_llm?.GPT || {};
+            const pos = parseFloat(gpt.phan_tram_tot) || 0;
+            const neg = parseFloat(gpt.phan_tram_xau) || 0;
 
-            grouped[date].total += 1;
+            if (!grouped[date]) grouped[date] = {
+                total: 0,
+                sumPos: 0,
+                sumNeg: 0
+            };
+            grouped[date].total++;
             grouped[date].sumPos += pos;
             grouped[date].sumNeg += neg;
-        });
+        }
 
-        // Tính trung bình mỗi ngày
-        const result = Object.entries(grouped).map(([date, {
-            total,
-            sumPos,
-            sumNeg
-        }]) => ({
-            date,
-            positive: (sumPos / total).toFixed(2),
-            negative: (sumNeg / total).toFixed(2)
-        }));
-
-        return result.sort((a, b) => new Date(a.date) - new Date(b.date));
+        return Object.entries(grouped)
+            .map(([date, {
+                total,
+                sumPos,
+                sumNeg
+            }]) => ({
+                date,
+                positive: (sumPos / total).toFixed(2),
+                negative: (sumNeg / total).toFixed(2)
+            }))
+            .sort((a, b) => new Date(a.date) - new Date(b.date));
     }
+
+    function groupEmotionByYear(data) {
+        const grouped = {};
+
+        for (const {
+                date_comment,
+                comment_data_llm
+            }
+            of data) {
+            const year = new Date(date_comment).getFullYear(); // Lấy năm
+            const gpt = comment_data_llm?.GPT || {};
+            const pos = parseFloat(gpt.phan_tram_tot) || 0;
+            const neg = parseFloat(gpt.phan_tram_xau) || 0;
+
+            if (!grouped[year]) grouped[year] = {
+                total: 0,
+                sumPos: 0,
+                sumNeg: 0
+            };
+
+            grouped[year].total++;
+            grouped[year].sumPos += pos;
+            grouped[year].sumNeg += neg;
+        }
+
+        return Object.entries(grouped)
+            .map(([year, {
+                total,
+                sumPos,
+                sumNeg
+            }]) => ({
+                year,
+                positive: (sumPos / total).toFixed(2),
+                negative: (sumNeg / total).toFixed(2)
+            }))
+            .sort((a, b) => a.year - b.year);
+    }
+
+
 
     function countCommentsByDate(data) {
         const dateCount = {};
 
-        data.forEach(item => {
-            const date = item.date_comment.slice(0, 10); // Lấy yyyy-mm-dd
-
-            if (!dateCount[date]) {
-                dateCount[date] = 1;
-            } else {
-                dateCount[date]++;
+        for (const {
+                date_comment
             }
-        });
+            of data) {
+            const date = date_comment.slice(0, 10);
+            dateCount[date] = (dateCount[date] || 0) + 1;
+        }
 
-        const result = {
+        return {
             dates: Object.keys(dateCount),
             counts: Object.values(dateCount)
         };
-
-        return result;
     }
 
     function tinh_cam_xuc_theo_tu_khoa(data_tong) {
         const groupedData = {};
 
-        data_tong.forEach(item => {
-            const keyword = item.word_search || 'Không xác định';
-            const tu_tot = item.comment_data_llm?.danh_sach_tu_tot?.length || 0;
-            const tu_xau = item.comment_data_llm?.danh_sach_tu_xau?.length || 0;
-
-            if (!groupedData[keyword]) {
-                groupedData[keyword] = {
-                    positive: 0,
-                    negative: 0
-                };
+        for (const {
+                word_search = 'Không xác định', comment_data_llm
             }
+            of data_tong) {
+            const tu_tot = comment_data_llm?.danh_sach_tu_tot?.length || 0;
+            const tu_xau = comment_data_llm?.danh_sach_tu_xau?.length || 0;
 
-            groupedData[keyword].positive += tu_tot;
-            groupedData[keyword].negative += tu_xau;
-        });
+            if (!groupedData[word_search]) groupedData[word_search] = {
+                positive: 0,
+                negative: 0
+            };
+            groupedData[word_search].positive += tu_tot;
+            groupedData[word_search].negative += tu_xau;
+        }
 
-        // Chuyển sang mảng
-        return Object.entries(groupedData).map(([keyword, values]) => ({
+        return Object.entries(groupedData).map(([keyword, {
+            positive,
+            negative
+        }]) => ({
             keyword,
-            positive: values.positive,
-            negative: values.negative
+            positive,
+            negative
         }));
     }
 
     function get_top_comments(data_tong) {
-        // Mảng chứa thông tin về bình luận và số lượng từ tích cực và tiêu cực
-        const commentsWithScores = data_tong.map(item => {
-            const positiveCount = item.comment_data_llm?.danh_sach_tu_tot?.length || 0;
-            const negativeCount = item.comment_data_llm?.danh_sach_tu_xau?.length || 0;
+        const commentsWithScores = data_tong.map(({
+            comment,
+            comment_data_llm
+        }) => ({
+            comment,
+            positiveCount: comment_data_llm?.danh_sach_tu_tot?.length || 0,
+            negativeCount: comment_data_llm?.danh_sach_tu_xau?.length || 0
+        }));
 
-            return {
-                comment: item.comment,
-                positiveCount,
-                negativeCount
-            };
-        });
-
-        // Sort top 5 comments with most positive words
-        const topPositiveComments = commentsWithScores
-            .sort((a, b) => b.positiveCount - a.positiveCount)
-            .slice(0, 5);
-
-        // Sort top 5 comments with most negative words
-        const topNegativeComments = commentsWithScores
-            .sort((a, b) => b.negativeCount - a.negativeCount)
-            .slice(0, 5);
+        const sortedByPositive = [...commentsWithScores].sort((a, b) => b.positiveCount - a.positiveCount);
+        const sortedByNegative = [...commentsWithScores].sort((a, b) => b.negativeCount - a.negativeCount);
 
         return {
-            topPositiveComments,
-            topNegativeComments
+            topPositiveComments: sortedByPositive.slice(0, 5),
+            topNegativeComments: sortedByNegative.slice(0, 5)
         };
     }
+
 
     // === GỌI API & XỬ LÝ ===
     async function evaluateBrand() {
         const brandInput = document.getElementById('brandInput');
         const phan_tram_tot = document.getElementById('phan_tram_tot');
         const phan_tram_xau = document.getElementById('phan_tram_xau');
+        const do_tin_cay = document.getElementById('do_tin_cay');
         const brandName = brandInput.value.toLowerCase().trim();
         const wordSearchInput = document.getElementById('wordSearchInput');
         const wordSearch = wordSearchInput.value.toLowerCase().trim();
@@ -1304,11 +1517,14 @@
 
             if (response.ok && result.data) {
                 const data_tong = result.data
+                console.log(data_tong)
                 const data = result.data[0];
-                const tyletot = parseFloat(data.brand_data_llm.GPT.phan_tram_tot).toFixed(2) + '%'
-                const tylexau = parseFloat(data.brand_data_llm.GPT.phan_tram_xau).toFixed(2) + '%'
-                phan_tram_tot.innerText = tyletot
-                phan_tram_xau.innerText = tylexau
+                const tyletot = parseFloat(data.brand_data_llm.GPT.phan_tram_tot).toFixed(2)
+                const tylexau = parseFloat(data.brand_data_llm.GPT.phan_tram_xau).toFixed(2)
+                phan_tram_tot.innerText = tyletot + "%"
+                phan_tram_xau.innerText = tylexau + "%"
+                const tinhDoTinCay = parseFloat(((tyletot - tylexau) / 100 + 1) / 2);
+                do_tin_cay.innerText = tinhDoTinCay.toFixed(2)
 
                 resultDiv.innerHTML = `<h2 style = "text-align: center;">Phân tích thương hiệu ${brandName}</h2>`;
                 chartGrid.style.display = "block";
@@ -1357,6 +1573,7 @@
                     }
                 });
 
+
                 // Tạo dict gồm 2 list: words và values
                 const dict_word_count = {
                     words: Object.keys(wordSearchCount),
@@ -1370,6 +1587,30 @@
                     parseFloat(data.brand_data_llm.GPT.phan_tram_xau),
                     data.brand_name
                 );
+
+                // Lọc bài viết từ group và page
+                const group_data = data_tong.filter(post => post.is_group === 1);
+                const page_data = data_tong.filter(post => post.is_fanpage === 1);
+
+                // Hàm tính trung bình % tốt và % xấu
+                const calcAvgSentiment = (posts) => {
+                    const valid = posts.filter(p => p.comment_data_llm?.GPT?.phan_tram_tot && p.comment_data_llm?.GPT?.phan_tram_xau);
+
+                    const total = valid.length
+                    const sumTot = valid.reduce((sum, p) => sum + parseFloat(p.comment_data_llm.GPT.phan_tram_tot), 0);
+                    const sumXau = valid.reduce((sum, p) => sum + parseFloat(p.comment_data_llm.GPT.phan_tram_xau), 0);
+
+                    return {
+                        avgTot: (sumTot / total).toFixed(2),
+                        avgXau: (sumXau / total).toFixed(2)
+                    };
+                };
+
+                // Tính kết quả
+                const groupSentiment = calcAvgSentiment(group_data);
+                const pageSentiment = calcAvgSentiment(page_data);
+
+                show_trung_binh_tot_xau_group_page(groupSentiment, pageSentiment)
 
                 // danh sách tổng
                 const danh_sach_tu_tot = data.brand_data_llm.danh_sach_tu_tot;
@@ -1435,6 +1676,10 @@
                 const dataGroup = groupEmotionByDate(data_tong)
                 showEmotionOverTimeChart(dataGroup)
 
+                const dataGroupYear = groupEmotionByYear(data_tong)
+                show_bieu_do_cam_xuc_theo_nam(dataGroupYear)
+
+
 
                 // show_bieu_do_line_so_comment_by_time(data )
                 const countDate = countCommentsByDate(data_tong)
@@ -1448,6 +1693,8 @@
 
                 const data_cam_xuc = tinh_cam_xuc_theo_tu_khoa(data_tong);
                 show_bieu_do_phan_bo_cam_xuc_theo_tu_khoa(data_cam_xuc);
+
+
 
 
                 const {
@@ -1481,7 +1728,9 @@
                 bieu_do_tot_xau_tren_comment?.destroy();
                 bieu_do_cam_xuc_theo_tu_khoa?.destroy();
                 bieu_do_top_5_tot_pho_bien?.destroy();
-                bieu_do_top_5_xau_pho_bien?.destroy()
+                bieu_do_top_5_xau_pho_bien?.destroy();
+                bieu_do_cam_xuc_theo_nam?.destroy();
+                bieu_do_trung_binh_tot_xau_group_page?.destroy()
 
             }
         } catch (error) {
@@ -1489,6 +1738,7 @@
             resultDiv.innerHTML = `<div class="alert alert-danger">Đã xảy ra lỗi trong quá trình gửi yêu cầu.</div>`;
         }
     }
+
 
     // === LẮNG NGHE SUBMIT FORM ===
     document.addEventListener("DOMContentLoaded", () => {
@@ -1511,6 +1761,8 @@
             bieu_do_cam_xuc_theo_tu_khoa?.destroy();
             bieu_do_top_5_tot_pho_bien?.destroy();
             bieu_do_top_5_xau_pho_bien?.destroy()
+            bieu_do_cam_xuc_theo_nam?.destroy();
+            bieu_do_trung_binh_tot_xau_group_page?.destroy()
             await evaluateBrand();
             Swal.close();
         });
