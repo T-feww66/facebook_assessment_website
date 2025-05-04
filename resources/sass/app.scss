@@ -21,14 +21,8 @@ a {
     text-decoration: none;
 }
 
-a.link_request {
-    color: #fff;
-    text-decoration: underline;
-}
-
-a.link {
-    color: blue !important;
-    text-decoration: underline;
+a.link-underline-hover:hover {
+    text-decoration: underline !important;
 }
 
 .red {

@@ -83,8 +83,8 @@ Route::middleware([checkUserLogin::class])->prefix('user')->group(function () {
     Route::get('truc-quan/{brand_name?}/{word_search?}', [BrandController::class, 'tim_kiem'])->name('user.timkiem');
     Route::get('test', [BrandController::class, 'test'])->name('user.test');
 
-    Route::get("gui-danh-gia", [BrandController::class, "gui_danh_gia"])->name("user.gui_danh_gia");
-    Route::post('gui-danh-gia', [BrandController::class, 'user_send_request'])->name('user.post_gui_danh_gia');
+    // Route::get("gui-danh-gia", [BrandController::class, "gui_danh_gia"])->name("user.gui_danh_gia");
+    // Route::post('gui-danh-gia', [BrandController::class, 'user_send_request'])->name('user.post_gui_danh_gia');
 
     // quản lí router cào dữ liệu comment
     Route::get("crawl/{brand_name?}", [CrawlCommentsController::class, "index"])->name("user.crawl");

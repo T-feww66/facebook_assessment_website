@@ -137,6 +137,67 @@
                             </div><!-- end cardbody -->
                         </div><!-- end card -->
                     </div><!-- end col -->
+
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex">
+                                    <div class="flex-grow-1">
+                                        <p class="text-truncate font-size-14 mb-2">Tổng số reaction (emoji)</p>
+                                        <h4 class="mb-2" id="tong_so_reaction">
+                                        </h4>
+                                        <p class="text-muted mb-0"><span class="text-success fw-bold font-size-12 me-2"><i class="ri-arrow-right-up-line me-1 align-middle"></i>9.23%</span>from previous period</p>
+                                    </div>
+                                    <div class="avatar-sm">
+                                        <span class="avatar-title bg-light text-primary rounded-3">
+                                            <i class="ri-tv-line font-size-24"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div><!-- end cardbody -->
+                        </div><!-- end card -->
+                    </div><!-- end col -->
+
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex">
+                                    <div class="flex-grow-1">
+                                        <p class="text-truncate font-size-14 mb-2">Cảm xúc tích cực (emoji)</p>
+                                        <h4 class="mb-2" id="cam_xuc_tich_cuc_emoji">
+                                        </h4>
+                                        <p class="text-muted mb-0"><span class="text-success fw-bold font-size-12 me-2"><i class="ri-arrow-right-up-line me-1 align-middle"></i>9.23%</span>from previous period</p>
+                                    </div>
+                                    <div class="avatar-sm">
+                                        <span class="avatar-title bg-light text-primary rounded-3">
+                                            <i class="ri-tv-line font-size-24"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div><!-- end cardbody -->
+                        </div><!-- end card -->
+                    </div><!-- end col -->
+
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex">
+                                    <div class="flex-grow-1">
+                                        <p class="text-truncate font-size-14 mb-2">Cảm xúc tiêu cực (emoji)</p>
+                                        <h4 class="mb-2" id="cam_xuc_tieu_cuc_emoji">
+                                        </h4>
+                                        <p class="text-muted mb-0"><span class="text-success fw-bold font-size-12 me-2"><i class="ri-arrow-right-up-line me-1 align-middle"></i>9.23%</span>from previous period</p>
+                                    </div>
+                                    <div class="avatar-sm">
+                                        <span class="avatar-title bg-light text-primary rounded-3">
+                                            <i class="ri-tv-line font-size-24"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div><!-- end cardbody -->
+                        </div><!-- end card -->
+                    </div><!-- end col -->
+
                 </div><!-- end row -->
                 <div class="row">
                     <!-- Biểu đồ pie chart tỷ lệ bài viết từ group và pages  -->
@@ -207,6 +268,16 @@
                         </div>
                     </div>
 
+                    <!-- Biểu đồ tròn (Pie chart) – Phân phối emoji theo tỷ lệ  -->
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="chart-card">
+                                    <canvas width="500" height="500" id="ty_le_cam_xuc_emoji"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <!-- Biểu đồ barchart thể hiện số lượng cảm xúc (tốt xấu)  -->
                     <div class="col-lg-6">
                         <div class="card">
@@ -214,6 +285,18 @@
 
                                 <div class="chart-card">
                                     <canvas width="500" height="500" id="wordChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Biểu đồ barchart thể hiện số lượng cảm xúc icon theo word_search của thương  hiệu  -->
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <div class="chart-card">
+                                    <canvas width="500" height="500" id="so_luong_cam_xuc_emoji"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -299,6 +382,7 @@
                             </div>
                         </div>
                     </div>
+
                     <!-- Biểu đồ lineChart thể hiện cảm xúc theo năm -->
                     <div class="col-lg-6">
                         <div class="card">
@@ -316,6 +400,17 @@
                             <div class="card-body">
                                 <div class="chart-card">
                                     <canvas width="500" height="500" id="so_luong_comment_theo_thoi_gian"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Biểu đồ lineChart biến động emoji theo thời gian -->
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="chart-card">
+                                    <canvas width="500" height="500" id="bien_dong_emoji"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -370,6 +465,9 @@
     let bieu_do_top_5_xau_pho_bien = null
     let bieu_do_cam_xuc_theo_nam = null
     let bieu_do_trung_binh_tot_xau_group_page = null
+    let bieu_do_so_luong_cam_xuc_emoji = null
+    let bieu_do_ty_le_cam_xuc_emoji = null
+    let bieu_do_bien_dong_emoji = null
     let lineChart = null;
 
 
@@ -459,6 +557,71 @@
             plugins: [ChartDataLabels]
         });
     }
+
+    // === Biểu đồ tròn (Pie chart) – Phân phối emoji  ===
+    function show_bieu_do_ty_le_cam_xuc_emoji(data_emoji) {
+        if (bieu_do_ty_le_cam_xuc_emoji) bieu_do_ty_le_cam_xuc_emoji.destroy();
+
+        const ctx = document.getElementById('ty_le_cam_xuc_emoji').getContext('2d');
+
+        // Bỏ "Tất cả" và chuyển đổi key sang emoji nếu cần
+        const emojiMap = {
+            "Thích": "👍",
+            "Haha": "😂",
+            "Buồn": "😢",
+            "Phẫn nộ": "😡",
+            "Yêu thích": "❤️",
+            "Ngạc nhiên": "😮",
+            "Thương thương": "🥰"
+        };
+
+        const filtered = Object.entries(data_emoji).filter(([key]) => key !== "Tất cả");
+
+        const labels = filtered.map(([key]) => emojiMap[key] || key);
+        const values = filtered.map(([_, value]) => value);
+
+        const backgroundColors = [
+            '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0',
+            '#9966FF', '#FF9F40', '#66D4A3', '#F67019'
+        ];
+
+        bieu_do_ty_le_cam_xuc_emoji = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: values,
+                    backgroundColor: backgroundColors.slice(0, labels.length),
+                    hoverOffset: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    datalabels: {
+                        color: '#000',
+                        font: {
+                            weight: 'bold',
+                            size: 14
+                        },
+                        formatter: (value, ctx) => {
+                            const total = ctx.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                            return `${((value / total) * 100).toFixed(1)}%`;
+                        }
+                    },
+                    title: titleConfig('Biểu đồ tỷ lệ cảm xúc (emoji)', 20),
+                    legend: {
+                        position: 'right',
+                        labels: {
+                            boxWidth: 20
+                        }
+                    }
+                }
+            },
+            plugins: [ChartDataLabels]
+        });
+    }
+
 
     // === BIỂU ĐỒ: số lượng bài viết từ group và page ===
     function show_bieu_do_horizontal_bar_chart_post_group_page(group, page) {
@@ -790,6 +953,56 @@
         });
     }
 
+    // === BIỂU ĐỒ CỘT: HIỂN THỊ TỔNG SỐ LƯỢNG EMOJI CỦA WORD_SEARCH TRONG THƯƠNG HIỆU ===
+    function show_bieu_do_so_luong_cam_xuc_emoji(data_emoji) {
+        if (bieu_do_so_luong_cam_xuc_emoji) bieu_do_so_luong_cam_xuc_emoji.destroy();
+
+        const ctx = document.getElementById('so_luong_cam_xuc_emoji').getContext('2d');
+
+        const filteredEntries = Object.entries(data_emoji).filter(([key, _]) => key !== "Tất cả");
+        const labels = filteredEntries.map(([key, _]) => key);
+        const values = filteredEntries.map(([_, value]) => value);
+
+
+        bieu_do_so_luong_cam_xuc_emoji = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Số lượng cảm xúc',
+                    data: values,
+                    backgroundColor: 'rgba(153, 102, 255, 0.5)',
+                    borderColor: 'rgba(153, 102, 255, 1)',
+                    borderWidth: 1,
+                    hoverBackgroundColor: 'rgba(153, 102, 255, 0.7)',
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    datalabels: {
+                        color: '#333',
+                        font: {
+                            weight: 'bold',
+                            size: 14
+                        },
+                        formatter: (value) => value
+                    },
+                    title: titleConfig('Biểu đồ số lượng cảm xúc bài đăng', 24),
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: axisConfig("Số lượng cảm xúc"),
+                    x: axisConfig("Loại cảm xúc")
+                }
+            },
+            plugins: [ChartDataLabels]
+        });
+    }
+
+
     // === BIỂU ĐỒ WordCloud: TỪ TỐT/XẤU ===
     function showWordCloudChartGood(words) {
         const weights = words.map(d => d.weight);
@@ -813,7 +1026,7 @@
                     data: scaledWeights,
                 }]
             },
-            options: optionsWordChart("Biểu đồ WordChart tích cực phổ biến")
+            options: optionsWordChart("Biểu đồ thể hiện từ ngữ tích cực phổ biến")
         });
     }
 
@@ -839,7 +1052,8 @@
                     data: scaledWeights,
                 }]
             },
-            options: optionsWordChart("Biểu đồ WordChart tiêu cực phổ biến")
+            // Biểu đồ thể hiện từ ngữ tiêu cực phổ biến
+            options: optionsWordChart("Biểu đồ thể hiện từ ngữ tiêu cực phổ biến")
         });
     }
 
@@ -1278,6 +1492,96 @@
         });
     }
 
+    // == BIỂU ĐỒ BIẾN ĐỘNG EMOJI THEO THỜI GIAN ==
+    function show_bieu_do_bien_dong_emoji(groupedData) {
+        if (bieu_do_bien_dong_emoji) bieu_do_bien_dong_emoji.destroy();
+
+        const ctx = document.getElementById('bien_dong_emoji').getContext('2d');
+
+        // Lấy tất cả các năm
+        const labels = Object.keys(groupedData).sort();
+
+        // Tập hợp các loại emoji duy nhất
+        const allEmojis = new Set();
+        labels.forEach(year => {
+            Object.keys(groupedData[year]).forEach(emoji => allEmojis.add(emoji));
+        });
+
+        // Danh sách màu đẹp (có thể thêm hoặc chỉnh sửa tùy thích)
+        const niceColors = [
+            '#ff6384', '#36a2eb', '#cc65fe', '#ffce56', '#4bc0c0',
+            '#9966ff', '#ff9f40', '#8dd3c7', '#ffffb3', '#bebada'
+        ];
+
+        // Tạo datasets cho mỗi loại emoji
+        const datasets = Array.from(allEmojis).map((emoji, index) => {
+            const color = niceColors[index % niceColors.length];
+
+            return {
+                label: emoji,
+                data: labels.map(year => groupedData[year][emoji] || 0),
+                fill: false,
+                borderColor: color,
+                backgroundColor: color,
+                tension: 0.2,
+                pointRadius: 5,
+                pointHoverRadius: 7
+            };
+        });
+
+        bieu_do_bien_dong_emoji = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: datasets
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Biểu đồ biến động emoji theo năm',
+                        color: '#333',
+                        font: {
+                            size: 28
+                        }
+                    },
+                    legend: {
+                        labels: {
+                            color: '#333'
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: '#333'
+                        },
+                        title: {
+                            display: true,
+                            text: 'Năm',
+                            color: '#333'
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: '#333'
+                        },
+                        title: {
+                            display: true,
+                            text: 'Số lượng',
+                            color: '#333'
+                        }
+                    }
+                }
+            },
+            plugins: [ChartDataLabels]
+        });
+    }
+
+
+
     function show_bieu_do_tot_xau_tren_comment(tot, xau) {
         if (bieu_do_tot_xau_tren_comment) bieu_do_tot_xau_tren_comment.destroy();
 
@@ -1377,6 +1681,31 @@
             }))
             .sort((a, b) => new Date(a.date) - new Date(b.date));
     }
+
+    function groupEmojiByYear(data) {
+        const grouped = {};
+
+        for (const post of data) {
+            const year = post.date_comment.slice(0, 4); // chỉ lấy năm
+            const postData = post.post_data || [];
+
+            for (const emotion of postData) {
+                const cam_xuc = emotion.cam_xuc;
+                const so_luong = parseInt(emotion.so_luong) || 0;
+
+                if (cam_xuc === "Tất cả") continue;
+
+                if (!grouped[year]) grouped[year] = {};
+                if (!grouped[year][cam_xuc]) grouped[year][cam_xuc] = 0;
+
+                grouped[year][cam_xuc] += so_luong;
+            }
+        }
+
+        return grouped; // { '2023': { 'Thích': 2, 'Haha': 1 }, '2024': { ... } }
+    }
+
+
 
     function groupEmotionByYear(data) {
         const grouped = {};
@@ -1488,6 +1817,9 @@
         const phan_tram_tot = document.getElementById('phan_tram_tot');
         const phan_tram_xau = document.getElementById('phan_tram_xau');
         const do_tin_cay = document.getElementById('do_tin_cay');
+        const tong_so_reaction = document.getElementById('tong_so_reaction');
+        const cam_xuc_tich_cuc_emoji = document.getElementById('cam_xuc_tich_cuc_emoji');
+        const cam_xuc_tieu_cuc_emoji = document.getElementById('cam_xuc_tieu_cuc_emoji');
         const brandName = brandInput.value.toLowerCase().trim();
         const wordSearchInput = document.getElementById('wordSearchInput');
         const wordSearch = wordSearchInput.value.toLowerCase().trim();
@@ -1538,12 +1870,46 @@
                 });
                 const uniquePosts = Array.from(uniquePostsMap.values());
 
-                // Đếm lại
+                // Số lượng và tỷ lệ post trên group và fanpage
                 const groupCount = uniquePosts.filter(post => post.is_group).length;
                 const fanpageCount = uniquePosts.filter(post => post.is_fanpage).length;
                 const ty_le_group = (groupCount / (groupCount + fanpageCount)) * 100
                 const ty_le_page = (fanpageCount / (groupCount + fanpageCount)) * 100
 
+                // tổng số cảm xúc của tất cả bài post của thương hiệu với word search
+                const tongCamXuc = {};
+
+                uniquePosts.forEach(item => {
+                    const postData = item.post_data || [];
+                    postData.forEach(({
+                        cam_xuc,
+                        so_luong
+                    }) => {
+                        tongCamXuc[cam_xuc] = (tongCamXuc[cam_xuc] || 0) + so_luong;
+                    });
+                });
+
+
+                const groupEmoji = groupEmojiByYear(uniquePosts)
+                console.log(tongCamXuc)
+                tong_so_reaction.innerText = tongCamXuc["Tất cả"] || 0;
+
+                cam_xuc_tich_cuc_emoji.innerText =
+                    ((((tongCamXuc["Thích"] || 0) +
+                        (tongCamXuc["Yêu thích"] || 0) +
+                        (tongCamXuc["Haha"] || 0)) / (tongCamXuc["Tất cả"] || 1)) * 100).toFixed(2) + "%";
+
+                cam_xuc_tieu_cuc_emoji.innerText =
+                    ((((tongCamXuc["Phẫn nộ"] || 0) +
+                        (tongCamXuc["Buồn"] || 0)) / (tongCamXuc["Tất cả"] || 1)) * 100).toFixed(2) + "%";
+
+
+                show_bieu_do_bien_dong_emoji(groupEmoji)
+
+                show_bieu_do_so_luong_cam_xuc_emoji(tongCamXuc) // biểu đồ cột thể hiện số lượng
+                show_bieu_do_ty_le_cam_xuc_emoji(tongCamXuc) // biểu đồ tròn thể hiện tỷ lệ
+
+                // biểu đò tỷ lệ bài post trong group và page đã lấy được
                 show_bieu_do_pie_post_group_page(
                     parseFloat(ty_le_group),
                     parseFloat(ty_le_page),
@@ -1712,7 +2078,7 @@
                 brandInput.value = ""
                 wordSearchInput.value = ""
             } else {
-                resultDiv.innerHTML = `<a href="{{ route('user.gui_danh_gia') }}?brand=${brandName}" class="link_request link-light link-offset-2 link-underline link-underline-opacity-100">${result.detail || "Không có dữ liệu đánh giá."} sang trang yêu cầu đánh giá</a>`;
+                resultDiv.innerHTML = `<a href="{{ route('user.crawl') }}" class="text-primary link-underline-hover">Không có dữ liệu đánh giá. Sang trang yêu cầu đánh giá</a>`;
                 bieu_do_pie_post_group_page?.destroy();
                 bieu_do_horizontal_bar_chart_post_group_page?.destroy();
                 bieu_do_horizontal_bar_chart_post_word_search?.destroy();
@@ -1730,7 +2096,10 @@
                 bieu_do_top_5_tot_pho_bien?.destroy();
                 bieu_do_top_5_xau_pho_bien?.destroy();
                 bieu_do_cam_xuc_theo_nam?.destroy();
-                bieu_do_trung_binh_tot_xau_group_page?.destroy()
+                bieu_do_trung_binh_tot_xau_group_page?.destroy();
+                bieu_do_so_luong_cam_xuc_emoji?.destroy();
+                bieu_do_ty_le_cam_xuc_emoji?.destroy();
+                bieu_do_bien_dong_emoji?.destroy();
 
             }
         } catch (error) {
@@ -1763,6 +2132,9 @@
             bieu_do_top_5_xau_pho_bien?.destroy()
             bieu_do_cam_xuc_theo_nam?.destroy();
             bieu_do_trung_binh_tot_xau_group_page?.destroy()
+            bieu_do_so_luong_cam_xuc_emoji?.destroy();
+            bieu_do_ty_le_cam_xuc_emoji?.destroy();
+            bieu_do_bien_dong_emoji?.destroy();
             await evaluateBrand();
             Swal.close();
         });

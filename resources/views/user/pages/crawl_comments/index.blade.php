@@ -41,7 +41,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="quantity_group_url" class="form-label">Số lượng group:</label>
-                    <input type="number" class="form-control" id="quantity_group_url" name="quantity_group" min="1" max="10" placeholder="Nhập vào số lượng group muốn lấy (tối đa 10)" required>
+                    <input type="number" class="form-control" id="quantity_group_url" name="quantity_group" min="1" max="20" placeholder="Nhập vào số lượng group muốn lấy (tối đa 20)" required>
                 </div>
                 <button type="submit" class="btn btn-primary mt-4">Tìm kiếm</button>
             </form>
@@ -77,7 +77,7 @@
 
                 <div class="mb-3">
                     <label for="quantity_fanpage_url" class="form-label">Số lượng fanpages:</label>
-                    <input type="number" class="form-control" id="quantity_fanpage_url" name="quantity_fanpage" min="1" max="10" placeholder="Nhập vào số lượng fanpage muốn lấy (tối đa 10)" required>
+                    <input type="number" class="form-control" id="quantity_fanpage_url" name="quantity_fanpage" min="1" max="20" placeholder="Nhập vào số lượng fanpage muốn lấy (tối đa 20)" required>
                 </div>
                 <button type="submit" class="btn btn-primary mt-4">Tìm kiếm</button>
             </form>

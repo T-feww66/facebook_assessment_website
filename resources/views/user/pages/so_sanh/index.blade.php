@@ -1597,8 +1597,7 @@
 
             brandInput.value = "";
         } catch (err) {
-            console.error(err);
-            resultDiv.innerHTML = `<a href="{{ route('user.gui_danh_gia') }}?brand=${brandName}" class="link_request link-light link-offset-2 link-underline link-underline-opacity-100">Không có dữ liệu đánh giá. Sang trang yêu cầu đánh giá</a>`;
+            resultDiv.innerHTML = `<a href="{{ route('user.crawl') }}" class="text-primary link-underline-hover">Không có dữ liệu đánh giá. Sang trang yêu cầu đánh giá</a>`;
             [
                 bieu_do_pie_post_group_page,
                 bieu_do_horizontal_bar_chart_post_group_page,

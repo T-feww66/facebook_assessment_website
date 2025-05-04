@@ -18,6 +18,36 @@
             <ul class="metismenu list-unstyled" id="side-menu">
                 <li class="menu-title">Menu</li>
                 <li>
+                    <a href="/" class=" waves-effect">
+                        <i class="ri-home-line"></i>
+                        <span>Trang chủ</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('user.gioithieu') }}" class=" waves-effect">
+                        <i class="ri-information-line"></i>
+                        <span>Giới thiệu</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('user.crawl') }}" class=" waves-effect">
+                        <i class="ri-donut-chart-line"></i>
+                        <span>Tìm kiếm và đánh giá</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('user.sosanh') }}" class=" waves-effect">
+                        <i class="ri-calendar-2-line"></i>
+                        <span>Đánh giá thương hiệu</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('user.timkiem') }}" class=" waves-effect">
+                        <i class="ri-line-chart-line"></i>
+                        <span>Trực quan</span>
+                    </a>
+                </li>
+                <li>
                     <a href="{{ route('user.trang_ca_nhan') }}" class="waves-effect">
                         <i class="ri-dashboard-line"></i>
                         <span>Trang cá nhân</span>
@@ -30,6 +60,7 @@
                         <span>Lịch sử</span>
                     </a>
                 </li>
+
             </ul>
         </div>
         <!-- Sidebar -->
