@@ -42,14 +42,17 @@
             <div id="result-brand"></div>
 
             <div id="chart_grid_id" class="none mt-5">
+                <!-- Card  -->
                 <div class="row">
+
+                    <!-- card tên thương hiệu đánh giá  -->
                     <div class="col-xl-3 col-md-6">
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
                                         <p class="text-truncate font-size-14 mb-2">Tên thương hiệu</p>
-                                        <h4 class="mb-2">{{$brand_name}}</h4>
+                                        <h4 class="mb-2" id="brand_name"></h4>
                                         <p class="text-muted mb-0"><span class="text-success fw-bold font-size-12 me-2"><i class="ri-arrow-right-up-line me-1 align-middle"></i>9.23%</span>from previous period</p>
                                     </div>
                                     <div class="avatar-sm">
@@ -61,13 +64,15 @@
                             </div><!-- end cardbody -->
                         </div><!-- end card -->
                     </div><!-- end col -->
+
+                    <!-- card từ ngữ đánh giá đánh giá  -->
                     <div class="col-xl-3 col-md-6">
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
                                         <p class="text-truncate font-size-14 mb-2">Từ ngữ đánh giá</p>
-                                        <h4 class="mb-2">{{$word_search}}</h4>
+                                        <h4 class="mb-2" id="word_search">{{$word_search}}</h4>
                                         <p class="text-muted mb-0"><span class="text-success fw-bold font-size-12 me-2"><i class="ri-arrow-right-up-line me-1 align-middle"></i>9.23%</span>from previous period</p>
                                     </div>
                                     <div class="avatar-sm">
@@ -79,12 +84,35 @@
                             </div><!-- end cardbody -->
                         </div><!-- end card -->
                     </div><!-- end col -->
+
+                    <!-- card tổng số comment  -->
                     <div class="col-xl-3 col-md-6">
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
-                                        <p class="text-truncate font-size-14 mb-2">Phần trăm tốt</p>
+                                        <p class="text-truncate font-size-14 mb-2">Tổng số bình luận phân tích</p>
+                                        <h4 class="mb-2" id="tong_binh_luan">
+                                        </h4>
+                                        <p class="text-muted mb-0"><span class="text-success fw-bold font-size-12 me-2"><i class="ri-arrow-right-up-line me-1 align-middle"></i>9.23%</span>from previous period</p>
+                                    </div>
+                                    <div class="avatar-sm">
+                                        <span class="avatar-title bg-light text-primary rounded-3">
+                                            <i class="ri-chat-4-line font-size-24"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div><!-- end cardbody -->
+                        </div><!-- end card -->
+                    </div><!-- end col -->
+
+                    <!-- card phần trăm tốt dựa trên comment  -->
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex">
+                                    <div class="flex-grow-1">
+                                        <p class="text-truncate font-size-14 mb-2">Phần trăm tốt (bình luận)</p>
                                         <h4 class="mb-2" id="phan_tram_tot">
                                         </h4>
                                         <p class="text-muted mb-0"><span class="text-success fw-bold font-size-12 me-2"><i class="ri-arrow-right-up-line me-1 align-middle"></i>9.23%</span>from previous period</p>
@@ -99,12 +127,13 @@
                         </div><!-- end card -->
                     </div><!-- end col -->
 
+                    <!-- card phần trăm xấu dựa trên comment  -->
                     <div class="col-xl-3 col-md-6">
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
-                                        <p class="text-truncate font-size-14 mb-2">Phần trăm xấu</p>
+                                        <p class="text-truncate font-size-14 mb-2">Phần trăm xấu (bình luận)</p>
                                         <h4 class="mb-2" id="phan_tram_xau">
                                         </h4>
                                         <p class="text-muted mb-0"><span class="text-success fw-bold font-size-12 me-2"><i class="ri-arrow-right-up-line me-1 align-middle"></i>9.23%</span>from previous period</p>
@@ -118,12 +147,14 @@
                             </div><!-- end cardbody -->
                         </div><!-- end card -->
                     </div><!-- end col -->
+
+                    <!-- card độ tin cậy dựa trên comment  -->
                     <div class="col-xl-3 col-md-6">
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
-                                        <p class="text-truncate font-size-14 mb-2">Độ tin cậy</p>
+                                        <p class="text-truncate font-size-14 mb-2">Độ tin cậy (bình luận)</p>
                                         <h4 class="mb-2" id="do_tin_cay">
                                         </h4>
                                         <p class="text-muted mb-0"><span class="text-success fw-bold font-size-12 me-2"><i class="ri-arrow-right-up-line me-1 align-middle"></i>9.23%</span>from previous period</p>
@@ -138,12 +169,13 @@
                         </div><!-- end card -->
                     </div><!-- end col -->
 
+                    <!-- card tổng số reaction của các bài viết  -->
                     <div class="col-xl-3 col-md-6">
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex">
                                     <div class="flex-grow-1">
-                                        <p class="text-truncate font-size-14 mb-2">Tổng số reaction (emoji)</p>
+                                        <p class="text-truncate font-size-14 mb-2">Tổng số reaction phân tích (emoji)</p>
                                         <h4 class="mb-2" id="tong_so_reaction">
                                         </h4>
                                         <p class="text-muted mb-0"><span class="text-success fw-bold font-size-12 me-2"><i class="ri-arrow-right-up-line me-1 align-middle"></i>9.23%</span>from previous period</p>
@@ -158,6 +190,7 @@
                         </div><!-- end card -->
                     </div><!-- end col -->
 
+                    <!-- card phần trăm tích cực dựa trên emoji  -->
                     <div class="col-xl-3 col-md-6">
                         <div class="card">
                             <div class="card-body">
@@ -170,7 +203,7 @@
                                     </div>
                                     <div class="avatar-sm">
                                         <span class="avatar-title bg-light text-primary rounded-3">
-                                            <i class="ri-tv-line font-size-24"></i>
+                                            <i class="ri-heart-2-line font-size-24"></i>
                                         </span>
                                     </div>
                                 </div>
@@ -178,6 +211,7 @@
                         </div><!-- end card -->
                     </div><!-- end col -->
 
+                    <!-- card phần trăm tiêu cực dựa trên emoji  -->
                     <div class="col-xl-3 col-md-6">
                         <div class="card">
                             <div class="card-body">
@@ -190,7 +224,50 @@
                                     </div>
                                     <div class="avatar-sm">
                                         <span class="avatar-title bg-light text-primary rounded-3">
-                                            <i class="ri-tv-line font-size-24"></i>
+                                            <i class="ri-close-line font-size-24"></i>
+
+                                        </span>
+                                    </div>
+                                </div>
+                            </div><!-- end cardbody -->
+                        </div><!-- end card -->
+                    </div><!-- end col -->
+
+                    <!-- card từ tốt lặp lại nhiều nhất -->
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex">
+                                    <div class="flex-grow-1">
+                                        <p class="text-truncate font-size-14 mb-2">Từ tốt được lặp lại nhiều nhất (top 1)</p>
+                                        <h4 class="mb-2" id="tu_tot_nhieu_nhat">
+                                        </h4>
+                                        <p class="text-muted mb-0"><span class="text-success fw-bold font-size-12 me-2"><i class="ri-arrow-right-up-line me-1 align-middle"></i>9.23%</span>from previous period</p>
+                                    </div>
+                                    <div class="avatar-sm">
+                                        <span class="avatar-title bg-light text-primary rounded-3">
+                                            <i class="ri-font-color font-size-24"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div><!-- end cardbody -->
+                        </div><!-- end card -->
+                    </div><!-- end col -->
+
+                    <!-- card từ xáu xuất hiện nhiều nhất -->
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex">
+                                    <div class="flex-grow-1">
+                                        <p class="text-truncate font-size-14 mb-2">Từ xấu xuất hiện nhiều nhất (top 1)</p>
+                                        <h4 class="mb-2" id="tu_xau_nhieu_nhat">
+                                        </h4>
+                                        <p class="text-muted mb-0"><span class="text-success fw-bold font-size-12 me-2"><i class="ri-arrow-right-up-line me-1 align-middle"></i>9.23%</span>from previous period</p>
+                                    </div>
+                                    <div class="avatar-sm">
+                                        <span class="avatar-title bg-light text-primary rounded-3">
+                                            <i class="ri-bold font-size-24"></i>
                                         </span>
                                     </div>
                                 </div>
@@ -199,12 +276,59 @@
                     </div><!-- end col -->
 
                 </div><!-- end row -->
+
+                <!-- Biểu đồ (Chart) -->
                 <div class="row">
-                    <!-- Biểu đồ pie chart tỷ lệ bài viết từ group và pages  -->
+                    <!-- Biểu đồ wordCloudChart thể hiện từ tốt phổ biến -->
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="chart-card">
+                                    <canvas width="500" height="500" id="wordCloudChartGood"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Biểu đồ wordCloudChart thể hiện từ xấu phổ biến -->
                     <div class="col-lg-6">
                         <div class="card">
                             <div class="card-body">
 
+                                <div class="chart-card">
+                                    <canvas width="500" height="500" id="wordCloudChartBad"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Biểu đồ pie chart phần trăm cảm xúc  -->
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <div class="chart-card">
+                                    <canvas width="500" height="500" id="pieChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Biểu đồ tròn (Pie chart) – Phân phối emoji theo tỷ lệ  -->
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="chart-card">
+                                    <canvas width="500" height="500" id="ty_le_cam_xuc_emoji"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Biểu đồ pie chart tỷ lệ bài viết từ group và pages  -->
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
                                 <div class="chart-card">
                                     <canvas width="500" height="500" id="ty_le_bai_viet_group_page"></canvas>
                                 </div>
@@ -223,7 +347,7 @@
                         </div>
                     </div>
 
-                    <!-- Biểu đồ horizontal-bar-chart số lượng bài viết từ group và pages  -->
+                    <!-- Biểu đồ horizontal-bar-chart trung bình tốt xấu từ group và pages  -->
                     <div class="col-lg-6">
                         <div class="card">
                             <div class="card-body">
@@ -256,28 +380,17 @@
                         </div>
                     </div>
 
-                    <!-- Biểu đồ pie chart phần trăm cảm xúc  -->
+                    <!-- Biểu đồ Stacked bar chart thể hiện Phân bổ cảm xúc theo từng từ khoá tìm kiếm -->
                     <div class="col-lg-6">
                         <div class="card">
                             <div class="card-body">
-
                                 <div class="chart-card">
-                                    <canvas width="500" height="500" id="pieChart"></canvas>
+                                    <canvas width="500" height="500" id="cam_xuc_theo_tu_khoa"></canvas>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Biểu đồ tròn (Pie chart) – Phân phối emoji theo tỷ lệ  -->
-                    <div class="col-lg-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="chart-card">
-                                    <canvas width="500" height="500" id="ty_le_cam_xuc_emoji"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <!-- Biểu đồ barchart thể hiện số lượng cảm xúc (tốt xấu)  -->
                     <div class="col-lg-6">
                         <div class="card">
@@ -297,30 +410,6 @@
 
                                 <div class="chart-card">
                                     <canvas width="500" height="500" id="so_luong_cam_xuc_emoji"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Biểu đồ wordCloudChart thể hiện từ tốt phổ biến -->
-                    <div class="col-lg-6">
-                        <div class="card">
-                            <div class="card-body">
-
-                                <div class="chart-card">
-                                    <canvas width="500" height="500" id="wordCloudChartGood"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Biểu đồ wordCloudChart thể hiện từ xấu phổ biến -->
-                    <div class="col-lg-6">
-                        <div class="card">
-                            <div class="card-body">
-
-                                <div class="chart-card">
-                                    <canvas width="500" height="500" id="wordCloudChartBad"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -427,17 +516,6 @@
                         </div>
                     </div>
 
-                    <!-- Biểu đồ Stacked bar chart thể hiện Phân bổ cảm xúc theo từng từ khoá tìm kiếm -->
-                    <div class="col-lg-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="chart-card">
-                                    <canvas width="500" height="500" id="cam_xuc_theo_tu_khoa"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </div>
@@ -448,27 +526,36 @@
 <script>
     "use strict";
 
+    // Các biến thể hiện của biểu đồ
+
+    // các biểu đồ tròn
     let bieu_do_pie_post_group_page = null;
-    let bieu_do_horizontal_bar_chart_post_group_page = null
-    let bieu_do_horizontal_bar_chart_post_word_search = null
-    let bieu_do_line_chart_comment_time = null
-    let bieu_do_horizontal_bar_chart_comment_group_page = null
+    let bieu_do_ty_le_cam_xuc_emoji = null
     let sentimentChart = null;
+
+    // các biểu đồ cột ngang và đứng
+    let bieu_do_horizontal_bar_chart_post_group_page = null
+    let bieu_do_horizontal_bar_chart_comment_group_page = null
+    let bieu_do_trung_binh_tot_xau_group_page = null
+    let bieu_do_horizontal_bar_chart_post_word_search = null
+    let bieu_do_cam_xuc_theo_tu_khoa = null
     let wordChartCoutChart = null;
-    let wordCloudChartGood = null;
-    let wordCloudChartBad = null;
     let bieu_do_top_10_tot = null
     let bieu_do_top_10_xau = null
     let bieu_do_tot_xau_tren_comment = null
-    let bieu_do_cam_xuc_theo_tu_khoa = null
     let bieu_do_top_5_tot_pho_bien = null
     let bieu_do_top_5_xau_pho_bien = null
-    let bieu_do_cam_xuc_theo_nam = null
-    let bieu_do_trung_binh_tot_xau_group_page = null
     let bieu_do_so_luong_cam_xuc_emoji = null
-    let bieu_do_ty_le_cam_xuc_emoji = null
-    let bieu_do_bien_dong_emoji = null
+
+    // biểu đồ wordCloud
+    let wordCloudChartGood = null;
+    let wordCloudChartBad = null;
+
+    // biểu đồ linechart
     let lineChart = null;
+    let bieu_do_line_chart_comment_time = null
+    let bieu_do_cam_xuc_theo_nam = null
+    let bieu_do_bien_dong_emoji = null
 
 
     // === CẤU HÌNH CHUNG ===
@@ -525,33 +612,41 @@
         if (bieu_do_pie_post_group_page) bieu_do_pie_post_group_page.destroy();
 
         const ctx = document.getElementById('ty_le_bai_viet_group_page').getContext('2d');
+
+        const data = [group, page];
+        const labels = ['Group', 'Fanpage'];
+        const backgroundColors = ['#2196F3', '#FFC107'];
+
         bieu_do_pie_post_group_page = new Chart(ctx, {
             type: 'pie',
             data: {
-                labels: ['Group', 'Fanpage'],
+                labels: labels,
                 datasets: [{
-                    data: [group, page],
-                    backgroundColor: ['#ff81b7', '#9792e8'],
-                    borderWidth: 1
+                    data: data,
+                    backgroundColor: backgroundColors,
+                    hoverOffset: 10
                 }]
             },
             options: {
-                responsive: false,
+                responsive: true,
                 plugins: {
                     datalabels: {
-                        color: '#333',
+                        color: '#000',
                         font: {
                             weight: 'bold',
                             size: 14
                         },
                         formatter: value => typeof value === "number" ? value.toFixed(2) + '%' : value
                     },
+                    title: titleConfig(`Biểu đồ thể hiện tỷ lệ bài viết trong Group và Fanpages`, 28),
                     legend: {
                         labels: {
-                            color: '#333'
+                            boxWidth: 20,
+                            font: {
+                                size: 16
+                            }
                         }
-                    },
-                    title: titleConfig(`Biểu đồ thể hiện tỷ lệ bài viết trong Group và Fanpages`, 28)
+                    }
                 }
             },
             plugins: [ChartDataLabels]
@@ -609,11 +704,13 @@
                             return `${((value / total) * 100).toFixed(1)}%`;
                         }
                     },
-                    title: titleConfig('Biểu đồ tỷ lệ cảm xúc (emoji)', 20),
+                    title: titleConfig('Biểu đồ tỷ lệ cảm xúc (emoji)', 28),
                     legend: {
-                        position: 'right',
                         labels: {
-                            boxWidth: 20
+                            boxWidth: 20,
+                            font: {
+                                size: 16
+                            }
                         }
                     }
                 }
@@ -868,33 +965,40 @@
         if (sentimentChart) sentimentChart.destroy();
 
         const ctx = document.getElementById('pieChart').getContext('2d');
+        const data = [positive, negative];
+        const labels = ['Tích cực', 'Tiêu cực'];
+        const backgroundColors = ['#ff81b7', '#9792e8'];
+
         sentimentChart = new Chart(ctx, {
             type: 'pie',
             data: {
-                labels: ['Tích cực', 'Tiêu cực'],
+                labels: labels,
                 datasets: [{
-                    data: [positive, negative],
-                    backgroundColor: ['#ff81b7', '#9792e8'],
-                    borderWidth: 1
+                    data: data,
+                    backgroundColor: backgroundColors,
+                    hoverOffset: 10
                 }]
             },
             options: {
-                responsive: false,
+                responsive: true,
                 plugins: {
                     datalabels: {
-                        color: '#333',
+                        color: '#000',
                         font: {
                             weight: 'bold',
                             size: 14
                         },
                         formatter: value => typeof value === "number" ? value.toFixed(2) + '%' : value
                     },
+                    title: titleConfig('Biểu đồ thể hiện tỷ lệ cảm xúc', 28),
                     legend: {
                         labels: {
-                            color: '#333'
+                            boxWidth: 20,
+                            font: {
+                                size: 16
+                            }
                         }
-                    },
-                    title: titleConfig(`Biểu đồ thể hiện tỷ lệ cảm xúc`, 28)
+                    }
                 }
             },
             plugins: [ChartDataLabels]
@@ -1002,60 +1106,75 @@
         });
     }
 
-
     // === BIỂU ĐỒ WordCloud: TỪ TỐT/XẤU ===
     function showWordCloudChartGood(words) {
-        const weights = words.map(d => d.weight);
+        const topWords = words.slice(0, 50); // Giới hạn số từ
+
+        const weights = topWords.map(d => d.weight);
         const min = Math.min(...weights);
         const max = Math.max(...weights);
 
-        // Scale về 10–40:
         const scaledWeights = weights.map(w => {
-            const normalized = (w - min) / (max - min);
-            return 20 + normalized * 20; // font size từ 10 đến 40
+            const normalized = max !== min ? (w - min) / (max - min) : 0.5;
+            return 18 + normalized * 18; // font size từ 12 đến 30
         });
 
         wordCloudChartGood?.destroy();
+
         const ctx = document.getElementById("wordCloudChartGood");
         wordCloudChartGood = new Chart(ctx, {
             type: "wordCloud",
             data: {
-                labels: words.map(w => w.word),
+                labels: topWords.map(w => w.word),
                 datasets: [{
                     label: 'Từ tích cực phổ biến',
                     data: scaledWeights,
                 }]
             },
-            options: optionsWordChart("Biểu đồ thể hiện từ ngữ tích cực phổ biến")
+            options: {
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
         });
     }
 
     function showWordCloudChartBad(words) {
-        const weights = words.map(d => d.weight);
+        const topWords = words.slice(0, 50); // Giới hạn số từ
+
+        const weights = topWords.map(d => d.weight);
         const min = Math.min(...weights);
         const max = Math.max(...weights);
 
-        // Scale về 10–40:
         const scaledWeights = weights.map(w => {
-            const normalized = (w - min) / (max - min);
-            return 20 + normalized * 20; // font size từ 10 đến 40
+            const normalized = max !== min ? (w - min) / (max - min) : 0.5;
+            return 18 + normalized * 18; // font size từ 12 đến 30
         });
+
         wordCloudChartBad?.destroy();
 
         const ctx = document.getElementById("wordCloudChartBad");
         wordCloudChartBad = new Chart(ctx, {
             type: "wordCloud",
             data: {
-                labels: words.map(w => w.word),
+                labels: topWords.map(w => w.word),
                 datasets: [{
                     label: 'Từ tiêu cực phổ biến',
                     data: scaledWeights,
                 }]
             },
-            // Biểu đồ thể hiện từ ngữ tiêu cực phổ biến
-            options: optionsWordChart("Biểu đồ thể hiện từ ngữ tiêu cực phổ biến")
+            options: {
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
         });
     }
+
 
     // === BIỂU ĐỒ CỘT: TỪ TỐT/XẤU ===
     function show_top_10_xau(words, weights) {
@@ -1186,7 +1305,7 @@
 
         // Rút ngắn bình luận để tránh quá dài
         var shortComments = topPositiveComments.map(item => {
-            const truncated = item.comment.length > 50 ? item.comment.substring(0, 10) + '...' : item.comment;
+            const truncated = item.comment.length > 50 ? item.comment.substring(0, 5) + '...' : item.comment;
             return truncated;
         });
 
@@ -1230,7 +1349,7 @@
 
         // Rút ngắn bình luận để tránh quá dài
         var shortComments = topNegativeComments.map(item => {
-            const truncated = item.comment.length > 50 ? item.comment.substring(0, 10) + '...' : item.comment;
+            const truncated = item.comment.length > 50 ? item.comment.substring(0, 5) + '...' : item.comment;
             return truncated;
         });
 
@@ -1357,7 +1476,7 @@
         const positiveData = data.map(entry => entry.positive);
         const negativeData = data.map(entry => entry.negative);
 
-        lineChart = new Chart(ctx, {
+        bieu_do_cam_xuc_theo_nam = new Chart(ctx, {
             type: 'line',
             data: {
                 labels,
@@ -1816,7 +1935,12 @@
         const brandInput = document.getElementById('brandInput');
         const phan_tram_tot = document.getElementById('phan_tram_tot');
         const phan_tram_xau = document.getElementById('phan_tram_xau');
+        const brand_card = document.getElementById('brand_name');
+        const word_search_card = document.getElementById('word_search');
         const do_tin_cay = document.getElementById('do_tin_cay');
+        const tong_binh_luan = document.getElementById('tong_binh_luan');
+        const tu_tot_nhieu_nhat = document.getElementById('tu_tot_nhieu_nhat');
+        const tu_xau_nhieu_nhat = document.getElementById('tu_xau_nhieu_nhat');
         const tong_so_reaction = document.getElementById('tong_so_reaction');
         const cam_xuc_tich_cuc_emoji = document.getElementById('cam_xuc_tich_cuc_emoji');
         const cam_xuc_tieu_cuc_emoji = document.getElementById('cam_xuc_tieu_cuc_emoji');
@@ -1850,6 +1974,7 @@
             if (response.ok && result.data) {
                 const data_tong = result.data
                 console.log(data_tong)
+
                 const data = result.data[0];
                 const tyletot = parseFloat(data.brand_data_llm.GPT.phan_tram_tot).toFixed(2)
                 const tylexau = parseFloat(data.brand_data_llm.GPT.phan_tram_xau).toFixed(2)
@@ -1857,6 +1982,10 @@
                 phan_tram_xau.innerText = tylexau + "%"
                 const tinhDoTinCay = parseFloat(((tyletot - tylexau) / 100 + 1) / 2);
                 do_tin_cay.innerText = tinhDoTinCay.toFixed(2)
+
+                // brand name và wordsearch
+                brand_card.innerText = brandName
+                word_search_card.innerText = wordSearch
 
                 resultDiv.innerHTML = `<h2 style = "text-align: center;">Phân tích thương hiệu ${brandName}</h2>`;
                 chartGrid.style.display = "block";
@@ -1876,7 +2005,9 @@
                 const ty_le_group = (groupCount / (groupCount + fanpageCount)) * 100
                 const ty_le_page = (fanpageCount / (groupCount + fanpageCount)) * 100
 
+
                 // tổng số cảm xúc của tất cả bài post của thương hiệu với word search
+                console.log(uniquePosts)
                 const tongCamXuc = {};
 
                 uniquePosts.forEach(item => {
@@ -1891,18 +2022,23 @@
 
 
                 const groupEmoji = groupEmojiByYear(uniquePosts)
-                console.log(tongCamXuc)
-                tong_so_reaction.innerText = tongCamXuc["Tất cả"] || 0;
+                let total_reaction = 0;
+
+                for (const key in tongCamXuc) {
+                    if (key !== "Tất cả") {
+                        total_reaction += tongCamXuc[key];
+                    }
+                }
+                tong_so_reaction.innerText = total_reaction;
 
                 cam_xuc_tich_cuc_emoji.innerText =
                     ((((tongCamXuc["Thích"] || 0) +
                         (tongCamXuc["Yêu thích"] || 0) +
-                        (tongCamXuc["Haha"] || 0)) / (tongCamXuc["Tất cả"] || 1)) * 100).toFixed(2) + "%";
+                        (tongCamXuc["Haha"] || 0)) / (total_reaction || 1)) * 100).toFixed(2) + "%";
 
                 cam_xuc_tieu_cuc_emoji.innerText =
                     ((((tongCamXuc["Phẫn nộ"] || 0) +
-                        (tongCamXuc["Buồn"] || 0)) / (tongCamXuc["Tất cả"] || 1)) * 100).toFixed(2) + "%";
-
+                        (tongCamXuc["Buồn"] || 0)) / (total_reaction || 1)) * 100).toFixed(2) + "%";
 
                 show_bieu_do_bien_dong_emoji(groupEmoji)
 
@@ -1922,6 +2058,7 @@
                 // Không loại bỏ comment trùng
                 const comment_group = data_tong.filter(comment => comment.is_group).length;
                 const comment_page = data_tong.filter(comment => comment.is_fanpage).length;
+                tong_binh_luan.innerText = (comment_page + comment_group)
 
                 show_bieu_do_horizontal_bar_chart_comment_group_page(comment_group, comment_page)
 
@@ -2003,6 +2140,14 @@
                     weight
                 }));
 
+                // sắp xếp lại số từ xuất hiện nhiều nhất từ cao xuống thấp
+                const sorted_tu_tot = dem_tu_tot.sort((a, b) => b.weight - a.weight);
+                const sorted_tu_xau = dem_tu_xau.sort((a, b) => b.weight - a.weight);
+
+                tu_tot_nhieu_nhat.innerText = sorted_tu_tot[0].word + ": " + sorted_tu_tot[0].weight
+                tu_xau_nhieu_nhat.innerText = sorted_tu_xau[0].word + ": " + sorted_tu_xau[0].weight
+
+
                 // biểu đồ cột so sánh số lượng từ tốt và từ xấu
                 showWordCountChart(
                     danh_sach_tu_tot,
@@ -2071,35 +2216,30 @@
                 console.log(topPositiveComments)
                 show_top_5_tot_pho_bien(topPositiveComments)
                 show_top_5_xau_pho_bien(topNegativeComments)
-
-
-
-
-                brandInput.value = ""
-                wordSearchInput.value = ""
             } else {
                 resultDiv.innerHTML = `<a href="{{ route('user.crawl') }}" class="text-primary link-underline-hover">Không có dữ liệu đánh giá. Sang trang yêu cầu đánh giá</a>`;
-                bieu_do_pie_post_group_page?.destroy();
-                bieu_do_horizontal_bar_chart_post_group_page?.destroy();
-                bieu_do_horizontal_bar_chart_post_word_search?.destroy();
-                sentimentChart?.destroy();
-                wordChartCoutChart?.destroy();
-                wordCloudChartGood?.destroy();
-                wordCloudChartBad?.destroy();
-                bieu_do_top_10_xau?.destroy();
-                bieu_do_top_10_tot?.destroy();
-                lineChart?.destroy();
-                bieu_do_line_chart_comment_time?.destroy();
-                bieu_do_horizontal_bar_chart_comment_group_page?.destroy();
-                bieu_do_tot_xau_tren_comment?.destroy();
-                bieu_do_cam_xuc_theo_tu_khoa?.destroy();
-                bieu_do_top_5_tot_pho_bien?.destroy();
-                bieu_do_top_5_xau_pho_bien?.destroy();
-                bieu_do_cam_xuc_theo_nam?.destroy();
-                bieu_do_trung_binh_tot_xau_group_page?.destroy();
-                bieu_do_so_luong_cam_xuc_emoji?.destroy();
-                bieu_do_ty_le_cam_xuc_emoji?.destroy();
-                bieu_do_bien_dong_emoji?.destroy();
+                [
+                    bieu_do_pie_post_group_page,
+                    bieu_do_ty_le_cam_xuc_emoji,
+                    sentimentChart,
+                    bieu_do_horizontal_bar_chart_post_group_page,
+                    bieu_do_horizontal_bar_chart_comment_group_page,
+                    bieu_do_trung_binh_tot_xau_group_page,
+                    bieu_do_horizontal_bar_chart_post_word_search,
+                    bieu_do_cam_xuc_theo_tu_khoa,
+                    wordChartCoutChart,
+                    bieu_do_top_10_tot,
+                    bieu_do_top_10_xau,
+                    bieu_do_tot_xau_tren_comment,
+                    bieu_do_top_5_xau_pho_bien,
+                    bieu_do_so_luong_cam_xuc_emoji,
+                    wordCloudChartGood,
+                    wordCloudChartBad,
+                    lineChart,
+                    bieu_do_line_chart_comment_time,
+                    bieu_do_cam_xuc_theo_nam,
+                    bieu_do_bien_dong_emoji,
+                ].forEach(chart => chart?.destroy?.());
 
             }
         } catch (error) {
@@ -2114,27 +2254,28 @@
         document.getElementById("evaluateForm").addEventListener("submit", async (e) => {
             e.preventDefault();
             Swal.showLoading();
-            bieu_do_pie_post_group_page?.destroy();
-            bieu_do_horizontal_bar_chart_post_group_page?.destroy();
-            bieu_do_horizontal_bar_chart_post_word_search?.destroy();
-            sentimentChart?.destroy();
-            wordChartCoutChart?.destroy();
-            wordCloudChartGood?.destroy();
-            wordCloudChartBad?.destroy();
-            bieu_do_top_10_xau?.destroy();
-            bieu_do_top_10_tot?.destroy();
-            lineChart?.destroy();
-            bieu_do_line_chart_comment_time?.destroy();
-            bieu_do_horizontal_bar_chart_comment_group_page?.destroy();
-            bieu_do_tot_xau_tren_comment?.destroy();
-            bieu_do_cam_xuc_theo_tu_khoa?.destroy();
-            bieu_do_top_5_tot_pho_bien?.destroy();
-            bieu_do_top_5_xau_pho_bien?.destroy()
-            bieu_do_cam_xuc_theo_nam?.destroy();
-            bieu_do_trung_binh_tot_xau_group_page?.destroy()
-            bieu_do_so_luong_cam_xuc_emoji?.destroy();
-            bieu_do_ty_le_cam_xuc_emoji?.destroy();
-            bieu_do_bien_dong_emoji?.destroy();
+            [
+                bieu_do_pie_post_group_page,
+                bieu_do_ty_le_cam_xuc_emoji,
+                sentimentChart,
+                bieu_do_horizontal_bar_chart_post_group_page,
+                bieu_do_horizontal_bar_chart_comment_group_page,
+                bieu_do_trung_binh_tot_xau_group_page,
+                bieu_do_horizontal_bar_chart_post_word_search,
+                bieu_do_cam_xuc_theo_tu_khoa,
+                wordChartCoutChart,
+                bieu_do_top_10_tot,
+                bieu_do_top_10_xau,
+                bieu_do_tot_xau_tren_comment,
+                bieu_do_top_5_xau_pho_bien,
+                bieu_do_so_luong_cam_xuc_emoji,
+                wordCloudChartGood,
+                wordCloudChartBad,
+                lineChart,
+                bieu_do_line_chart_comment_time,
+                bieu_do_cam_xuc_theo_nam,
+                bieu_do_bien_dong_emoji,
+            ].forEach(chart => chart?.destroy?.());
             await evaluateBrand();
             Swal.close();
         });
