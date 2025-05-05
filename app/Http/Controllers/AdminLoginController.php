@@ -10,7 +10,6 @@ use App\Http\Controllers\Requests\LoginRequest;
 use App\Http\Controllers\Requests\RegisterRequest;
 use App\Models\NguoiDung;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 use Illuminate\Support\Str;
 
 

@@ -4,10 +4,8 @@
 
         <!-- User details -->
         <div class="user-profile text-center mt-3">
-            <div class="">
-                <img src="{{ asset('assets/images/users/avatar-1.jpg')}}" alt="" class="avatar-md rounded-circle">
-            </div>
             <div class="mt-3">
+                <h2 class="font-size-24 mb-1 color-b">Hệ Thống Đánh Giá</h2>
                 <h4 class="font-size-16 mb-1 color-b">{{Auth::user()->username}}</h4>
             </div>
         </div>
@@ -60,6 +58,21 @@
                         <span>Lịch sử</span>
                     </a>
                 </li>
+                @if(Auth::user()->level == 0)
+                <li>
+                    <a href="{{ route('userGetLogout') }}" class="waves-effect">
+                        <i class="ri-logout-box-line"></i>
+                        <span>Đăng xuất</span>
+                    </a>
+                </li>
+                @else
+                <li>
+                    <a href="/admincp" class="waves-effect">
+                        <i class="ri-logout-box-line"></i>
+                        <span>Sang admin</span>
+                    </a>
+                </li>
+                @endif
 
             </ul>
         </div>

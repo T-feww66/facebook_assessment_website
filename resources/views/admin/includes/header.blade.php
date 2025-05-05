@@ -1,6 +1,9 @@
-<!-- resources/views/admin/includes/header.blade.php -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
-    <a class="navbar-brand fw-bold" href="/admincp">
-        <i class="bi bi-house-door-fill"></i> Admin Dashboard
-    </a>
-</nav>
+<header id="page-topbar">
+    <div class="navbar-header">
+        <div class="d-flex">
+            <button type="button" class="btn btn-sm px-3 font-size-24 header-item waves-effect" id="vertical-menu-btn">
+                <i class="ri-menu-2-line align-middle"></i>
+            </button>
+        </div>
+    </div>
+</header>

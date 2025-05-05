@@ -1088,6 +1088,7 @@
             }
         });
     }
+
     function showWordCloudChartBad(words) {
         const topWords = words.slice(0, 50); // Giới hạn số từ
 

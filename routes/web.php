@@ -6,9 +6,6 @@ use App\Http\Middleware\checkAdminLogin;
 use App\Http\Middleware\checkUserLogin;
 use App\Http\Controllers\admin\BrandController;
 use App\Http\Controllers\admin\CrawlCommentsController;
-use App\Http\Controllers\authentications\LoginBasic;
-use App\Http\Controllers\authentications\RegisterBasic;
-use App\Http\Controllers\dashboard\Analytics;
 use App\Http\Controllers\users\UserLoginController;
 use App\Http\Controllers\SettingController;
 
@@ -28,8 +25,8 @@ Route::get('/robots.txt', function () {
 // Nhóm các route quản trị với middleware bảo vệ và tiền tố 'admincp'
 Route::middleware([checkAdminLogin::class])->prefix('admincp')->group(function () {
     // Route cho các chức năng đăng nhập và đăng xuất, đăng kí
-    Route::get('login', [LoginBasic::class, 'index'])->name('getLogin');
-    Route::get('register', [RegisterBasic::class, 'index'])->name('getRegister');
+    Route::get('login', [AdminLoginController::class, 'getLogin'])->name('getLogin');
+    Route::get('register', [AdminLoginController::class, 'getRegister'])->name('getRegister');
 
     // Route::get('register', [AdminLoginController::class, 'getRegister'])->name('getRegister');
     Route::post('register', [AdminLoginController::class, 'postRegister'])->name('postRegister');
@@ -63,10 +60,6 @@ Route::middleware([checkAdminLogin::class])->prefix('admincp')->group(function (
     // Quản lý router thương hiệu
     Route::get("brands", [BrandController::class, "index"])->name("admin.brands");
     // Route::get("brands/evaluate", [BrandController::class, "evaluate"])->name("admin.brands.evaluate");
-
-
-    // Quản lí yêu cầu đánh giá của người dùng
-    Route::get("user-request", [BrandController::class, "user_request_index"])->name("admin.user_request");
 });
 
 

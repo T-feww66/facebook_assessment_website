@@ -64,12 +64,7 @@ class UserLoginController extends Controller
         if (Auth::attempt($login, $remember)) {
             $user = Auth::user();
 
-            if ($user->level == 0) {
-                return redirect('user');
-            } else {
-                Auth::logout();
-                return redirect()->back()->with('notice', 'Tài khoản không tồn tại, vui lòng đăng ký trước khi đăng nhập!');
-            }
+            return redirect('user');
         }
 
         // Kiểm tra nếu người dùng tồn tại nhưng mật khẩu sai

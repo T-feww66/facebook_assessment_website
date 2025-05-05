@@ -10,6 +10,24 @@
     <meta property="og:title" content="{{ setting('og_title') }}">
     <meta property="og:description" content="{{ setting('og_description') }}">
     <link rel="icon" href="{{ asset(setting('favicon')) }}" />
+
+    <!-- DataTables -->
+    <link href="{{asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/libs/datatables.net-select-bs4/css//select.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
+
+    <!-- Responsive datatable examples -->
+    <link href="{{asset('assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
+
+    <!-- roundslider css -->
+    <link rel="stylesheet" href="{{asset('assets/libs/round-slider/roundslider.min.css')}}">
+
+    <!-- Bootstrap Css -->
+    <link href="{{asset('assets/css/bootstrap.min.css')}}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="{{asset('assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="{{asset('assets/css/app.min.css')}}" id="app-style" rel="stylesheet" type="text/css" />
     <title>@yield("title", setting('meta_title') ?? setting('site_title'))</title>
 
 
@@ -31,54 +49,53 @@
 
 </head>
 
-<body class="bg-light">
+<body data-topbar="dark">
+    <!-- Main Content -->
+    @include(" admin.includes.header")
+    <main id="layout-wrapper">
     <!-- Header -->
-    @include("admin.includes.header")
-    <div class="d-flex">
-        <!-- Sidebar -->
-        <aside class="bg-primary text-white p-4 vh-100" style="width: 250px;">
-            <a href="/admincp" class="text-white text-decoration-none">
-                <h2 class="h4 fw-bold"><i class="bi bi-speedometer2"></i>Wellcome {{Auth::user()->username}}</h2>
-            </a>
-            <nav class="mt-4">
-                <ul class="list-unstyled">
-                    <li class="mt-2">
-                        <a href="{{ route('settings.index') }}" class="d-flex align-items-center py-2 px-3 rounded text-white text-decoration-none sidebar-item">
-                            <i class="bi bi-people-fill me-2"></i> Cấu hình hệ thống website
-                        </a>
-                    </li>
-                    <li class="mt-2">
-                        <a href="{{ route('admin.users') }}" class="d-flex align-items-center py-2 px-3 rounded text-white text-decoration-none sidebar-item">
-                            <i class="bi bi-people-fill me-2"></i> Quản lí người dùng
-                        </a>
-                    </li>
-                    <li class="mt-2">
-                        <a href="{{ route('admin.user_request') }}" class="d-flex align-items-center py-2 px-3 rounded text-white text-decoration-none sidebar-item">
-                            <i class="bi bi-file-earmark-text me-2"></i> Quản lí yêu cầu đánh giá
-                        </a>
-                    </li>
-                    <li class="mt-2">
-                        <a href="{{ route('admin.brands') }}" class="d-flex align-items-center py-2 px-3 rounded text-white text-decoration-none sidebar-item">
-                            <i class="bi bi-file-earmark-text me-2"></i> Quản lí thương hiệu
-                        </a>
-                    </li>
-                    <li class="mt-2">
-                        <a href="{{ route('getLogout') }}" class="d-flex align-items-center py-2 px-3 rounded text-white text-decoration-none sidebar-item">
-                            <i class="bi bi-box-arrow-right me-2"></i> Đăng xuất
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </aside>
-
-        <!-- Main Content -->
-        <main class="flex-grow-1 p-4">
-            @yield('content')
-        </main>
-    </div>
-
+    @yield('content')
+    </main>
     <!-- Footer -->
     @include("admin.includes.footer")
+
+    <!-- JAVASCRIPT -->
+    <script src="{{asset('assets/libs/jquery/jquery.min.js')}}"></script>
+    <script src="{{asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{asset('assets/libs/metismenu/metisMenu.min.js')}}"></script>
+    <script src="{{asset('assets/libs/simplebar/simplebar.min.js')}}"></script>
+    <script src="{{asset('assets/libs/node-waves/waves.min.js')}}"></script>
+
+    <!-- Required datatable js -->
+    <script src="{{asset('assets/libs/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+    <!-- Buttons examples -->
+    <script src="{{asset('assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js')}}"></script>
+    <script src="{{asset('assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js')}}"></script>
+    <script src="{{asset('assets/libs/jszip/jszip.min.js')}}"></script>
+    <script src="{{asset('assets/libs/pdfmake/build/pdfmake.min.js')}}"></script>
+    <script src="{{asset('assets/libs/pdfmake/build/vfs_fonts.js')}}"></script>
+    <script src="{{asset('assets/libs/datatables.net-buttons/js/buttons.html5.min.js')}}"></script>
+    <script src="{{asset('assets/libs/datatables.net-buttons/js/buttons.print.min.js')}}"></script>
+    <script src="{{asset('assets/libs/datatables.net-buttons/js/buttons.colVis.min.js')}}"></script>
+
+    <script src="{{asset('assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js')}}"></script>
+    <script src="{{asset('assets/libs/datatables.net-select/js/dataTables.select.min.js')}}"></script>
+
+    <!-- Responsive examples -->
+    <script src="{{asset('assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
+    <script src="{{asset('assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js')}}"></script>
+
+    <!-- Datatable init js -->
+    <script src="{{asset('assets/js/pages/datatables.init.js')}}"></script>
+
+    <!-- roundslider js -->
+    <script src="{{asset('assets/libs/round-slider/roundslider.min.js')}}"></script>
+
+    <!-- roundslider init -->
+    <script src="{{asset('assets/js/pages/roundslider.init.js')}}"></script>
+
+    <script src="{{asset('assets/js/app.js')}}"></script>
 </body>
 
 </html>

@@ -88,10 +88,6 @@
     <!-- roundslider init -->
     <script src="{{asset('assets/js/pages/roundslider.init.js')}}"></script>
 
-    <!-- Chart JS -->
-    <!-- <script src="{{ asset('assets/libs/chart.js/Chart.bundle.min.js')}}"></script>
-    <script src="{{ asset('assets/js/pages/chartjs.init.js')}}"></script> -->
-
     <script src="{{asset('assets/js/app.js')}}"></script>
 </body>
 

@@ -22,14 +22,6 @@ class BrandController extends Controller
         return view("admin.pages.brands.index", compact("brands"));
     }
 
-    public function user_request_index()
-    {
-        $user_requests = UserSendRequest::orderBy('status', 'asc')
-            ->orderBy('created_at', 'desc')
-            ->get();
-        return view('admin.pages.user_request.index', compact('user_requests'));
-    }
-
     public function evaluate()
     {
         return view("admin.pages.brands.evaluate");
