@@ -530,7 +530,7 @@
         }
     });
 
-    const optionsWordChart = (label, size = 28) => ({
+    const optionsWordChart = (label, size = 28, hasData = true) => ({
         color: '#333',
         responsive: true,
         plugins: {
@@ -544,6 +544,9 @@
                 font: {
                     size
                 }
+            },
+            tooltip: {
+                enabled: hasData
             },
             wordCloud: {
                 minFontSize: 10, // chữ nhỏ nhất
@@ -1247,90 +1250,107 @@
 
     // === BIỂU ĐỒ: TOP 5 TỪ TÍCH CỰC PHỔ BIẾN NHẤT ===
     function show_top_5_tot_pho_bien(topPositiveComments) {
-        // Kiểm tra và hủy biểu đồ cũ nếu có
+        // Hủy biểu đồ cũ nếu có
         if (bieu_do_top_5_tot_pho_bien) bieu_do_top_5_tot_pho_bien.destroy();
 
-        // Rút ngắn bình luận để tránh quá dài
-        var shortComments = topPositiveComments.map(item => {
-            const truncated = item.comment.length > 50 ? item.comment.substring(0, 10) + '...' : item.comment;
-            return truncated;
-        });
+        const totalPositive = topPositiveComments.reduce((sum, item) => sum + (item.positiveCount || 0), 0);
 
-        // Vẽ biểu đồ
+        // Nếu không có dữ liệu tích cực
+        const hasData = totalPositive > 0;
+
+        const labels = hasData ?
+            topPositiveComments.map(item => item.comment.length > 50 ? item.comment.substring(0, 10) + '...' : item.comment) : ["Không có dữ liệu"];
+
+        const data = hasData ?
+            topPositiveComments.map(item => item.positiveCount) : [0];
+
+        const backgroundColor = hasData ?
+            'rgba(255, 99, 132, 0.2)' :
+            'rgba(200, 200, 200, 0.3)';
+
+        const borderColor = hasData ?
+            'rgba(255, 99, 132, 1)' :
+            'rgba(160, 160, 160, 0.5)';
+
         const ctx = document.getElementById('top_5_tot_pho_bien').getContext('2d');
         bieu_do_top_5_tot_pho_bien = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: shortComments,
+                labels: labels,
                 datasets: [{
                     label: 'Từ tích cực',
-                    data: topPositiveComments.map(item => item.positiveCount),
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)', // Màu nền nhẹ nhàng với sắc hồng
-                    borderColor: 'rgba(255, 99, 132, 1)', // Màu viền đậm hơn với sắc hồng
-                    borderWidth: 1, // Độ dày viền
-                    hoverBackgroundColor: 'rgba(255, 99, 132, 0.6)', // Màu nền khi hover đậm hơn
-
+                    data: data,
+                    backgroundColor: backgroundColor,
+                    borderColor: borderColor,
+                    borderWidth: 1,
+                    hoverBackgroundColor: hasData ? 'rgba(255, 99, 132, 0.6)' : backgroundColor,
                 }]
             },
             options: {
-                ...optionsWordChart("Top 5 bình luận tích cực phổ biến nhất"),
+                ...optionsWordChart("Top 5 bình luận tích cực phổ biến nhất", 28, hasData),
                 onClick: function(event, elements) {
-                    if (elements.length > 0) {
-                        // Lấy chỉ mục của phần tử đã click
+                    if (hasData && elements.length > 0) {
                         const index = elements[0].index;
                         const fullComment = topPositiveComments[index].comment;
-
-                        // Hiển thị bình luận đầy đủ (có thể thay thế bằng việc update div/modal)
                         alert(`Bình luận đầy đủ: ${fullComment}`);
-
                     }
-                }
+                },
             }
         });
     }
 
+
     // === BIỂU ĐỒ: TOP 5 TỪ TÍCH CỰC PHỔ BIẾN NHẤT ===
     function show_top_5_xau_pho_bien(topNegativeComments) {
-        // Kiểm tra và hủy biểu đồ cũ nếu có
+        // Hủy biểu đồ cũ nếu có
         if (bieu_do_top_5_xau_pho_bien) bieu_do_top_5_xau_pho_bien.destroy();
 
-        // Rút ngắn bình luận để tránh quá dài
-        var shortComments = topNegativeComments.map(item => {
-            const truncated = item.comment.length > 50 ? item.comment.substring(0, 10) + '...' : item.comment;
-            return truncated;
-        });
+        const totalNegativeCount = topNegativeComments.reduce((sum, item) => sum + (item.negativeCount || 0), 0);
+        const hasData = totalNegativeCount > 0;
 
-        // Vẽ biểu đồ
+        const labels = hasData ?
+            topNegativeComments.map(item =>
+                item.comment.length > 50 ? item.comment.substring(0, 10) + '...' : item.comment
+            ) : ["Không có dữ liệu"];
+
+        const data = hasData ?
+            topNegativeComments.map(item => item.negativeCount) : [0];
+
+        const backgroundColor = hasData ?
+            'rgba(66, 133, 244, 0.2)' :
+            'rgba(200, 200, 200, 0.3)';
+
+        const borderColor = hasData ?
+            'rgba(66, 133, 244, 1)' :
+            'rgba(160, 160, 160, 0.5)';
+
         const ctx = document.getElementById('top_5_xau_pho_bien').getContext('2d');
         bieu_do_top_5_xau_pho_bien = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: shortComments,
+                labels: labels,
                 datasets: [{
-                    label: 'Từ tích cực',
-                    data: topNegativeComments.map(item => item.negativeCount),
-                    backgroundColor: 'rgba(66, 133, 244, 0.2)',
-                    borderColor: 'rgba(66, 133, 244, 1)',
+                    label: 'Từ tiêu cực',
+                    data: data,
+                    backgroundColor: backgroundColor,
+                    borderColor: borderColor,
                     borderWidth: 1,
-                    hoverBackgroundColor: 'rgba(66, 133, 244, 0.6)',
-
+                    hoverBackgroundColor: hasData ? 'rgba(66, 133, 244, 0.6)' : backgroundColor,
                 }]
             },
             options: {
-                ...optionsWordChart("Top 5 bình luận tiêu cực phổ biến nhất"),
+                ...optionsWordChart("Top 5 bình luận tiêu cực phổ biến nhất", 28, hasData),
                 onClick: function(event, elements) {
-                    if (elements.length > 0) {
-                        // Lấy chỉ mục của phần tử đã click
+                    if (hasData && elements.length > 0) {
                         const index = elements[0].index;
                         const fullComment = topNegativeComments[index].comment;
-
-                        // Hiển thị bình luận đầy đủ (có thể thay thế bằng việc update div/modal)
                         alert(`Bình luận đầy đủ: ${fullComment}`);
                     }
-                }
+                },
             }
         });
     }
+
 
 
 
@@ -1943,16 +1963,22 @@
                     total_reaction += tongCamXuc[key];
                 }
             }
-            tong_so_reaction.innerText = total_reaction;
 
-            cam_xuc_tich_cuc_emoji.innerText =
-                ((((tongCamXuc["Thích"] || 0) +
-                    (tongCamXuc["Yêu thích"] || 0) +
-                    (tongCamXuc["Haha"] || 0)) / (total_reaction || 1)) * 100).toFixed(2) + "%";
+            if (total_reaction === 0) {
+                cam_xuc_tich_cuc_emoji.innerText = "Không có dữ liệu";
+                cam_xuc_tieu_cuc_emoji.innerText = "Không có dữ liệu";
+                tong_so_reaction.innerText = "0";
+            } else {
+                tong_so_reaction.innerText = total_reaction;
+                cam_xuc_tich_cuc_emoji.innerText =
+                    ((((tongCamXuc["Thích"] || 0) +
+                        (tongCamXuc["Yêu thích"] || 0) +
+                        (tongCamXuc["Haha"] || 0)) / total_reaction) * 100).toFixed(2) + "%";
 
-            cam_xuc_tieu_cuc_emoji.innerText =
-                ((((tongCamXuc["Phẫn nộ"] || 0) +
-                    (tongCamXuc["Buồn"] || 0)) / (total_reaction || 1)) * 100).toFixed(2) + "%";
+                cam_xuc_tieu_cuc_emoji.innerText =
+                    ((((tongCamXuc["Phẫn nộ"] || 0) +
+                        (tongCamXuc["Buồn"] || 0)) / total_reaction) * 100).toFixed(2) + "%";
+            }
 
 
             show_bieu_do_bien_dong_emoji(groupEmoji)
@@ -2022,8 +2048,17 @@
             const sorted_tu_tot = dem_tu_tot.sort((a, b) => b.weight - a.weight);
             const sorted_tu_xau = dem_tu_xau.sort((a, b) => b.weight - a.weight);
 
-            tu_tot_nhieu_nhat.innerText = sorted_tu_tot[0].word + ": " + sorted_tu_tot[0].weight
-            tu_xau_nhieu_nhat.innerText = sorted_tu_xau[0].word + ": " + sorted_tu_xau[0].weight
+            if (sorted_tu_tot.length > 0) {
+                tu_tot_nhieu_nhat.innerText = sorted_tu_tot[0].word + ": " + sorted_tu_tot[0].weight;
+            } else {
+                tu_tot_nhieu_nhat.innerText = "Không có dữ liệu";
+            }
+
+            if (sorted_tu_xau.length > 0) {
+                tu_xau_nhieu_nhat.innerText = sorted_tu_xau[0].word + ": " + sorted_tu_xau[0].weight;
+            } else {
+                tu_xau_nhieu_nhat.innerText = "Không có dữ liệu";
+            }
 
             showSentimentChart(trung_binh_tot, trung_binh_xau, data_tong[0].brand_name);
             showWordCountChart(list_tu_tot.length, list_tu_xau.length);
@@ -2050,6 +2085,7 @@
                 topPositiveComments,
                 topNegativeComments
             } = get_top_comments(data_tong);
+
             show_top_5_tot_pho_bien(topPositiveComments);
             show_top_5_xau_pho_bien(topNegativeComments);
 
@@ -2077,6 +2113,23 @@
                 bieu_do_cam_xuc_theo_nam,
                 bieu_do_bien_dong_emoji,
             ].forEach(chart => chart?.destroy?.());
+
+            phan_tram_tot.innerText = ""
+            phan_tram_xau.innerText = ""
+            do_tin_cay.innerText = ""
+            tong_binh_luan.innerText = ""
+            cam_xuc_tich_cuc_emoji.innerText = ""
+            cam_xuc_tieu_cuc_emoji.innerText = ""
+            tong_so_reaction.innerText = ""
+            tong_so_reaction.innerText = ""
+            cam_xuc_tich_cuc_emoji.innerText = ""
+            cam_xuc_tieu_cuc_emoji.innerText = ""
+            tu_tot_nhieu_nhat.innerText = ""
+            tu_tot_nhieu_nhat.innerText = ""
+            tu_xau_nhieu_nhat.innerText = ""
+            tu_xau_nhieu_nhat.innerText = ""
+            chartGrid.style.display = "none";
+
         }
     }
 

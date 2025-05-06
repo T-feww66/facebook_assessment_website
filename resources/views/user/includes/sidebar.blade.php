@@ -42,7 +42,7 @@
                 <li>
                     <a href="{{ route('user.timkiem') }}" class=" waves-effect">
                         <i class="ri-line-chart-line"></i>
-                        <span>Trực quan</span>
+                        <span>Đánh giá từ khoá thương hiệu</span>
                     </a>
                 </li>
                 <li>
