@@ -24,8 +24,9 @@
                     <div class="bg-white shadow-sm p-4 rounded">
                         <h5 class="fw-bold text-primary">Tính năng nổi bật</h5>
                         <ul class="text-secondary mb-0">
-                            <li>Tìm kiếm thương hiệu theo từ khóa</li>
-                            <li>So sánh các thương hiệu với nhau</li>
+                            <li>Đánh giá thương hiệu theo từ khoá</li>
+                            <li>Đánh giá thương hiệu</li>
+                            <li>Tự động thu thập dữ liệu và đánh giá</li>
                             <li>Giao diện đơn giản, dễ sử dụng</li>
                         </ul>
                     </div>

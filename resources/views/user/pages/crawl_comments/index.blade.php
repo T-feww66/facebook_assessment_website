@@ -217,7 +217,7 @@
                         </label>
                     `;
                 });
-
+                brandInputGroup.value = ""
                 selectGroup.innerHTML = htmlContent;
             }
             if (result.detail) {
@@ -292,6 +292,7 @@
                         </label>
                     `;
                 });
+                brandInputPage.value = ""
 
                 // Chèn toàn bộ HTML vào selectPage
                 selectPage.innerHTML = htmlContent;
