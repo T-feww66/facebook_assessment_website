@@ -40,5 +40,7 @@ return [
         'key' => env('CRAWL_API_KEY'),
     ],
 
+    'api_url' => env('API_URL', 'http://localhost:60074'),
+
 
 ];

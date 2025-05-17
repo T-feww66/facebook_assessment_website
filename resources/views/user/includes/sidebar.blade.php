@@ -58,6 +58,12 @@
                         <span>Lịch sử</span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('user.send_request') }}" class=" waves-effect">
+                        <i class="ri-calendar-2-line"></i>
+                        <span>Yêu cầu đánh giá</span>
+                    </a>
+                </li>
                 @if(Auth::user()->level == 0)
                 <li>
                     <a href="{{ route('userGetLogout') }}" class="waves-effect">

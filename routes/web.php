@@ -8,6 +8,8 @@ use App\Http\Controllers\admin\BrandController;
 use App\Http\Controllers\admin\CrawlCommentsController;
 use App\Http\Controllers\users\UserLoginController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\users\UserSendRequestController;
+
 
 
 
@@ -87,6 +89,9 @@ Route::middleware([checkUserLogin::class])->prefix('user')->group(function () {
     Route::get("trang-ca-nhan", [UserLoginController::class, "trang_ca_nhan"])->name("user.trang_ca_nhan");
     Route::post('trang-ca-nhan/{id}', [UserLoginController::class, 'cap_nhat_user'])->name('user.update_user');
     Route::get('trang-ca-nhan/lich-su', [UserLoginController::class, 'lich_su'])->name('user.lich_su');
+
+    Route::get("send-request", [UserSendRequestController::class, "index"])->name("user.send_request");
+
 });
 
 // Route cho các chức năng đăng nhập và đăng xuất, đăng kí

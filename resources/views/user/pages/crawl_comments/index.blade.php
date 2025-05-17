@@ -182,7 +182,7 @@
         // Nếu bạn cần truyền thêm api_key thì có thể thêm ở đây
         const apiKey = '{{ config("services.crawl_api.key") }}'; // Thay bằng API key thực tế nếu cần
         try {
-            const response = await fetch("http://localhost:60074/crawl/get_url_groups", {
+            const response = await fetch("{{ config('services.api_url') }}/crawl/get_url_groups", {
                 method: "POST",
                 headers: {
                     "API-Key": apiKey
@@ -217,7 +217,6 @@
                         </label>
                     `;
                 });
-                brandInputGroup.value = ""
                 selectGroup.innerHTML = htmlContent;
             }
             if (result.detail) {
@@ -231,7 +230,7 @@
                 console.log("Yêu cầu bị hủy");
             } else {
                 Swal.close();
-                Swal.fire('Lỗi!', err.message, 'error');
+                Swal.fire('Lỗi!', "Bạn không thể đăng nhập vào tài khoản này vui lòng đăng nhập tài khoản mới", 'error');
             }
         }
     });
@@ -255,7 +254,7 @@
         const apiKey = '{{ config("services.crawl_api.key") }}'; // Thay bằng API key thực tế nếu cần
 
         try {
-            const response = await fetch("http://localhost:60074/crawl/get_url_fanpages", {
+            const response = await fetch("{{ config('services.api_url') }}/crawl/get_url_fanpages", {
                 method: "POST",
                 headers: {
                     "API-Key": apiKey
@@ -292,8 +291,6 @@
                         </label>
                     `;
                 });
-                brandInputPage.value = ""
-
                 // Chèn toàn bộ HTML vào selectPage
                 selectPage.innerHTML = htmlContent;
             }
@@ -309,7 +306,9 @@
                 console.log("Yêu cầu bị hủy");
             } else {
                 Swal.close();
-                Swal.fire('Lỗi!', err.message, 'error');
+                Swal.fire('Lỗi!', "Bạn không thể đăng nhập vào tài khoản này vui lòng đăng nhập tài khoản mới", 'error');
+
+
             }
         }
     });
@@ -355,7 +354,7 @@
         selectGroup.innerHTML = "";
 
         try {
-            const response = await fetch("http://localhost:60074/crawl/crawl_comment_of_groups", {
+            const response = await fetch("{{ config('services.api_url') }}/crawl/crawl_comment_of_groups", {
                 method: "POST",
                 headers: {
                     "API-Key": apiKey
@@ -382,7 +381,7 @@
                 console.log("Yêu cầu bị hủy");
             } else {
                 Swal.close();
-                Swal.fire('Lỗi!', err.message, 'error');
+                Swal.fire('Lỗi!', "Lỗi xữ lí dữ liệu vui lòng thử lại sau", 'error');
             }
         }
     });
@@ -429,7 +428,7 @@
         formPage.style.display = "none";
         selectPage.innerHTML = "";
         try {
-            const response = await fetch("http://localhost:60074/crawl/crawl_comment_of_fanpages", {
+            const response = await fetch("{{ config('services.api_url') }}/crawl/crawl_comment_of_fanpages", {
                 method: "POST",
                 headers: {
                     "API-Key": apiKey // Nếu dùng API key ở dạng header
@@ -458,7 +457,10 @@
                 console.log("Yêu cầu bị hủy");
             } else {
                 Swal.close();
-                Swal.fire('Lỗi!', err.message, 'error');
+                Swal.fire('Lỗi!', "Lỗi xữ lí dữ liệu vui lòng thử lại sau", 'error');
+                
+
+
             }
         }
     });

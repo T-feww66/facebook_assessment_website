@@ -1906,7 +1906,7 @@
         formData.append("user_id", '{{Auth::id()}}');
 
         try {
-            const response = await fetch('http://localhost:60074/danh_gia_thuong_hieu/thuong_hieu', {
+            const response = await fetch('{{ config("services.api_url") }}/danh_gia_thuong_hieu/thuong_hieu', {
                 method: "POST",
                 headers: {
                     "API-Key": '{{ config("services.crawl_api.key") }}'
